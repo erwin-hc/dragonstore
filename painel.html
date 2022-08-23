@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dragon Blurays - Painel</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<link rel="stylesheet" href="assets/css/global.css">
+	<link rel="stylesheet" href="assets/css/painel.css">
+
+	
+</head>
+<body class="body fonte-clara">
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- CONTAINER -->
+<div class="container__painel"> 
+				<!-- -------------------------------------------------------------------------------------------------- -->
+				<!-- NAV -->
+				<div class="nav__principal__painel--container bg-cor-600 fonte-clara">
+								<nav class="nav__principal__painel flex-center">
+									<img src="assets/img/logo.svg" alt="Logo Bluurays" class="img-logo flex-item-1">
+									
+									<ul class="nav__lista flex-center flex-item-2 font-m">
+										<li class="nav__item"><h3 >Painel de controle</h3></li>
+										<li class="nav__item"><span>Erwin Guilherme Stein</span> </li>
+									</ul>
+
+									<button class="font-m flex-item-3 btn btn-danger">SAIR &nbsp;<i class="fa-solid fa-right-from-bracket fa-lg"></i></button>
+								</nav>
+				</div>
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- LISTA USUARIOS -->
+<div class="tabelas-container">
+			<div class="tabela__usuarios__wrapper">
+					<table class="tabela__usuarios tb-padrao">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="6">USUÁRIOS
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th></tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>NOME</th>
+								<th>EMAIL</th>
+								<th>SENHA</th>
+								<th>TIPO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot colspan="6" class="tbody-hidden">
+							<tr>
+									<td colspan="6">
+										<button class="btn btn-tableUser-adicionar btn-expande">
+											<i class="fa-solid fa-user-plus"></i> ADICIONAR
+										</button>
+									</td>						
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA ACAO -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-acao tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr >
+								<th class="font-m" colspan="8">CATEGORIA: AÇÃO 
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+							<tr>
+								<td colspan="8">
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="acao"> 
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA AVENTURA -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-aventura tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="8">CATEGORIA: AVENTURA
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+								<td colspan="8">
+								<td >
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="aventura">
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA COMEDIA -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-comedia tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="8">CATEGORIA: COMÉDIA
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+							<tr>
+								<td colspan="8">
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="comedia">
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA DRAMA -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-drama tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="8">CATEGORIA: DRAMA
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+							<tr>
+								<td colspan="8">
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="drama">
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA FANTASIA -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-fantasia tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="8">CATEGORIA: FANTASIA
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+							<tr>
+								<td colspan="8">
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="fantasia">
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA HORROR -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-horror tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="8">CATEGORIA: HORROR
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+							<tr>
+								<td colspan="8">
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="horror">
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+			<!-- -------------------------------------------------------------------------------------------------- -->
+			<!-- LISTA PRODUTOS CATEGORIA FICCAO -->
+			<div class="tabela__produtos__wrapper">
+					<table class="tabela__produtos-ficcao tb-padrao tb-produtos">
+						<thead class="thead-collapse">
+							<tr>
+								<th class="font-m" colspan="8">CATEGORIA: FICÇÃO
+								<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+							</tr>
+							<tr class="thead-cabeçalho tbody-hidden">
+								<th>EDITAR</th>
+								<th>ID</th>
+								<th>TITULO</th>
+								<th>VALOR</th>
+								<th>CATEGORIA</th>
+								<th>NOTA</th>
+								<th>POSTER</th>
+								<!-- <th>BACKG</th> -->
+								<th>RESUMO</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-hidden"></tbody>
+						<tfoot class="tbody-hidden">
+							<tr>
+								<td colspan="8">
+									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="ficcao">
+										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+			</div>
+</div>
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- FOOTER -->
+<div class="footer__painel--container bg-cor-900">
+<footer class="footer__painel"></footer>
+</div>
+
+
+</div> <!-- FIM CONTAINER  -->
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- MODAL FORM-USUARIOS -->
+<div class="modal__usuarios ocultar">
+<!-- FORM USUARIOS -->
+<form action="" class="form-usuarios">
+	<h3 class="font-m"><i class="fa-solid fa-user-plus"></i> USUÁRIOS</h3>
+		<input class="inputs" spellcheck="false" autocomplete="off" data-formUser="nome" type="text"   placeholder="Nome"  required>	 
+		<input class="inputs" spellcheck="false" autocomplete="off" data-formUser="email" type="email" placeholder="Email" required>		
+		<input class="inputs" spellcheck="false" autocomplete="off" data-formUser="senha" type="text"  placeholder="Senha" required>
+
+		<select class="inputs" data-formUser="tipo" required>
+		  <option value="USUARIO">USUARIO</option>
+		  <option value="ADM">ADM</option>
+		</select>		
+
+		<div class="btn-container flex-center">
+			<input data-formUser="btn-salvar"  class="btn btn-primary" value="Salvar"    type="button" data-genero="">	
+			<input data-formUser="btn-update"  class="btn btn-warning" value="Atualizar" type="button" data-genero="" disabled>	
+			<input data-formUser="btn-excluir" class="btn btn-danger" value="Excluir"    type="button" data-genero="" disabled>	
+		</div>
+</form>
+
+</div>
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- MODAL FORM-PRODUTOS -->
+<div class="modal__produtos ocultar">
+<!-- FORM USUARIOS -->
+<form action="" class="form-produtos">
+	<h3 class="font-m"><i class="fa-solid fa-compact-disc"></i> PRODUTOS</h3>
+		<input data-formProdutos="titulo" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Titulo" required>	
+		<input data-formProdutos="nota" class="inputs" spellcheck="false" autocomplete="off" type="email"  placeholder="Nota" required>			
+		<input data-formProdutos="valor" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Valor" required>			
+		<input data-formProdutos="poster" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="URL-Poster" required>			
+		<!-- <input data-formProdutos="background" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="URL-Background" required>			 -->
+		<input data-formProdutos="resumo" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Resumo" required>			
+
+		<div class="btn-container flex-center">
+			<input data-formProdutos="btn-salvar"  class="btn btn-primary" value="Salvar"    type="button">	
+			<input data-formProdutos="btn-update"  class="btn btn-warning" value="Atualizar" type="button" disabled>	
+			<input data-formProdutos="btn-excluir" class="btn btn-danger" value="Excluir"    type="button" disabled>	
+		</div>
+</form>
+
+</div>
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+
+<script type="module" src="assets/js/clientes.js"></script>
+<script type="module" src="assets/js/produtos.js"></script>
+
+</body>
+</html>

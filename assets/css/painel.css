@@ -1,0 +1,259 @@
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/* DEFINICAO DO GRID */
+.container__painel {
+	width: 100vw;
+	min-height: 100vh;
+	display: grid;
+	grid-template-areas: "navc navc navc"
+						 ". main ."
+						 "ftc ftc ftc";
+	grid-template-columns: 1fr min(100%, 1400px) 1fr;
+	grid-template-rows: 80px 
+						1fr
+						80px;	
+}
+.nav__principal__painel--container {
+	position: fixed;
+	width: 100%;
+	grid-area: navc;
+	display: grid;
+	grid-template-areas: ". nav .";
+	grid-template-columns: 1fr min(100%, 1400px) 1fr;
+	grid-template-rows: 80px;	
+
+	border-bottom: 1px solid var(--cor-bordas);
+} 
+
+.nav__principal__painel {
+	grid-area: nav;
+}
+
+.tabelas-container {
+	grid-area: main;
+}
+
+.footer__painel--container {
+	width: 100%;
+	grid-area: ftc;
+	display: grid;
+	grid-template-areas: ". footer .";
+	grid-template-columns: 1fr min(100%, 1400px) 1fr;
+	grid-template-rows: 80px;
+}
+.footer__painel {
+	grid-area: footer;
+}
+
+@media (max-width: 768px) {
+	.nav__principal__painel .img-logo {
+		display: none;
+	}
+}
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*NAV BAR RPINCIPAL*/
+.nav__principal__painel {
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.nav__lista {
+	padding-inline: 1.5rem ;	
+}
+
+.nav__lista span {
+	color: var(--cor-laranja);
+	font-size: var(--fonte-m);
+}
+.flex-item-1 {
+	flex: 1;
+	justify-self: flex-start;
+}
+.flex-item-2 {
+	flex: 10;
+	justify-self: center;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.flex-item-3 {
+	justify-self: flex-end;
+	margin-inline: 10px;
+}
+
+.nav__principal__painel button {
+	width: 50px;
+	color: var(--cor-100);
+	font-size: var(--fonte-p);
+}
+
+
+/*-----------------------------------------------------*/
+/*-----------------------------------------------------*/
+/*-----------------------------------------------------*/
+/*TABELA PADRAO*/
+.tb-padrao {
+		margin: 0 auto;
+		border-collapse: collapse;
+		text-align: left;
+		overflow: hidden;
+		width: 100%;
+		font-size: var(--fonte-p);
+}
+
+.tb-padrao th {
+		padding: .5rem;
+		white-space: nowrap;
+		cursor: pointer;
+		font-size: var(--fonte-m);
+		background-color: var(--cor-600);
+}
+
+.tb-padrao td {
+		padding: .5rem;
+		white-space: nowrap;
+		font-size: var(--fonte-p);
+		background-color: var(--cor-900);
+}
+
+
+/*.tb-padrao tbody tr:hover {
+	border: 1px solid var(--cor-bordas);	
+}*/
+
+.tb-padrao button {
+		margin-bottom: .25rem;
+		width: 150px;
+		height: 35px;
+		text-align: center;
+		font-size: var(--fonte-p);
+}
+
+.tb-padrao th i {
+		padding: .5rem;
+}
+
+.tbody-hidden {
+	  display: none;
+	  overflow: hidden;
+}/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*TABELAS*/
+.tabela__usuarios__wrapper,
+.tabela__produtos__wrapper {
+	width: min(95%, 1200px);
+	overflow-x:auto;
+	border: 1px solid var(--cor-bordas);
+	margin-top: 50px;
+	margin-inline: auto;
+	border-radius: var(--radius);
+}
+
+.tabela__produtos__wrapper:last-child {
+	margin-bottom: 50px;
+}
+.btn-editar {
+	width: 70px;
+	height: 30px;
+	border: 1px solid var(--cor-bordas);
+	background-color: var(--cor-600);
+	color: var(--cor-100);
+	border-radius: var(--radius);
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.btn-editar:hover {
+	border: 1px solid var(--cor-laranja);	
+}
+
+
+.rowHover:hover {
+	border-top: 1px solid var(--cor-bordas);
+	border-bottom: 1px solid var(--cor-bordas);
+	color: var(--cor-laranja);
+}
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*MODAIS*/
+.modal__usuarios,
+.modal__produtos {
+	position: absolute;
+	
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, .8);
+
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+}
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*FORMULARIO MODAL*/
+.form-usuarios,
+.form-produtos {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: min(94%, 1000px);
+	font-size: var(--fonte-p);
+	border-radius: var(--radius);
+	background-color: var(--cor-100);
+	padding-bottom: 2rem;
+}
+
+.form-usuarios h3,
+.form-produtos h3 {
+	color: var(--cor-900);
+	padding: 1.5rem;
+}
+.btn-container {
+	width: 80%;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+.form-usuarios .btn,
+.form-produtos .btn {
+	width: 200px;
+}
+
+.invalid {	
+	background-color: rgba(var(--rgb-vermelho),0.4);
+}
+/*INPUT PADRAO*/
+.inputs {
+	font-size: var(--fonte-m);
+	width: 80%;
+	height: 50px;
+	padding: .5rem;
+	margin: .5rem;
+	border: 1px solid  #555 ;
+	border-radius: var(--radius);
+  	outline: none;
+}
+
+.form-usuarios select {
+	margin-bottom: 2rem;
+} 
+.inputs:focus {
+	border: 2.5px solid var(--cor-azul);
+}
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*FOOTER*/
+

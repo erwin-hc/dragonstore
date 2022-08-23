@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+:root {
+	--fb: 12px;
+	--ff-body: 'Ubuntu', sans-serif;
+	--ff-titulo: 'Rubik Mono One', sans-serif;
+	--ff-destaques: 'Monoton', cursive;
+	
+	--fonte-p: var(--fb);
+	--fonte-m: calc(var(--fb) + 4px);
+	--fonte-g: calc(var(--fb) + 6px);
+	--fonte-xg: calc(var(--fb) + 8px);
+	
+	--cor-100: #EBEBEB;	
+/*	--cor-600: #303134;
+	--cor-900: #202124;	*/
+
+	--cor-600: #161b22;
+	--cor-900: #010409;
+	--cor-hover: #3c4043;	
+	--cor-primaria: var(--azul-claro:);
+
+	--cor-azul: #0275d8;
+	--rgb-azul: 2, 117, 216;
+	--cor-laranja: #f0ad4e;
+	--rgb-laranja: 240, 173, 78;
+	--cor-vermelho: #d9534f;
+	--rgb-vermelho: 217, 83, 79;
+	--cor-verde: #5cb85c;
+	--rgb-verde: 92, 184, 92;
+
+	--cor-bordas: #30363d;
+	--box-shadow: 0 2px 8px #5f6368;;
+	--radius: 8px;
+
+}
+
+@media (max-width: 768px) {
+	:root {
+			--fb: 10px;
+			--fonte-p: var(--fb);
+			--fonte-m: calc(var(--fb) + 4px);
+			--fonte-g: calc(var(--fb) + 6px);
+			--fonte-xg: calc(var(--fb) + 8px);
+	}
+}
+/*RESET*/
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: inherit;
+	box-sizing: border-box;
+	list-style: none;
+	text-decoration: none;
+	color: var(--cor-100);	
+}
+
+/*BODY*/
+body {
+	font-family: var(--ff-body);
+	background-color: var(--cor-900);
+	scroll-behavior: smooth;
+	width: 100vw;
+	/*overflow-x: hidden;*/
+}
+
+::-webkit-scrollbar {
+width: 0px;
+}
+
+.cards-wrapper::-webkit-scrollbar-thumb {
+background-color: #f0ad4e;
+}
+
+.cards-wrapper::-webkit-scrollbar-track {
+background-color: #303134;
+}
+
+
+/*HELPERS*/
+.ocultar {
+	display: none!important;
+}
+.font-p {
+	font-size: var(--fonte-p);
+}
+.font-m {
+	font-size: var(--fonte-m);
+}
+.font-g {
+	font-size: var(--fonte-g);
+}
+.font-xg {
+	font-size: var(--fonte-xg);
+}
+.bg-cor-100 {
+	background-color: var(--cor-100);
+}
+.bg-cor-600 {
+	background-color: var(--cor-600);
+}
+.bg-cor-900 {
+	background-color: var(--cor-900);
+}
+.bg-azul {
+	background-color: var(--cor-azul);
+}
+.bg-laranja {
+	background-color: var(--cor-laranja);
+}
+.bg-verde {
+	background-color: var(--cor-verde);
+}
+.bg-vermelho {
+	background-color: var(--cor-vermelho);
+}
+.fonte-clara {
+	color: var(--cor-100);
+}
+.fonte-escura {
+	color: var(--cor-900);
+}
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.ff-titulo {
+	font-family: var(--ff-titulo);
+}
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*LOGO*/
+.img-logo {
+	width: 150px;
+	margin: .5rem;
+}
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*BOTOES*/
+
+.btn {
+	min-width: 80px;
+	min-height: 25px;
+	padding: .5rem;
+	border-radius: var(--radius);
+	text-transform: uppercase;
+	border: none;
+	font-size: var(--fonte-p);
+	color: var(--cor-100);
+}
+
+.btn-primary {
+		background-color:  var(--cor-azul);
+		opacity: 0.7;
+}
+.btn-primary:hover{
+		background-color:  var(--cor-azul);
+		opacity: 1;
+}
+.btn-danger {
+		background-color:  var(--cor-vermelho);
+		opacity: 0.7;
+}
+.btn-danger:hover{
+		background-color:  var(--cor-vermelho);
+		opacity: 1;
+}
+.btn-warning {
+		background-color:  var(--cor-laranja);
+		opacity: 0.7;
+}
+.btn-warning:hover{
+		background-color:  var(--cor-laranja);
+		opacity: 1;
+}
+.btn-sucess {
+		background-color:  var(--cor-verde);
+		opacity: 0.7;
+}
+.btn-sucess:hover {
+		background-color:  var(--cor-verde);
+		opacity: 1;
+}
+
+.btn[disabled] {
+	background-color: #cecece;
+	cursor: not-allowed;
+}
+
+
