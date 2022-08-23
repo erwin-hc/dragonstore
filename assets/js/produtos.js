@@ -3,6 +3,7 @@ import * as gb from './global.js';
 import * as cli from './clientes.js'; 
 
 
+
 // -----------------------------------------------------------------------------------------------
 // COLAPSE TABLE
 
@@ -15,7 +16,6 @@ var coll = document.getElementsByClassName("thead-collapse");
 		var header = this.querySelector('.thead-cabeçalho');
 		var btn = this.parentElement.querySelector('.btn-expande');
 		var footer = this.parentElement.querySelector('tfoot');
-		console.log(footer)
 
 		    if (content.style.display === "table-row-group") {
 		      content.style.display = "none";
@@ -66,7 +66,7 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 // <tr class="rowHover">
 // </tr>
 
-function populaTabelaProdutosTodas() {
+export function populaTabelaProdutosTodas() {
 	populaTabelaProdutos('bd_acao', '.tabela__produtos-acao');
 	populaTabelaProdutos('bd_aventura', '.tabela__produtos-aventura');
 	populaTabelaProdutos('bd_comedia', '.tabela__produtos-comedia');
@@ -137,6 +137,8 @@ btnTableProdutosAdicionar.forEach(function (btn) {
 });
 
 // -----------------------------------------------------------------------------------------------
+
+var formImputId = gb.pegaElem('[data-formProdutos="id"]');
 var formImputTitulo = gb.pegaElem('[data-formProdutos="titulo"]');
 var formImputNota = gb.pegaElem('[data-formProdutos="nota"]');
 var formImputValor = gb.pegaElem('[data-formProdutos="valor"]');
@@ -154,6 +156,7 @@ var tabelaProdutos = document.querySelectorAll('.tb-produtos');
 var rowIndexPro;
 var srtNomeBanco;
 var categoria;
+
 
 // -----------------------------------------------------------------------------------------------
 // INSERIR DADOS
@@ -238,35 +241,57 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 
 			// formImputTitulo.focus();
 			fechaModalProduto();
-			populaTabelaProdutosTodas();
+			populaTabelaProdutosTodas()
+
 	}		
 }
 // -----------------------------------------------------------------------------------------------
 // UPDATE
-function editarDadosPro(rowIndexPro, srtNomeBanco) {
+function editarDadosPro(tituloId, srtNomeBanco) {
 	var obj = gb.pegaDadosLocalStorage(srtNomeBanco);
-	var index = rowIndexPro - 1;
-			obj[index] = {
-				id        : obj[index].id,
+	var search_term = tituloId;
+
+	for (var i=obj.length-1; i>=0; i--) {
+	    if (obj[i].id == search_term) {
+
+	        obj[i] = {
+				id        : formImputId.value,
 				titulo    : formImputTitulo.value,
 				valor     : formImputValor.value,
-				categoria : obj[index].categoria,
+				categoria : obj[i].categoria,
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,
 				poster    : formImputPoster.value,
 			};
+	    }
+	}
+
+
+	// var index = rowIndexPro - 1;
+			
 	gb.salvaDadosLocalStorage(srtNomeBanco, obj);
 	populaTabelaProdutosTodas();
+
 	fechaModalProduto();
+
 }
 
 // DELETE
-function deletarDadosPro(rowIndexPro, srtNomeBanco) {
+function deletarDadosPro(tituloRow, srtNomeBanco) {
 	var obj = gb.pegaDadosLocalStorage(srtNomeBanco);
-	var index = rowIndexPro - 1;
-	obj.splice([index]);
+	
+	var search_term = tituloRow;
+
+	for (var i=obj.length-1; i>=0; i--) {
+	    if (obj[i].titulo === search_term) {
+	        obj.splice(i, 1);
+
+	    }
+	}
+
 	gb.salvaDadosLocalStorage(srtNomeBanco, obj);
 	populaTabelaProdutosTodas();
+
 	fechaModalProduto();
 }
 // -----------------------------------------------------------------------------------------------
@@ -311,8 +336,10 @@ default:
 
 // BOTAO EDITAR MODAL PRODUTOS
 bntFormUpdateProdutos.addEventListener('click', function (e) {
-	e.preventDefault();
-	editarDadosPro(rowIndexPro, srtNomeBanco);
+	var tituloId = this.parentElement.parentElement[0].value;
+	// e.preventDefault();
+	
+	editarDadosPro(tituloId, srtNomeBanco);
 	bntFormSalvarProdutos.disabled = false;
 	bntFormUpdateProdutos.disabled = true;
 	bntFormExcluirProdutos.disabled = false;
@@ -320,13 +347,16 @@ bntFormUpdateProdutos.addEventListener('click', function (e) {
 
 
 // BOTAO EXCLUIR MODAL PRODUTOS
-bntFormExcluirProdutos.addEventListener('click', function () {				
-	deletarDadosPro(rowIndexPro,srtNomeBanco);
+bntFormExcluirProdutos.addEventListener('click', function () {	
+	var tituloRow = this.parentElement.parentElement[1].value;			
+	deletarDadosPro(tituloRow,srtNomeBanco);
 	form.reset();
 	fechaModalProduto();
 	bntFormUpdateProdutos.disabled = true;
 	bntFormSalvarProdutos.disabled = false;
 	bntFormExcluirProdutos.disabled = false;
+
+
 })
 
 
@@ -383,6 +413,7 @@ tabelaProdutos.forEach(function (tabela) {
 			bntFormUpdateProdutos.disabled = false;
 			bntFormExcluirProdutos.disabled = false;
 
+			formImputId.value = tdIdText;
 			formImputTitulo.value = tdTitulo;
 			formImputValor.value = tdValor;
 			formImputNota.value = tdNota;
@@ -390,8 +421,6 @@ tabelaProdutos.forEach(function (tabela) {
 			formImputResumo.value = tdResumo;
 
 			// formImputTitulo.focus();
-
-			rowIndexPro = e.target.closest('tr').cells[1].innerText;	
 			
 		} 	
 								

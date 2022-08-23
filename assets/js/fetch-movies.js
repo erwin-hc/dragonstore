@@ -1,5 +1,6 @@
 import * as gb from './global.js'; 
 
+
 var url = 'https://api.themoviedb.org/3/'
 var query = 'genre/movie/list?';
 var API_KEY = 'api_key=1787315acea95582c62c2ef4a134b49e';
@@ -73,27 +74,9 @@ var arr7 = gb.pegaDadosLocalStorage('bd_ficcao');
 var allArr = [...arr1, ...arr2, ...arr3, ...arr4, ...arr5, ...arr6, ...arr7];
 gb.salvaDadosLocalStorage('bd_todos' ,allArr);	
 
-function randomDestaques() {
-	
-	var obj = gb.pegaDadosLocalStorage('bd_todos');
-	var imgDestaque1 = gb.pegaElem('.imgDestaque1');
-	var imgDestaque2= gb.pegaElem('.imgDestaque2');
-	var imgDestaque3 = gb.pegaElem('.imgDestaque3');
-	var textoDestaque1 = gb.pegaElem('.textoDestaque1');
-	var textoDestaque2 = gb.pegaElem('.textoDestaque2');
-	var textoDestaque3 = gb.pegaElem('.textoDestaque3');
-	
-	var ird = Math.round( Math.random() * 130);
-	textoDestaque1.innerHTML = obj[ird].titulo;
-	textoDestaque2.innerHTML = obj[ird + 1].titulo;
-	textoDestaque3.innerHTML = obj[ird + 2].titulo;
-	imgDestaque1.src = obj[ird].background;
-	imgDestaque2.src = obj[ird + 1].background;
-	imgDestaque3.src = obj[ird + 2].background;
 
 
-}
-randomDestaques();
+
 
 // imgDestaque
 // textoDestaque

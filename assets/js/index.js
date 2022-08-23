@@ -1,6 +1,5 @@
 import * as gb from './global.js'; 
 
-
 var iconeHamburguer = gb.pegaElem('.icone-hamburguer');
 var navLateral = gb.pegaElem('.nav__lateral--inicio');
 iconeHamburguer.onclick = abreNavLateral;
@@ -85,51 +84,67 @@ function populaCardsProdutos(nomeBanco, cardContainer) {
 };
 
 
-// function populaCardsProdutosTodas() {
-// 	populaCardsProdutos('bd_acao','.cards-wrapper--acao');
-// 	populaCardsProdutos('bd_aventura','.cards-wrapper--aventura');
-// 	populaCardsProdutos('bd_comedia','.cards-wrapper--comedia');
-// 	populaCardsProdutos('bd_drama','.cards-wrapper--drama');
-// 	populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia');
-// 	populaCardsProdutos('bd_horror','.cards-wrapper--horror');
-// 	populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao');
-// 		// setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
-// 		// setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 600);
-// 		// setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1000);
-// 		// setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 1400);
-// 		// setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 1800);
-// 		// setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 2200);
-// 		// setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 2400);
-// }
+function populaCardsProdutosTodas() {
+	populaCardsProdutos('bd_acao','.cards-wrapper--acao');
+	populaCardsProdutos('bd_aventura','.cards-wrapper--aventura');
+	populaCardsProdutos('bd_comedia','.cards-wrapper--comedia');
+	populaCardsProdutos('bd_drama','.cards-wrapper--drama');
+	populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia');
+	populaCardsProdutos('bd_horror','.cards-wrapper--horror');
+	populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao');
+		// setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
+		// setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 600);
+		// setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1000);
+		// setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 1400);
+		// setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 1800);
+		// setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 2200);
+		// setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 2400);
+}
+populaCardsProdutosTodas();
 
-// var bdAcaco = gb.pegaDadosLocalStorage('bd_acao');
-// 	// console.log(bdAcaco)
 
-// populaCardsProdutosTodas();
+var bdAcaco = gb.pegaDadosLocalStorage('bd_acao');
+	// console.log(bdAcaco)
 
-// if (bdAcaco !== null)
-// {
-// 	populaCardsProdutosTodas();
-// }
-// else
-// {
-// 	window.onload = function() {
-// 		setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
-// 		setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 600);
-// 		setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1000);
-// 		setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 1400);
-// 		setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 1800);
-// 		setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 2200);
-// 		setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 2400);
-// 	}
-// }
 
-	window.onload = function() {
-		setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 700);
-		setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 900);
-		setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1200);
-		setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 1400);
-		setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 1600);
-		setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 1800);
-		setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 2000);
-	}
+if (bdAcaco !== null)
+{
+	populaCardsProdutosTodas();
+}
+else
+{
+	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
+	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 1000);
+	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1500);
+	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 2000);
+	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 2500);
+	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 3000);
+	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 3500);
+}
+
+
+
+
+
+function randomDestaques() {
+	var imgDestaque1 = gb.pegaElem('.imgDestaque1');
+	var imgDestaque2= gb.pegaElem('.imgDestaque2');
+	var imgDestaque3 = gb.pegaElem('.imgDestaque3');
+	var textoDestaque1 = gb.pegaElem('.textoDestaque1');
+	var textoDestaque2 = gb.pegaElem('.textoDestaque2');
+	var textoDestaque3 = gb.pegaElem('.textoDestaque3');
+	
+	var obj = gb.pegaDadosLocalStorage('bd_todos');
+
+	
+	var ird = Math.round( Math.random() * 130);
+	textoDestaque1.innerHTML = obj[ird].titulo;
+	textoDestaque2.innerHTML = obj[ird + 1].titulo;
+	textoDestaque3.innerHTML = obj[ird + 2].titulo;
+	imgDestaque1.src = obj[ird].background;
+	imgDestaque2.src = obj[ird + 1].background;
+	imgDestaque3.src = obj[ird + 2].background;
+
+
+}
+randomDestaques();

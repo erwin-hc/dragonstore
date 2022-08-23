@@ -128,11 +128,17 @@
 		width: 150px;
 		height: 35px;
 		text-align: center;
-		font-size: var(--fonte-p);
+		font-size: var(--fonte-m);
+		background-color: var(--cor-laranja);
+		color: var(--cor-900);
+}
+.tb-padrao button i {
+	color: var(--cor-900);
 }
 
 .tb-padrao th i {
 		padding: .5rem;
+		color: var(--cor-laranja);
 }
 
 .tbody-hidden {
@@ -211,13 +217,14 @@
 	width: min(94%, 1000px);
 	font-size: var(--fonte-p);
 	border-radius: var(--radius);
-	background-color: var(--cor-100);
+	background-color: var(--cor-600);
 	padding-bottom: 2rem;
+	border: 1px solid var(--cor-bordas);
 }
 
 .form-usuarios h3,
 .form-produtos h3 {
-	color: var(--cor-900);
+	color: var(--cor-100);
 	padding: 1.5rem;
 }
 .btn-container {
@@ -240,16 +247,17 @@
 	height: 50px;
 	padding: .5rem;
 	margin: .5rem;
-	border: 1px solid  #555 ;
+	border: 1px solid  var(--cor-bordas) ;
 	border-radius: var(--radius);
   	outline: none;
+  	background-color: var(--cor-900);
 }
 
 .form-usuarios select {
 	margin-bottom: 2rem;
 } 
 .inputs:focus {
-	border: 2.5px solid var(--cor-azul);
+	border: 2.5px solid var(--cor-laranja);
 }
 
 /*------------------------------------------------*/

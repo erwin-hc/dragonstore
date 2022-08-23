@@ -116,8 +116,8 @@
 						</thead>
 						<tbody class="tbody-hidden"></tbody>
 						<tfoot class="tbody-hidden">
+								<tr>
 								<td colspan="8">
-								<td >
 									<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="aventura">
 										<i class="fa-solid fa-compact-disc"></i> ADICIONAR
 									</button>
@@ -333,6 +333,7 @@
 <!-- FORM USUARIOS -->
 <form action="" class="form-produtos">
 	<h3 class="font-m"><i class="fa-solid fa-compact-disc"></i> PRODUTOS</h3>
+		<input style="display: none;" data-formProdutos="id" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Id" disabled>	
 		<input data-formProdutos="titulo" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Titulo" required>	
 		<input data-formProdutos="nota" class="inputs" spellcheck="false" autocomplete="off" type="email"  placeholder="Nota" required>			
 		<input data-formProdutos="valor" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Valor" required>			
