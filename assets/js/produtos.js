@@ -1,6 +1,6 @@
-import * as fm from './fetch-movies.js'; 
 import * as gb from './global.js'; 
-import * as cli from './clientes.js'; 
+// import * as cli from './clientes.js'; 
+// import * as fm from './fetch-movies.js'; 
 
 
 
@@ -38,6 +38,9 @@ collapseTable();
 // POPULA TABELAS DE PRODUTOS
 function populaTabelaProdutos(nomeBanco, nomeTabela) {
 	var dados = gb.pegaDadosLocalStorage(nomeBanco);
+	if (dados === null || dados.length <= 0) {
+	dados = [];
+
 	var tbody = gb.pegaElem(nomeTabela).querySelector('tbody');
 	tbody.innerHTML = "";
 	dados.forEach(function (index, i) {
@@ -61,21 +64,12 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 		 novaLinha.classList.add('rowHover');
 		 novaLinha.innerHTML = html;
 	});
+	}
 };
 
 // <tr class="rowHover">
 // </tr>
 
-export function populaTabelaProdutosTodas() {
-	populaTabelaProdutos('bd_acao', '.tabela__produtos-acao');
-	populaTabelaProdutos('bd_aventura', '.tabela__produtos-aventura');
-	populaTabelaProdutos('bd_comedia', '.tabela__produtos-comedia');
-	populaTabelaProdutos('bd_drama', '.tabela__produtos-drama');
-	populaTabelaProdutos('bd_fantasia', '.tabela__produtos-fantasia');
-	populaTabelaProdutos('bd_horror', '.tabela__produtos-horror');
-	populaTabelaProdutos('bd_ficcao', '.tabela__produtos-ficcao');
-}
-populaTabelaProdutosTodas();
 
 
 // ABRE-FECHA MODAL
@@ -106,14 +100,14 @@ document.onkeydown = function(e) {
 };
 
 // MODAL PRODUTOS
-export function abreModalProduto() {
+function abreModalProduto() {
 	gb.travaScrollBars();
 	var top = window.scrollY;
 	modalProduto.style.top = `${top}px`;
 	modalProduto.classList.toggle('ocultar');
 	// formImputTitulo.focus();
 };
-export function fechaModalProduto() {
+function fechaModalProduto() {
 	gb.destravaScrollBars();
 	modalProduto.classList.add('ocultar');
 	form.reset();
@@ -152,8 +146,6 @@ var bntFormExcluirProdutos =  gb.pegaElem('[data-formProdutos="btn-excluir"]');
 
 var tabelaProdutos = document.querySelectorAll('.tb-produtos');
 
-
-var rowIndexPro;
 var srtNomeBanco;
 var categoria;
 
@@ -427,3 +419,10 @@ tabelaProdutos.forEach(function (tabela) {
 	})
 });
 
+// BOTAO RESET BANCO DADOS
+var btnPainelLimpar = gb.pegaElem('.btn-painel-limpar');
+btnPainelLimpar.onclick = resetaBase;
+function resetaBase() {
+	console.log('clicado')
+	window.localStorage.clear();
+}

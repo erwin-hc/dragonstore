@@ -1,11 +1,162 @@
-import * as gb from './global.js'; 
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+function salvaDadosLocalStorage(nome, bd) {
+	localStorage.setItem(nome, JSON.stringify(bd));
+}
+// PEDGA DADOS LOCAL STORAGE
+function pegaDadosLocalStorage(bd) {
+	var bd = JSON.parse(localStorage.getItem(bd));	
+	return bd;
+}
+function pegaElem(elemento) {
+	return document.querySelector(elemento);
+}
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 
-var iconeHamburguer = gb.pegaElem('.icone-hamburguer');
-var navLateral = gb.pegaElem('.nav__lateral--inicio');
+var url = './assets/js/base-dados.js';
+function defineBaseDados(srtNomeBanco,srtCategoria) {
+	
+	fetch(url)
+	.then(function (resposta) {
+		return resposta.json();	
+	})
+	.then(function (data) {
+		var obj = pegaDadosLocalStorage(srtNomeBanco);
+		if (obj === null || obj.length <= 0) {
+		obj = [];
+		
+			for (var i = 0; i < data.length; i++) {
+						if (data[i].categoria == srtCategoria) {
+							// console.log(data[i])
+							obj.push( 
+								{
+								'id'            : data[i].id,
+								'titulo'		: data[i].titulo,
+								'valor'		    : data[i].valor,
+								'categoria'		: data[i].categoria,
+								'resumo'		: data[i].resumo,
+								'nota'		    : data[i].nota,
+								'poster'		: data[i].poster,
+								'background'	: data[i].background,
+								}
+							);
+							salvaDadosLocalStorage(srtNomeBanco, obj)
+						}			
+		    };
+	};
+});
+};
+
+defineBaseDados('bd_acao','Ação');
+defineBaseDados('bd_aventura','Aventura');
+defineBaseDados('bd_comedia','Comédia');
+defineBaseDados('bd_drama','Drama');
+defineBaseDados('bd_fantasia','Fantasia');
+defineBaseDados('bd_horror','Horror');
+defineBaseDados('bd_ficcao','Ficção');
+
+
+setTimeout(function () { 
+	var bdTodos = [
+	...pegaDadosLocalStorage('bd_acao'),
+	...pegaDadosLocalStorage('bd_aventura'),
+	...pegaDadosLocalStorage('bd_comedia'),
+	...pegaDadosLocalStorage('bd_drama'),
+	...pegaDadosLocalStorage('bd_fantasia'),
+	...pegaDadosLocalStorage('bd_horror'),
+	...pegaDadosLocalStorage('bd_ficcao')
+	]
+salvaDadosLocalStorage('bd_todos', bdTodos);
+
+}, 500);
+
+// POPULA CARDS DE PRODUTOS
+
+function populaCardsProdutos(nomeBanco, cardContainer) {
+	var dados = pegaDadosLocalStorage(nomeBanco);
+	if (dados === null || dados.length <= 0)
+	{
+	dados = [];
+	}
+
+	var container = pegaElem(cardContainer);
+
+	container.innerHTML = "";
+	dados.forEach(function (index, i) {
+
+	var html = `<div class="card-container">						
+
+						<div class="card">
+
+								<div class="svg-bluray-container">
+								<img class="svg-bluray" src="assets/img/bluray.svg">
+								</div>
+
+								<div class="card-img">
+								<img src="${index.poster}">
+								</div>
+
+								<div class="card-valor">
+								<p>R$ ${index.valor}</p>
+								</div>
+
+						</div>	
+
+						<div class="card-btns-wrapper">	
+						<button class="btncard btn-detalhes"><i class="fa-solid fa-eye fa-xl"></i></button>
+						<button class="btncard btn-cart"><i class="fa-solid fa-cart-shopping fa-xl"></i></button>
+						</div>
+			</div>				
+	`;
+					container.innerHTML += html;
+
+	});
+
+};
+
+
+function populaCardsProdutosTodas() {
+	populaCardsProdutos('bd_acao','.cards-wrapper--acao');
+	populaCardsProdutos('bd_aventura','.cards-wrapper--aventura');
+	populaCardsProdutos('bd_comedia','.cards-wrapper--comedia');
+	populaCardsProdutos('bd_drama','.cards-wrapper--drama');
+	populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia');
+	populaCardsProdutos('bd_horror','.cards-wrapper--horror');
+	populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao');
+}
+
+
+var bdAcaco = pegaDadosLocalStorage('bd_acao');
+
+if (bdAcaco !== null)
+{
+	populaCardsProdutosTodas();
+}
+else
+{
+	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
+	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 1500);
+	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 2500);
+	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 3500);
+	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 4500);
+	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 5500);
+	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 6500);
+}
+
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+
+var iconeHamburguer = pegaElem('.icone-hamburguer');
+var navLateral = pegaElem('.nav__lateral--inicio');
 iconeHamburguer.onclick = abreNavLateral;
-var iconeXis = gb.pegaElem('.icone-xis');
+var iconeXis = pegaElem('.icone-xis');
 iconeXis.onclick = fechaNavLateral;
-var body = gb.pegaElem('.body');
+var body = pegaElem('.body');
 
 
 // ABRE NAV LATERAL
@@ -45,106 +196,4 @@ body.addEventListener('click', function (e) {
 	    }
 	};
 
-// POPULA CARDS DE PRODUTOS
 
-function populaCardsProdutos(nomeBanco, cardContainer) {
-	var dados = gb.pegaDadosLocalStorage(nomeBanco);
-	var container = gb.pegaElem(cardContainer);
-
-	container.innerHTML = "";
-	dados.forEach(function (index, i) {
-
-	var html = `<div class="card-container">						
-
-						<div class="card">
-
-								<div class="svg-bluray-container">
-								<img class="svg-bluray" src="assets/img/bluray.svg">
-								</div>
-
-								<div class="card-img">
-								<img src="${index.poster}">
-								</div>
-
-								<div class="card-valor">
-								<p>R$ ${index.valor}</p>
-								</div>
-
-						</div>	
-
-						<div class="card-btns-wrapper">	
-						<button class="btncard btn-detalhes"><i class="fa-solid fa-eye fa-xl"></i></button>
-						<button class="btncard btn-cart"><i class="fa-solid fa-cart-shopping fa-xl"></i></button>
-						</div>
-			</div>				
-	`;
-					container.innerHTML += html;
-
-	});
-};
-
-
-function populaCardsProdutosTodas() {
-	populaCardsProdutos('bd_acao','.cards-wrapper--acao');
-	populaCardsProdutos('bd_aventura','.cards-wrapper--aventura');
-	populaCardsProdutos('bd_comedia','.cards-wrapper--comedia');
-	populaCardsProdutos('bd_drama','.cards-wrapper--drama');
-	populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia');
-	populaCardsProdutos('bd_horror','.cards-wrapper--horror');
-	populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao');
-		// setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
-		// setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 600);
-		// setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1000);
-		// setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 1400);
-		// setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 1800);
-		// setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 2200);
-		// setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 2400);
-}
-populaCardsProdutosTodas();
-
-
-var bdAcaco = gb.pegaDadosLocalStorage('bd_acao');
-	// console.log(bdAcaco)
-
-
-if (bdAcaco !== null)
-{
-	populaCardsProdutosTodas();
-}
-else
-{
-	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
-	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 1000);
-	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 1500);
-	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 2000);
-	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 2500);
-	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 3000);
-	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 3500);
-}
-
-
-
-
-
-function randomDestaques() {
-	var imgDestaque1 = gb.pegaElem('.imgDestaque1');
-	var imgDestaque2= gb.pegaElem('.imgDestaque2');
-	var imgDestaque3 = gb.pegaElem('.imgDestaque3');
-	var textoDestaque1 = gb.pegaElem('.textoDestaque1');
-	var textoDestaque2 = gb.pegaElem('.textoDestaque2');
-	var textoDestaque3 = gb.pegaElem('.textoDestaque3');
-	
-	var obj = gb.pegaDadosLocalStorage('bd_todos');
-
-	
-	var ird = Math.round( Math.random() * 130);
-	textoDestaque1.innerHTML = obj[ird].titulo;
-	textoDestaque2.innerHTML = obj[ird + 1].titulo;
-	textoDestaque3.innerHTML = obj[ird + 2].titulo;
-	imgDestaque1.src = obj[ird].background;
-	imgDestaque2.src = obj[ird + 1].background;
-	imgDestaque3.src = obj[ird + 2].background;
-
-
-}
-randomDestaques();
