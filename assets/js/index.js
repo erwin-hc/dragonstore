@@ -196,4 +196,34 @@ body.addEventListener('click', function (e) {
 	    }
 	};
 
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var btnPainel = document.querySelectorAll('.btn-painel');
+var spanNomeUsuario = document.querySelectorAll('.spanNomeUsuario');
 
+var usuario = 'Faça Login!';
+
+function criaSessaoUsuario() {	
+	sessionStorage.setItem('sessionUsuario', JSON.stringify(usuario));
+	sessionStorage.setItem('isLogaded', true);
+}
+window.onload = criaSessaoUsuario();
+
+if (sessionStorage.getItem('isLogaded') == 'false') {
+	spanNomeUsuario.forEach(function (span) {
+		span.innerText = usuario;
+	}) 
+	btnPainel.forEach(function (btn) {
+		btn.classList.add('ocultar');
+	})
+}
+
+if (sessionStorage.getItem('isLogaded') == 'true') {
+	spanNomeUsuario.forEach(function (span) {
+		span.innerText = 'Erwin!';
+	}) 
+	btnPainel.forEach(function (btn) {
+		btn.classList.remove('ocultar');
+	})
+}

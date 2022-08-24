@@ -1,10 +1,34 @@
-import * as gb from './global.js'; 
-// import * as cli from './clientes.js'; 
-// import * as fm from './fetch-movies.js'; 
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+function pegaElem(elemento) {
+	return document.querySelector(elemento);
+}
+// ----------------------------------------------------------------------------------------------
+// SALVA DADOS LOCAL STORAGE
+function salvaDadosLocalStorage(nome, bd) {
+	localStorage.setItem(nome, JSON.stringify(bd));
+}
+// ----------------------------------------------------------------------------------------------
+// PEDGA DADOS LOCAL STORAGE
+function pegaDadosLocalStorage(bd) {
+	var bd = JSON.parse(localStorage.getItem(bd));	
+	return bd;
+}
+// ----------------------------------------------------------------------------------------------
+// TRAVA SCROLLBAR
+function travaScrollBars() {
+    document.documentElement.style.overflowY = 'hidden';
+}
+// DESTRAVA SCROLLBAR
+function destravaScrollBars() {
+    document.documentElement.style.overflowY = 'initial';
+}
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 
-
-
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 // COLAPSE TABLE
 
 function collapseTable() {
@@ -34,24 +58,25 @@ var coll = document.getElementsByClassName("thead-collapse");
 }
 collapseTable();
 
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 // POPULA TABELAS DE PRODUTOS
 function populaTabelaProdutos(nomeBanco, nomeTabela) {
-	var dados = gb.pegaDadosLocalStorage(nomeBanco);
-	if (dados === null || dados.length <= 0) {
+	var dados = pegaDadosLocalStorage(nomeBanco);
+	if (dados === null || dados.length <= 0)
+	{
 	dados = [];
+	}
 
-	var tbody = gb.pegaElem(nomeTabela).querySelector('tbody');
+	var tbody = pegaElem(nomeTabela).querySelector('tbody');
 	tbody.innerHTML = "";
 	dados.forEach(function (index, i) {
-		var html = `
-						
+		var html = `						
 							<td>
 								<div class="btn-editar" data-acao="editar" data-index=${i}>
 									<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
 								</div>											
 							</td>
-							<td id='tdId'>${index.id}</td>
+							<td class="colunaID" id='tdId'>${index.id}</td>
 							<td id='tdTitulo'>${index.titulo}</td>
 							<td id='tdValor'>${index.valor}</td>
 							<td id='tdCategoria'>${index.categoria}</td>
@@ -64,85 +89,131 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 		 novaLinha.classList.add('rowHover');
 		 novaLinha.innerHTML = html;
 	});
-	}
+	
 };
 
-// <tr class="rowHover">
-// </tr>
+
+function populaTabelaProdutosTodas() {
+	populaTabelaProdutos('bd_acao','.tabela__produtos-acao');
+	populaTabelaProdutos('bd_aventura','.tabela__produtos-aventura');
+	populaTabelaProdutos('bd_comedia','.tabela__produtos-comedia');
+	populaTabelaProdutos('bd_drama','.tabela__produtos-drama');
+	populaTabelaProdutos('bd_fantasia','.tabela__produtos-fantasia');
+	populaTabelaProdutos('bd_horror','.tabela__produtos-horror');
+	populaTabelaProdutos('bd_ficcao','.tabela__produtos-ficcao');
+}
+
+var bdAcaco = pegaDadosLocalStorage('bd_acao');
+
+if (bdAcaco !== null)
+{
+	populaTabelaProdutosTodas();
+}
+else
+{
+	setTimeout(function () { populaTabelaProdutos('bd_acao','.tabela__produtos-acao');}, 500);
+	setTimeout(function () { populaTabelaProdutos('bd_aventura','.tabela__produtos-aventura'); }, 1500);
+	setTimeout(function () { populaTabelaProdutos('bd_comedia','.tabela__produtos-comedia'); }, 2500);
+	setTimeout(function () { populaTabelaProdutos('bd_drama','.tabela__produtos-drama'); }, 3500);
+	setTimeout(function () { populaTabelaProdutos('bd_fantasia','.tabela__produtos-fantasia'); }, 4500);
+	setTimeout(function () { populaTabelaProdutos('bd_horror','.tabela__produtos-horror'); }, 5500);
+	setTimeout(function () { populaTabelaProdutos('bd_ficcao','.tabela__produtos-ficcao'); }, 6500);
+}
 
 
-
+// ----------------------------------------------------------------------------------------------
 // ABRE-FECHA MODAL
 var btnTableProdutosAdicionar = document.querySelectorAll('.btn-tableProdutos-adicionar');
-var modalProduto = gb.pegaElem('.modal__produtos');
+var modalProduto = pegaElem('.modal__produtos');
+var modalUsuario = pegaElem('.modal__usuarios');
 
-var form = gb.pegaElem('.form-produtos');
-var formImputNome = gb.pegaElem('[data-formprodutos="nome"]');
-var formImputEmail = gb.pegaElem('[data-formprodutos="email"]');
-var formImputSenha = gb.pegaElem('[data-formprodutos="senha"]');
-var bntFormSalvar =  gb.pegaElem('[data-formprodutos="btn-salvar"]');
-var btnFormExcluir = gb.pegaElem('[data-formprodutos="btn-excluir"]');
-var btnFormUpdate =  gb.pegaElem('[data-formprodutos="btn-update"]');
+var form = pegaElem('.form-produtos');
+var formImputNome = pegaElem('[data-formprodutos="nome"]');
+var formImputEmail = pegaElem('[data-formprodutos="email"]');
+var formImputSenha = pegaElem('[data-formprodutos="senha"]');
 
-var body = gb.pegaElem('.body');
+var bntFormSalvarCliente =  pegaElem('[data-formUser="btn-salvar"]');
+var btnFormExcluirCliente = pegaElem('[data-formUser="btn-excluir"]');
+var btnFormUpdateCliente =  pegaElem('[data-formUser="btn-update"]');
+var bntFormSalvar =  pegaElem('[data-formprodutos="btn-salvar"]');
+var btnFormExcluir = pegaElem('[data-formprodutos="btn-excluir"]');
+var btnFormUpdate =  pegaElem('[data-formprodutos="btn-update"]');
+
+var body = pegaElem('.body');
 body.addEventListener('click', function (e) {
 	if (e.target.classList.contains('modal__produtos')) {
         fechaModalProduto();
 	}
 })
+// ----------------------------------------------------------------------------------------------
 // FECHA MODAL NO ESC
 document.onkeydown = function(e) {
     e = e || window.event;
     if (e.keyCode == 27) {
         fechaModalProduto();
-        cli.fechaModalUsuario();
+        fechaModalUsuario();
     }
 };
-
+// ----------------------------------------------------------------------------------------------
 // MODAL PRODUTOS
 function abreModalProduto() {
-	gb.travaScrollBars();
+	travaScrollBars();
 	var top = window.scrollY;
 	modalProduto.style.top = `${top}px`;
 	modalProduto.classList.toggle('ocultar');
-	// formImputTitulo.focus();
 };
 function fechaModalProduto() {
-	gb.destravaScrollBars();
+	destravaScrollBars();
 	modalProduto.classList.add('ocultar');
 	form.reset();
 	bntFormSalvar.disabled = false;
 	btnFormUpdate.disabled = true;
 	btnFormExcluir.disabled = true;
 };
+// ----------------------------------------------------------------------------------------------
+// MODAL USUARIOS
+function abreModalUsuario() {
+	travaScrollBars();
+	var top = window.scrollY;
+	modalUsuario.style.top = `${top}px`;
+	modalUsuario.classList.toggle('ocultar');
+	formImputNome.focus();
+};
+function fechaModalUsuario() {
+	destravaScrollBars();
+	modalUsuario.classList.add('ocultar');
+	form.reset();
+	bntFormSalvarCliente.disabled = false;
+	btnFormUpdateCliente.disabled = true;
+	btnFormExcluirCliente.disabled = false;
+};
+// ----------------------------------------------------------------------------------------------
 
 btnTableProdutosAdicionar.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
-
-	abreModalProduto();
-	bntFormSalvar.disabled = false;
-	btnFormUpdate.disabled = true;
-	btnFormExcluir.disabled = true;
-			var tabelaGenero = e.target.getAttribute('data-genero');
-			bntFormSalvarProdutos.setAttribute('data-genero',tabelaGenero);
-			bntFormUpdateProdutos.setAttribute('data-genero',tabelaGenero);
-			bntFormExcluirProdutos.setAttribute('data-genero',tabelaGenero);
+		abreModalProduto();
+		bntFormSalvar.disabled = false;
+		btnFormUpdate.disabled = true;
+		btnFormExcluir.disabled = true;
+				var tabelaGenero = e.target.getAttribute('data-genero');
+				bntFormSalvarProdutos.setAttribute('data-genero',tabelaGenero);
+				bntFormUpdateProdutos.setAttribute('data-genero',tabelaGenero);
+				bntFormExcluirProdutos.setAttribute('data-genero',tabelaGenero);
 	});
 });
 
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
+var formImputId = pegaElem('[data-formProdutos="id"]');
+var formImputTitulo = pegaElem('[data-formProdutos="titulo"]');
+var formImputNota = pegaElem('[data-formProdutos="nota"]');
+var formImputValor = pegaElem('[data-formProdutos="valor"]');
+var formImputCategoria = pegaElem('[data-formProdutos="categoria"]');
+var formImputPoster = pegaElem('[data-formProdutos="poster"]');
+var formImputResumo = pegaElem('[data-formProdutos="resumo"]');
 
-var formImputId = gb.pegaElem('[data-formProdutos="id"]');
-var formImputTitulo = gb.pegaElem('[data-formProdutos="titulo"]');
-var formImputNota = gb.pegaElem('[data-formProdutos="nota"]');
-var formImputValor = gb.pegaElem('[data-formProdutos="valor"]');
-var formImputCategoria = gb.pegaElem('[data-formProdutos="categoria"]');
-var formImputPoster = gb.pegaElem('[data-formProdutos="poster"]');
-var formImputResumo = gb.pegaElem('[data-formProdutos="resumo"]');
-
-var bntFormSalvarProdutos =  gb.pegaElem('[data-formProdutos="btn-salvar"]');
-var bntFormUpdateProdutos =  gb.pegaElem('[data-formProdutos="btn-update"]');
-var bntFormExcluirProdutos =  gb.pegaElem('[data-formProdutos="btn-excluir"]');
+var bntFormSalvarProdutos =  pegaElem('[data-formProdutos="btn-salvar"]');
+var bntFormUpdateProdutos =  pegaElem('[data-formProdutos="btn-update"]');
+var bntFormExcluirProdutos =  pegaElem('[data-formProdutos="btn-excluir"]');
 
 var tabelaProdutos = document.querySelectorAll('.tb-produtos');
 
@@ -150,12 +221,12 @@ var srtNomeBanco;
 var categoria;
 
 
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 // INSERIR DADOS
 function inserirDadosPro(srtNomeBanco, categoria) {
 
-	var obj = gb.pegaDadosLocalStorage(srtNomeBanco);
-	var id = obj.length + 1;
+	var obj = pegaDadosLocalStorage(srtNomeBanco);
+	var id = Math.round( Math.random()*1e13 );
 	
 	if (formImputTitulo.value === "") {
 		formImputTitulo.focus();
@@ -228,7 +299,7 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 			};
 
 			obj.push(produto);
-			gb.salvaDadosLocalStorage(srtNomeBanco, obj);
+			salvaDadosLocalStorage(srtNomeBanco, obj);
 			form.reset();
 
 			// formImputTitulo.focus();
@@ -237,11 +308,11 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 
 	}		
 }
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 // UPDATE
-function editarDadosPro(tituloId, srtNomeBanco) {
-	var obj = gb.pegaDadosLocalStorage(srtNomeBanco);
-	var search_term = tituloId;
+function editarDadosPro(produtoID, srtNomeBanco) {
+	var obj = pegaDadosLocalStorage(srtNomeBanco);
+	var search_term = produtoID;
 
 	for (var i=obj.length-1; i>=0; i--) {
 	    if (obj[i].id == search_term) {
@@ -258,35 +329,32 @@ function editarDadosPro(tituloId, srtNomeBanco) {
 	    }
 	}
 
-
-	// var index = rowIndexPro - 1;
 			
-	gb.salvaDadosLocalStorage(srtNomeBanco, obj);
+	salvaDadosLocalStorage(srtNomeBanco, obj);
 	populaTabelaProdutosTodas();
 
 	fechaModalProduto();
 
 }
-
+// ----------------------------------------------------------------------------------------------
 // DELETE
-function deletarDadosPro(tituloRow, srtNomeBanco) {
-	var obj = gb.pegaDadosLocalStorage(srtNomeBanco);
+function deletarDadosPro(produtoID, srtNomeBanco) {
+	var obj = pegaDadosLocalStorage(srtNomeBanco);
 	
-	var search_term = tituloRow;
+	var search_term = produtoID;
 
 	for (var i=obj.length-1; i>=0; i--) {
-	    if (obj[i].titulo === search_term) {
+	    if (obj[i].id == search_term) {
 	        obj.splice(i, 1);
-
 	    }
 	}
 
-	gb.salvaDadosLocalStorage(srtNomeBanco, obj);
+	salvaDadosLocalStorage(srtNomeBanco, obj);
 	populaTabelaProdutosTodas();
 
 	fechaModalProduto();
 }
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 // BOTAO SALVAR FORM PRODUTOS
 
 bntFormSalvarProdutos.addEventListener('click', function (e) {
@@ -326,22 +394,23 @@ default:
 	inserirDadosPro(srtNomeBanco, categoria);
 })
 
+// ----------------------------------------------------------------------------------------------
 // BOTAO EDITAR MODAL PRODUTOS
 bntFormUpdateProdutos.addEventListener('click', function (e) {
-	var tituloId = this.parentElement.parentElement[0].value;
-	// e.preventDefault();
+	var produtoID = this.parentElement.parentElement[0].value;
+	e.preventDefault();
 	
-	editarDadosPro(tituloId, srtNomeBanco);
+	editarDadosPro(produtoID, srtNomeBanco);
 	bntFormSalvarProdutos.disabled = false;
 	bntFormUpdateProdutos.disabled = true;
 	bntFormExcluirProdutos.disabled = false;
 })
 
-
+// ----------------------------------------------------------------------------------------------
 // BOTAO EXCLUIR MODAL PRODUTOS
 bntFormExcluirProdutos.addEventListener('click', function () {	
-	var tituloRow = this.parentElement.parentElement[1].value;			
-	deletarDadosPro(tituloRow,srtNomeBanco);
+	var produtoID = this.parentElement.parentElement[0].value;			
+	deletarDadosPro(produtoID,srtNomeBanco);
 	form.reset();
 	fechaModalProduto();
 	bntFormUpdateProdutos.disabled = true;
@@ -352,7 +421,7 @@ bntFormExcluirProdutos.addEventListener('click', function () {
 })
 
 
-//---------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 tabelaProdutos.forEach(function (tabela) {
 	tabela.addEventListener('click', function (e) {
 	var btnAlvo = e.target.getAttribute('data-acao');	
@@ -411,16 +480,15 @@ tabelaProdutos.forEach(function (tabela) {
 			formImputNota.value = tdNota;
 			formImputPoster.value = tdPoster;
 			formImputResumo.value = tdResumo;
-
-			// formImputTitulo.focus();
 			
 		} 	
 								
 	})
 });
 
+// ----------------------------------------------------------------------------------------------
 // BOTAO RESET BANCO DADOS
-var btnPainelLimpar = gb.pegaElem('.btn-painel-limpar');
+var btnPainelLimpar = pegaElem('.btn-painel-limpar');
 btnPainelLimpar.onclick = resetaBase;
 function resetaBase() {
 	console.log('clicado')

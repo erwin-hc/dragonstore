@@ -1,6 +1,51 @@
-import * as gb from './global.js'; 
-import * as pro from './produtos.js'; 
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+function pegaElem(elemento) {
+	return document.querySelector(elemento);
+}
+// ----------------------------------------------------------------------------------------------
+// SALVA DADOS LOCAL STORAGE
+function salvaDadosLocalStorage(nome, bd) {
+	localStorage.setItem(nome, JSON.stringify(bd));
+}
+// ----------------------------------------------------------------------------------------------
+// PEDGA DADOS LOCAL STORAGE
+function pegaDadosLocalStorage(bd) {
+	var bd = JSON.parse(localStorage.getItem(bd));	
+	return bd;
+}
+// ----------------------------------------------------------------------------------------------
+// TRAVA SCROLLBAR
+function travaScrollBars() {
+    document.documentElement.style.overflowY = 'hidden';
+}
+// DESTRAVA SCROLLBAR
+function destravaScrollBars() {
+    document.documentElement.style.overflowY = 'initial';
+}
 
+// ----------------------------------------------------------------------------------------------
+// MODAL PRODUTOS
+function abreModalProduto() {
+	travaScrollBars();
+	var top = window.scrollY;
+	modalProduto.style.top = `${top}px`;
+	modalProduto.classList.toggle('ocultar');
+	formImputNome.focus();
+};
+function fechaModalProduto() {
+	destravaScrollBars();
+	modalProduto.classList.add('ocultar');
+	form.reset();
+	bntFormSalvar.disabled = false;
+	btnFormUpdate.disabled = true;
+	btnFormExcluir.disabled = false;
+};
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+// ----------------------------------------------------------------------------------------------
 // BASE DE DADOS
 var bd_usuarios = [
 	{
@@ -13,35 +58,36 @@ var bd_usuarios = [
  ];
 
 export function verificaLocalStorage() {
-	var obj = gb.pegaDadosLocalStorage('bd_usuarios');
+	var obj = pegaDadosLocalStorage('bd_usuarios');
 		
 	if (obj === null) {
-		gb.salvaDadosLocalStorage("bd_usuarios", bd_usuarios);
+		salvaDadosLocalStorage("bd_usuarios", bd_usuarios);
 	}
 }
-
+// ----------------------------------------------------------------------------------------------
 // VERIFICA LOCAL STORAGE SE ESTIVER VAZIO ADICIONA UM ITEM
 verificaLocalStorage();
 populaTabelaUsuarios();					
 
-
-// ---------------------------------------------------
-// ---------------------------------------------------
-// ---------------------------------------------------
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+// ----------------------------------------------------------------------------------------------
 // FUNCOES GERAIS
-var formImputNome = gb.pegaElem('[data-formUser="nome"]');
-var formImputEmail = gb.pegaElem('[data-formUser="email"]');
-var formImputSenha = gb.pegaElem('[data-formUser="senha"]');
-var formImputTipo = gb.pegaElem('[data-formUser="tipo"]');
-var form = gb.pegaElem('.form-usuarios');
+var formImputID = pegaElem('[data-formUser="id"]');
+var formImputNome = pegaElem('[data-formUser="nome"]');
+var formImputEmail = pegaElem('[data-formUser="email"]');
+var formImputSenha = pegaElem('[data-formUser="senha"]');
+var formImputTipo = pegaElem('[data-formUser="tipo"]');
+var form = pegaElem('.form-usuarios');
 
-
+// ----------------------------------------------------------------------------------------------
 // READ
 // POPULA TABELA USUARIOS
 function populaTabelaUsuarios() {
 	verificaLocalStorage();
-	var obj = gb.pegaDadosLocalStorage('bd_usuarios');
-	var tbody = gb.pegaElem('.tabela__usuarios').querySelector('tbody');
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var tbody = pegaElem('.tabela__usuarios').querySelector('tbody');
 	tbody.innerHTML = "";
 	
 		obj.forEach(function (index, i) {
@@ -53,7 +99,7 @@ function populaTabelaUsuarios() {
 						<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
 						</div>											
 					</td>
-					<td id='tdId'>${index.id}</td>
+					<td class="colunaID" id='tdId'>${index.id}</td>
 					<td id='tdNome'>${index.nome}</td>
 					<td id='tdEmail'>${index.email}</td>
 					<td id='tdSenha'>${index.senha}</td>
@@ -64,18 +110,15 @@ function populaTabelaUsuarios() {
 				 novaLinha.classList.add('rowHover');
 				 novaLinha.innerHTML = html;
 	});
-
-		// tbody.innerHTML += html;
-
 }
 
-// -----------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 // CRUD USUARIOS
 // INSERIR DADOS
 function inserirDados() {
 
-	var obj = gb.pegaDadosLocalStorage('bd_usuarios');
-	var id = obj.length + 1;
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var id = Math.round( Math.random()*1e13 );
 	
 	if (formImputNome.value === "") {
 		formImputNome.focus();
@@ -120,72 +163,89 @@ function inserirDados() {
 			};
 
 			obj.push(usuario);
-			gb.salvaDadosLocalStorage("bd_usuarios", obj);
+			salvaDadosLocalStorage("bd_usuarios", obj);
 			form.reset();
 
 			formImputNome.focus();
 			fechaModalUsuario();
 	}		
 }
+// ----------------------------------------------------------------------------------------------
 // UPDATE
-function editarDados(rowIndexCli) {
-	var obj = gb.pegaDadosLocalStorage('bd_usuarios');
-	var index = rowIndexCli - 1;
+function editarDados(clienteID) {
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var search_term = clienteID;
 
-	obj[index] = {
-		id    : obj[index].id,
-		nome  : formImputNome.value.toUpperCase(),
-		email : formImputEmail.value.toLowerCase(),
-		senha : formImputSenha.value.toLowerCase(),
-		tipo  : formImputTipo.value,
-	};
+	for (var i=obj.length-1; i>=0; i--) {
+	    if (obj[i].id == search_term) {
 
-	gb.salvaDadosLocalStorage("bd_usuarios", obj);
+	        obj[i] = {
+					id    : formImputID.value,
+					nome  : formImputNome.value.toUpperCase(),
+					email : formImputEmail.value.toLowerCase(),
+					senha : formImputSenha.value.toLowerCase(),
+					tipo  : formImputTipo.value,
+			};
+	    }
+	}
+	salvaDadosLocalStorage("bd_usuarios", obj);
 	populaTabelaUsuarios();
 	fechaModalUsuario();
 }
-
+// ----------------------------------------------------------------------------------------------
 // DELETE
-function deletarDados(rowIndexCli) {
-	var obj = gb.pegaDadosLocalStorage('bd_usuarios');
+function deletarDados(clienteID) {
+	var obj = pegaDadosLocalStorage('bd_usuarios');
 
-	var index = rowIndexCli - 1;
+	var search_term = clienteID;
 
-	obj.splice([index]);
+	for (var i=obj.length-1; i>=0; i--) {
+	    if (obj[i].id == search_term) {
+	        obj.splice(i, 1);
 
-	gb.salvaDadosLocalStorage("bd_usuarios", obj);
+	    }
+	}
+
+	salvaDadosLocalStorage("bd_usuarios", obj);
 	populaTabelaUsuarios();
 
 }
-// -----------------------------------------------------------------------------------------------
-	
-var bntFormSalvarCliente =  gb.pegaElem('[data-formUser="btn-salvar"]');
-var btnFormExcluirCliente = gb.pegaElem('[data-formUser="btn-excluir"]');
-var btnFormUpdateCliente =  gb.pegaElem('[data-formUser="btn-update"]');
+// -----------------------------------------------------------------------------------------------	
+var bntFormSalvarCliente =  pegaElem('[data-formUser="btn-salvar"]');
+var btnFormExcluirCliente = pegaElem('[data-formUser="btn-excluir"]');
+var btnFormUpdateCliente =  pegaElem('[data-formUser="btn-update"]');
+var bntFormSalvar =  pegaElem('[data-formprodutos="btn-salvar"]');
+var btnFormExcluir = pegaElem('[data-formprodutos="btn-excluir"]');
+var btnFormUpdate =  pegaElem('[data-formprodutos="btn-update"]');
 var btnTableUserEditar = document.querySelectorAll('.btn-tableUser-editar');
-var tabelaUsuarios = gb.pegaElem('.tabela__usuarios');
-
+var tabelaUsuarios = pegaElem('.tabela__usuarios');
+// ----------------------------------------------------------------------------------------------
 // CLICK BOTAO FORMULARIO SALVAR
 bntFormSalvarCliente.addEventListener('click', function (e) {
 		e.preventDefault();
 		inserirDados();
 		populaTabelaUsuarios();	
 })
-
+// ----------------------------------------------------------------------------------------------
 // CLICK BOTAO FORMULARIO UPDATE
 btnFormUpdateCliente.addEventListener('click', function (e) {
 			e.preventDefault();
+
+			var clienteID = this.parentElement.parentElement[0].value;	
 			btnFormUpdateCliente.disabled = true;
 			bntFormSalvarCliente.disabled = false;
 			btnFormExcluirCliente.disabled = false;
-			editarDados(rowIndexCli);
+			editarDados(clienteID);
 			form.reset();
 			formImputNome.focus();
 			populaTabelaUsuarios();
 })
+// ----------------------------------------------------------------------------------------------
 // CLICK BOTAO FORMULARIO EXCLUIR
 btnFormExcluirCliente.addEventListener('click', function () {
-	deletarDados(rowIndexCli);
+	var clienteID = this.parentElement.parentElement[0].value;	
+
+	deletarDados(clienteID);
 	form.reset();
 	modalUsuario.classList.add('ocultar');
 	btnFormUpdateCliente.disabled = true;
@@ -193,7 +253,7 @@ btnFormExcluirCliente.addEventListener('click', function () {
 	btnFormExcluirCliente.disabled = false;
 })
 
-//---------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 var rowIndexCli = null;
 tabelaUsuarios.addEventListener('click', function (e) {
 	var btnAlvo = e.target.getAttribute('data-acao');
@@ -215,6 +275,7 @@ tabelaUsuarios.addEventListener('click', function (e) {
 			bntFormSalvarCliente.disabled = true;
 			btnFormUpdateCliente.disabled = false;
 			btnFormExcluirCliente.disabled = false;
+			formImputID.value = tdIdText;
 			formImputNome.value = tdNomeText;
 			formImputEmail.value = tdEmailText;
 			formImputSenha.value = tdSenhaText;	
@@ -225,10 +286,12 @@ tabelaUsuarios.addEventListener('click', function (e) {
 			
 })
 
+// ----------------------------------------------------------------------------------------------
 // ABRE / FECHA MODAIS
-var btnTableUserAdicionar = gb.pegaElem('.btn-tableUser-adicionar');
-var modalUsuario = gb.pegaElem('.modal__usuarios');
-var body = gb.pegaElem('.body');
+var btnTableUserAdicionar = pegaElem('.btn-tableUser-adicionar');
+var modalUsuario = pegaElem('.modal__usuarios');
+var modalProduto = pegaElem('.modal__produtos');
+var body = pegaElem('.body');
 
 
 body.addEventListener('click', function (e) {
@@ -241,26 +304,28 @@ document.onkeydown = function(e) {
     e = e || window.event;
     if (e.keyCode == 27) {
         fechaModalUsuario();
-        pro.fechaModalProduto();
+        fechaModalProduto();
     }
 };
 
+// ----------------------------------------------------------------------------------------------
 // MODAL USUARIOS
-export function abreModalUsuario() {
-	gb.travaScrollBars();
+function abreModalUsuario() {
+	travaScrollBars();
 	var top = window.scrollY;
 	modalUsuario.style.top = `${top}px`;
 	modalUsuario.classList.toggle('ocultar');
 	formImputNome.focus();
 };
-export function fechaModalUsuario() {
-	gb.destravaScrollBars();
+function fechaModalUsuario() {// ----------------------------------------------------------------------------------------------
+	destravaScrollBars();
 	modalUsuario.classList.add('ocultar');
 	form.reset();
 	bntFormSalvarCliente.disabled = false;
 	btnFormUpdateCliente.disabled = true;
 	btnFormExcluirCliente.disabled = false;
 };
+// ----------------------------------------------------------------------------------------------
 btnTableUserAdicionar.addEventListener('click', function () {
 	abreModalUsuario();
 	bntFormSalvarCliente.disabled = false;
@@ -268,3 +333,9 @@ btnTableUserAdicionar.addEventListener('click', function () {
 	btnFormExcluirCliente.disabled = true;
 
 });
+// ----------------------------------------------------------------------------------------------
+
+
+
+
+

@@ -103,6 +103,9 @@
 	.produtos__acao__container {
 		padding-top: 125px;
 	}
+	.nav_lateral--links li {
+		font-size: var(--fonte-xg);
+	}
 
 }
 /*------------------------------------------------*/
@@ -118,10 +121,10 @@
 	background-color: var(--cor-600);
 }
 .flex-iten-3 {
-	justify-content: center;
-	min-width: 150px;
+	justify-content: flex-start;
+	align-items: flex-start;
+	min-width: 130px;
 	height: 100%;
-	font-size: var(--fonte-p);
 }
 .flex-iten-4 {
 	height: 100%;
@@ -170,6 +173,17 @@
 	cursor: pointer;
 }
 
+.nav__cliente__container {
+	padding-top: 10px;
+}
+.nav__cliente__container i {
+	color: var(--cor-900);
+}
+.nav__cliente__container button {
+	font-size: 10px;
+	height: 30px;
+	width: 90px;
+}
 /*------------------------------------------------*/
 /*------------------------------------------------*/
 /*------------------------------------------------*/
@@ -211,7 +225,7 @@
 	background-color: var(--cor-600);
 	flex-direction: column;
 	justify-content: flex-start;
-	border: 1px solid var(--cor-bordas);
+	border: 2px solid var(--cor-bordas);
 	border-radius: 8px;
 }
 .nav__lateral--icons {
@@ -231,9 +245,9 @@
 	gap: 10px;
 	width: 100%;
 	height: 90px;
-	flex-direction: column;
+	flex-wrap: wrap;
 	align-items: flex-start;
-	justify-content: center;
+	justify-content: flex-start;
 	text-align: left;
 	border-bottom: 1px solid var(--cor-bordas);
 	padding-inline: 25px;
@@ -245,6 +259,20 @@
 	width: 100%;
 	flex-direction: column;
 }
+.titulo--usuarios--wrapper {
+	width: 320px;
+}
+.titulo--usuarios--wrapper p {
+	width: 100%;
+}
+.btn--usuarios--wrapper {
+	width: 320px;
+
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
 .nav__lateral--categoria p {
 	font-family: var(--ff-titulo);
 	font-size: var(--fonte-m);
@@ -259,18 +287,17 @@
 .nav_lateral--links {
 	margin-top: .5rem;
 	width: 100%;
-	font-size: var(--fonte-m);
 }
 .nav_lateral--links a {
 	width: 100%;
 	font-weight: bolder;
 	letter-spacing: 8px;
-	font-size: var(--fonte-p);
 	color: var(--cor-100);
 	text-decoration: none;	
 }
 .nav--itens {
-	padding: 15px;
+	padding: 10px;
+	font-size: var(--fonte-m);
 }
 .nav--itens:hover {
 	background-color: rgba(var(--rgb-laranja),0.02);
@@ -279,7 +306,15 @@
 	border-right: 3px solid var(--cor-laranja);
 	border-radius: 8px 0px 0px 8px;
 }
-
+.btn--usuarios--wrapper i {
+	color: var(--cor-900);
+}
+.btn--usuarios--wrapper {
+	font-size: var(--fonte-p);	
+}
+.btn--usuarios--wrapper button {
+	width: 120px;
+}
 
 /*------------------------------------------------*/
 .remove-nav-lateral {

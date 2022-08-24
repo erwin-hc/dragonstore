@@ -1,5 +1,17 @@
-// import * as gb from './global.js'; 
-// // import * as gb from './index.js'; 
+// // ---------------------------------------------------
+//  function pegaElem(elemento) {
+// 	return document.querySelector(elemento);
+// }
+// // ---------------------------------------------------
+// // SALVA DADOS LOCAL STORAGE
+//  function salvaDadosLocalStorage(nome, bd) {
+// 	localStorage.setItem(nome, JSON.stringify(bd));
+// }
+// // PEDGA DADOS LOCAL STORAGE
+//  function pegaDadosLocalStorage(bd) {
+// 	var bd = JSON.parse(localStorage.getItem(bd));	
+// 	return bd;
+// }
 
 // var url = 'https://api.themoviedb.org/3/'
 // var query = 'genre/movie/list?';
@@ -7,18 +19,17 @@
 // var pt = "&language=pt-BR";
 // var urlImg = 'https://image.tmdb.org/t/p/original/';
 
-// export var bd_acao = 28;
-// export var bd_aventura = 12;
-// export var bd_comedia = 35;
-// export var bd_drama = 18;
-// export var bd_fantasia = 14;
-// export var bd_horror = 27;
-// export var bd_ficcao = 878;
+//  var bd_acao = 28;
+//  var bd_aventura = 12;
+//  var bd_comedia = 35;
+//  var bd_drama = 18;
+//  var bd_fantasia = 14;
+//  var bd_horror = 27;
+//  var bd_ficcao = 878;
 
-// // https://api.themoviedb.org/3/discover/movie?with_genres=28&api_key=1787315acea95582c62c2ef4a134b49e&language=pt-BR&year=1980
+//  function pegaFilmesApi(genero, nomeBanco,categoria, ano) {
+// var dados = pegaDadosLocalStorage(nomeBanco);
 
-// export function pegaFilmesApi(genero, nomeBanco,categoria, ano) {
-// var dados = gb.pegaDadosLocalStorage(nomeBanco);
 // 		if (dados === null || dados.length <= 0) {
 // 		dados = [];
 // 				fetch("https://api.themoviedb.org/3/discover/movie?with_genres=" + genero + "&" + API_KEY + pt + "&year=" + ano)
@@ -28,9 +39,10 @@
 // 				.then(function (data) {
 // 					var results = data.results;
 // 					results.forEach(function (index, i) {
+// 								var id = Math.round( Math.random()*1e13 );
 // 					 			dados.push( 
 // 								{
-// 								'id'            : i + 1,
+// 								'id'            : id,
 // 								'titulo'		: index.title,
 // 								// 'valor'		    : "39,90",
 // 								'valor'		    : randoValor(),
@@ -42,7 +54,7 @@
 // 								}
 // 								);
 // 					});
-// 					gb.salvaDadosLocalStorage(nomeBanco ,dados);						
+// 					salvaDadosLocalStorage(nomeBanco ,dados);						
 // 				});
 // 		} 
 // };
@@ -54,26 +66,26 @@
 // };
 
 
-// pegaFilmesApi(bd_acao, 'bd_acao','Ação',2022);
-// pegaFilmesApi(bd_aventura, 'bd_aventura','Aventura',2021);
-// pegaFilmesApi(bd_comedia, 'bd_comedia','Comédia',2020);
-// pegaFilmesApi(bd_drama, 'bd_drama','Drama',2019);
-// pegaFilmesApi(bd_fantasia, 'bd_fantasia','Fantasia',2018);
-// pegaFilmesApi(bd_horror, 'bd_horror','Horror',2017);
-// pegaFilmesApi(bd_ficcao, 'bd_ficcao','Ficção',2016);
+// pegaFilmesApi(bd_acao, 'bd_acao_test','Ação',2022);
+// pegaFilmesApi(bd_aventura, 'bd_aventura_test','Aventura',2021);
+// pegaFilmesApi(bd_comedia, 'bd_comedia_test','Comédia',2020);
+// pegaFilmesApi(bd_drama, 'bd_drama_test','Drama',2019);
+// pegaFilmesApi(bd_fantasia, 'bd_fantasia_test','Fantasia',2018);
+// pegaFilmesApi(bd_horror, 'bd_horror_test','Horror',2017);
+// pegaFilmesApi(bd_ficcao, 'bd_ficcao_test','Ficção',2016);
 
 
-// var arr1 = gb.pegaDadosLocalStorage('bd_acao');
-// var arr2 = gb.pegaDadosLocalStorage('bd_aventura');
-// var arr3 = gb.pegaDadosLocalStorage('bd_comedia');
-// var arr4 = gb.pegaDadosLocalStorage('bd_drama');
-// var arr5 = gb.pegaDadosLocalStorage('bd_fantasia');
-// var arr6 = gb.pegaDadosLocalStorage('bd_horror');
-// var arr7 = gb.pegaDadosLocalStorage('bd_ficcao');
+// var arr1 = pegaDadosLocalStorage('bd_acao_test');
+// var arr2 = pegaDadosLocalStorage('bd_aventura_test');
+// var arr3 = pegaDadosLocalStorage('bd_comedia_test');
+// var arr4 = pegaDadosLocalStorage('bd_drama_test');
+// var arr5 = pegaDadosLocalStorage('bd_fantasia_test');
+// var arr6 = pegaDadosLocalStorage('bd_horror_test');
+// var arr7 = pegaDadosLocalStorage('bd_ficcao_test');
 
 // setTimeout(function () { 
 // 	var allArr = [...arr1, ...arr2, ...arr3, ...arr4, ...arr5, ...arr6, ...arr7];
-// 	gb.salvaDadosLocalStorage('bd_todos' ,allArr);	
+// 	salvaDadosLocalStorage('bd_todos_test' ,allArr);	
 // }, 500);
 
 

@@ -246,9 +246,7 @@
 	width: 200px;
 }
 
-.invalid {	
-	background-color: rgba(var(--rgb-vermelho),0.4);
-}
+
 /*INPUT PADRAO*/
 .inputs {
 	font-size: var(--fonte-m);
@@ -269,8 +267,17 @@
 	border: 2.5px solid var(--cor-laranja);
 }
 
+.invalid {	
+	background-color: rgba(var(--rgb-vermelho),0.1);
+	border: 2px solid var(--cor-vermelho)!important;
+}
+
 /*------------------------------------------------*/
 /*------------------------------------------------*/
 /*------------------------------------------------*/
 /*FOOTER*/
 
+.headerID,
+.colunaID {
+	display: none;
+}
