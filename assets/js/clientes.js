@@ -50,9 +50,9 @@ function fechaModalProduto() {
 var bd_usuarios = [
 	{
 	"id":1,
-	"nome":"ERWIN GUILHERME STEIN",
-	"email":"erwin.stein@gmail.com",
-	"senha":"erwin", 
+	"nome":"Administrador",
+	"email":"adm@adm.com",
+	"senha":"adm", 
 	"tipo":"ADM",
 	}
  ];

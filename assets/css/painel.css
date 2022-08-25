@@ -41,7 +41,7 @@
 	display: grid;
 	grid-template-areas: ". footer .";
 	grid-template-columns: 1fr min(100%, 1400px) 1fr;
-	grid-template-rows: 80px;
+	grid-template-rows: 50px;
 }
 .footer__painel {
 	grid-area: footer;
@@ -210,13 +210,15 @@
 .modal__usuarios,
 .modal__produtos {
 	position: absolute;
+	z-index: 9999999999;
 	
 	top: 0;
 	left: 0;
 
 	width: 100%;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, .8);
+	background-color: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(8px);
 
 	display: flex;
 	align-items: center;
@@ -234,22 +236,28 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	
 	width: min(94%, 1000px);
+
 	font-size: var(--fonte-p);
 	border-radius: var(--radius);
 	background-color: var(--cor-600);
-	padding-bottom: 2rem;
-	border: 1px solid var(--cor-bordas);
+	border: 2px solid var(--cor-laranja);
+
+
 }
 
 .form-usuarios h3,
 .form-produtos h3 {
 	color: var(--cor-100);
 	padding: 1.5rem;
+	font-size: 24px;
+
+
 }
 .btn-container {
 	width: 100%;
-	height: 40px;
+	padding-block: 2rem;
 	flex-wrap: wrap;
 	gap: 20px;
 }

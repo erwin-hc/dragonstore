@@ -12,6 +12,15 @@ function pegaDadosLocalStorage(bd) {
 function pegaElem(elemento) {
 	return document.querySelector(elemento);
 }
+// ----------------------------------------------------------------------------------------------
+// TRAVA SCROLLBAR
+function travaScrollBars() {
+    document.documentElement.style.overflowY = 'hidden';
+}
+// DESTRAVA SCROLLBAR
+function destravaScrollBars() {
+    document.documentElement.style.overflowY = 'initial';
+}
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
@@ -50,14 +59,18 @@ function defineBaseDados(srtNomeBanco,srtCategoria) {
 });
 };
 
-defineBaseDados('bd_acao','Ação');
-defineBaseDados('bd_aventura','Aventura');
-defineBaseDados('bd_comedia','Comédia');
-defineBaseDados('bd_drama','Drama');
-defineBaseDados('bd_fantasia','Fantasia');
-defineBaseDados('bd_horror','Horror');
-defineBaseDados('bd_ficcao','Ficção');
 
+
+function defineBaseDadosTudo() {
+		defineBaseDados('bd_acao','Ação');
+		defineBaseDados('bd_aventura','Aventura');
+		defineBaseDados('bd_comedia','Comédia');
+		defineBaseDados('bd_drama','Drama');
+		defineBaseDados('bd_fantasia','Fantasia');
+		defineBaseDados('bd_horror','Horror');
+		defineBaseDados('bd_ficcao','Ficção');
+ } 
+ defineBaseDadosTudo();
 
 setTimeout(function () { 
 	var bdTodos = [
@@ -70,7 +83,6 @@ setTimeout(function () {
 	...pegaDadosLocalStorage('bd_ficcao')
 	]
 salvaDadosLocalStorage('bd_todos', bdTodos);
-
 }, 500);
 
 // POPULA CARDS DE PRODUTOS
@@ -199,20 +211,91 @@ body.addEventListener('click', function (e) {
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
+var btnLoginNav = document.querySelectorAll('.btn-login-nav');
+var modalLogin = pegaElem('.modal--login--container');
+var btnLoginEntrar = pegaElem('.btn-entrar-login'); // active
+var btnLoginCadastrar = pegaElem('.btn-cadastrar-login');
+var telaEntrar = pegaElem('.tela--entrar'); // ocultar 
+var telaCadastrar = pegaElem('.tela--cadastrar');  
+
+btnLoginNav.forEach(function (btn) {
+	btn.addEventListener('click', function () {
+	abreModalLogin();
+	})
+});
+
+
+
+
+
+
+modalLogin.addEventListener('click', function (e) {
+	if (e.target.classList.contains('modal--login--container')) {
+		fechaModalLogin();
+	}
+})
+
+btnLoginCadastrar.addEventListener('click', function () {
+	btnLoginCadastrar.classList.add('active');
+	btnLoginEntrar.classList.remove('active');
+	telaCadastrar.classList.remove('ocultar');
+	telaEntrar.classList.add('ocultar');
+})
+btnLoginEntrar.addEventListener('click', function () {
+	btnLoginCadastrar.classList.remove('active');
+	btnLoginEntrar.classList.add('active');
+	telaCadastrar.classList.add('ocultar');
+	telaEntrar.classList.remove('ocultar');
+})
+
+// ----------------------------------------------------------------------------------------------
+// FECHA MODAL NO ESC
+document.onkeydown = function(e) {
+    e = e || window.event;
+    if (e.keyCode == 27) {
+        fechaModalLogin();
+    }
+};
+// ----------------------------------------------------------------------------------------------
+// MODAL PRODUTOS
+function abreModalLogin() {
+	travaScrollBars();
+	var top = window.scrollY;
+	modalLogin.style.top = `${top}px`;
+	modalLogin.classList.toggle('ocultar');
+};
+function fechaModalLogin() {
+	destravaScrollBars();
+	modalLogin.classList.add('ocultar');
+};
+// ----------------------------------------------------------------------------------------------
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 var btnPainel = document.querySelectorAll('.btn-painel');
 var spanNomeUsuario = document.querySelectorAll('.spanNomeUsuario');
 
-var usuario = 'Faça Login!';
+var usuarioSessao = 
+	{
+	"id":    "",
+	"nome":  "Faça Login!",
+	"email": "",
+	};
+ 
 
 function criaSessaoUsuario() {	
-	sessionStorage.setItem('sessionUsuario', JSON.stringify(usuario));
+	sessionStorage.setItem('sessionUsuario', JSON.stringify(usuarioSessao));
+	// sessionStorage.setItem('isLogaded', false);
+	// sessionStorage.setItem('isADM', false);
+
 	sessionStorage.setItem('isLogaded', true);
+	sessionStorage.setItem('isADM', true);
 }
 window.onload = criaSessaoUsuario();
 
 if (sessionStorage.getItem('isLogaded') == 'false') {
 	spanNomeUsuario.forEach(function (span) {
-		span.innerText = usuario;
+		span.innerText = usuarioSessao.nome;
 	}) 
 	btnPainel.forEach(function (btn) {
 		btn.classList.add('ocultar');

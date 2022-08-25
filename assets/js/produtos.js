@@ -493,4 +493,7 @@ btnPainelLimpar.onclick = resetaBase;
 function resetaBase() {
 	console.log('clicado')
 	window.localStorage.clear();
+	// window.location.reload(true);
+	window.location.href = 'index.html';
+
 }

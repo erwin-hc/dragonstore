@@ -38,7 +38,7 @@
 								<div class="titulo--user">
 								<p>Olá, <span class="spanNomeUsuario"></span></p>
 										<div class="btn--usuario--wrapper">
-												<button class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;ENTRAR</button>	
+												<button class="btn btn-primary btn-login-nav"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;ENTRAR</button>	
 												<a href="painel.html"><button class="btn btn-danger btn-painel ocultar"><i class="fa-solid fa-gear"></i> &nbsp;</button></a>	
 								  	</div>
 						  	</div>
@@ -252,17 +252,18 @@
 
 	<div class="div-contato-footer">
 	<h3 class="titulo-cores"><<span>ERWIN </span>STEIN/></h3>
-	<a href="https://www.linkedin.com/in/erwin-guilherme-stein"target="_blank"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
-	<a href="https://github.com/erwin-hc" target="_blank"><i class="fa-brands fa-github-alt fa-2xl"></i></a>
+
+	<a href="https://www.linkedin.com/in/erwin-guilherme-stein"target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+	<a href="https://github.com/erwin-hc" target="_blank"><i class="fa-brands fa-github-alt"></i></a>
 	</div>
 
 
-	<div class="nav__lateral--usuario flex-center titulo--user helper">
+	<div class="nav__lateral--usuario flex-center titulo--user">
 		<div class="titulo--usuarios--wrapper">
-		<p class="helper">Olá, <span class="spanNomeUsuario"></span></p>
+		<p>Olá, <span class="spanNomeUsuario"></span></p>
 		</div>
 		<div class="btn--usuarios--wrapper">
-			<button class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;ENTRAR</button>		
+			<button class="btn btn-primary btn-login-nav"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;ENTRAR</button>		
 			<a href="painel.html"><button class="btn btn-danger btn-painel ocultar"><i class="fa-solid fa-gear"></i> &nbsp;ADM</button></a>		
 		</div>
 	</div>
@@ -281,6 +282,70 @@
 	</div>
 
 </div>
+
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- MODAL LOGIN-USUARIOS -->
+<div class="modal--login--container ocultar">
+<!-- FORM USUARIOS -->
+
+		<div class="modal--login--wrapper">
+			<div class="btn--modal--wrapper">
+			<button class="btn-modal-login btn-entrar-login active"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;&nbsp;ENTRAR</button>
+			<button class="btn-modal-login btn-cadastrar-login "><i class="fa-solid fa-user-plus"></i> &nbsp;&nbsp;CADASTRAR</button>
+			</div>
+
+				<div class="tela--entrar ">
+
+					<form action="" class="form-tela-entrar">
+						<h3><i class="fa-solid fa-right-to-bracket"></i> ENTRAR</h3>
+						<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="email" type="email" placeholder="Email" required>		
+						<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="senha" type="text"  placeholder="Senha" required>
+
+						<div class="btn-container flex-center">
+							<button data-formUser="btn-salvar"  class="btn btn-primary" ><i class="fa-solid fa-right-to-bracket"></i>&nbsp;Entrar</button>
+						</div>
+					</form>
+
+					<div class="mensagem-tela">
+						<img src="assets/img/dragon.svg">
+						<div class="msg-login-wrapper">
+								<div class="msg-login">
+									<p>Bem vindo!</p>
+								</div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="tela--cadastrar ocultar">
+
+					<form action="" class="form-tela-cadastrar">
+						<h3><i class="fa-solid fa-user-plus"></i> CADASTRAR</h3>
+						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="nome" type="text"   placeholder="Nome"  required>	 
+						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="email" type="email" placeholder="Email" required>		
+						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="senha" type="text"  placeholder="Senha" required>
+
+						<div class="btn-container flex-center">
+							<button data-formUser="btn-salvar"  class="btn btn-warning"><i class="fa-solid fa-user-plus"></i>&nbsp;CADASTRAR</button>
+						</div>
+					</form>
+
+					<div class="mensagem-tela">
+						<img src="assets/img/dragon.svg">
+						<div class="msg-login-wrapper">
+								<div class="msg-login">
+									<p>Bem vindo!</p>
+								</div>
+						</div>
+					</div>
+							
+				</div>
+
+		</div>
+
+</div>
+<!-- -------------------------------------------------------------------------------------------------- -->
 	
 </body>
 
