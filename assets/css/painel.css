@@ -15,6 +15,7 @@
 						80px;	
 }
 .nav__principal__painel--container {
+		z-index: 999;
 	position: fixed;
 	width: 100%;
 	grid-area: navc;
@@ -133,14 +134,24 @@
 }*/
 
 .tb-padrao button {
+	    border: none;
+	    border-radius: 8px;
 		margin-bottom: .25rem;
-		width: 150px;
+		min-width: 100px;
 		height: 35px;
 		text-align: center;
 		font-size: var(--fonte-m);
 		background-color: var(--cor-laranja);
 		color: var(--cor-900);
+		font-size: var(--fonte-p);
+		opacity: 0.8;
 }
+
+.tb-padrao button:hover {
+		opacity: 1;
+}
+
+
 .tb-padrao button i {
 	color: var(--cor-900);
 }
@@ -237,16 +248,15 @@
 	padding: 1.5rem;
 }
 .btn-container {
-	width: 80%;
+	width: 100%;
+	height: 40px;
 	flex-wrap: wrap;
 	gap: 20px;
 }
-.form-usuarios .btn,
-.form-produtos .btn {
-	width: 200px;
+.btn-container input {
+	width: 100px;
+	height: 30px;
 }
-
-
 /*INPUT PADRAO*/
 .inputs {
 	font-size: var(--fonte-m);

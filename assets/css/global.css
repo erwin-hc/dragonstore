@@ -144,27 +144,26 @@ background-color: #303134;
 /*------------------------------------------------*/
 /*BOTOES*/
 
-.btn {
-	min-width: 80px;
-	min-height: 25px;
-	padding: .5rem;
-	border-radius: var(--radius);
+
+.btn-primary {
+		border-radius: var(--radius);
 	text-transform: uppercase;
 	border: none;
 	font-size: var(--fonte-p);
-	color: var(--cor-100);
-}
-
-.btn-primary {
 		background-color:  var(--cor-azul);
 		opacity: 0.7;
 		color: var(--cor-900);
 }
 .btn-primary:hover{
+
 		background-color:  var(--cor-azul);
 		opacity: 1;
 }
 .btn-danger {
+		border-radius: var(--radius);
+	text-transform: uppercase;
+	border: none;
+	font-size: var(--fonte-p);
 		background-color:  var(--cor-vermelho);
 		opacity: 0.7;
 		color: var(--cor-900);
@@ -174,6 +173,10 @@ background-color: #303134;
 		opacity: 1;
 }
 .btn-warning {
+		border-radius: var(--radius);
+	text-transform: uppercase;
+	border: none;
+	font-size: var(--fonte-p);
 		background-color:  var(--cor-laranja);
 		opacity: 0.7;
 		color: var(--cor-900);
@@ -183,6 +186,10 @@ background-color: #303134;
 		opacity: 1;
 }
 .btn-sucess {
+		border-radius: var(--radius);
+	text-transform: uppercase;
+	border: none;
+	font-size: var(--fonte-p);
 		background-color:  var(--cor-verde);
 		opacity: 0.7;
 }
