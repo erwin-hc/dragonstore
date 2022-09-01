@@ -53,11 +53,11 @@ var bd_usuarios = [
 	"nome":"Administrador",
 	"email":"adm@adm.com",
 	"senha":"adm", 
-	"tipo":"ADM",
+	"tipo":"adm",
 	}
  ];
 
-export function verificaLocalStorage() {
+function verificaLocalStorage() {
 	var obj = pegaDadosLocalStorage('bd_usuarios');
 		
 	if (obj === null) {
@@ -119,6 +119,26 @@ function inserirDados() {
 
 	var obj = pegaDadosLocalStorage('bd_usuarios');
 	var id = Math.round( Math.random()*1e13 );
+
+
+for (var i=obj.length-1; i>=0; i--) {
+
+		if (obj[i].email == formImputEmail.value) {
+
+			// console.log('igual')
+			formImputEmail.value = "";
+			formImputEmail.classList.add('invalid')
+			formImputEmail.focus();
+			formImputEmail.placeholder = "Email já cadastrado!"
+
+			setTimeout(function () {
+			formImputEmail.placeholder = "Email"
+			formImputEmail.classList.remove('invalid')
+			},800);
+
+			return;
+		} 
+} 
 	
 	if (formImputNome.value === "") {
 		formImputNome.focus();
@@ -153,22 +173,24 @@ function inserirDados() {
 		},800);
 	}
 	else
-	{		
-			var usuario = {
-				id    : id,
-				nome  : formImputNome.value.toUpperCase(),
-				email : formImputEmail.value.toLowerCase(),
-				senha : formImputSenha.value.toLowerCase(),
-				tipo  : formImputTipo.value
-			};
+	   {		
+						var usuario = {
+									id    : id,
+									nome  : formImputNome.value,
+									email : formImputEmail.value,
+									senha : formImputSenha.value,
+									tipo  : formImputTipo.value
+									};
 
-			obj.push(usuario);
-			salvaDadosLocalStorage("bd_usuarios", obj);
-			form.reset();
+						obj.push(usuario);
+						salvaDadosLocalStorage("bd_usuarios", obj);
+						form.reset();
 
-			formImputNome.focus();
-			fechaModalUsuario();
-	}		
+						formImputNome.focus();
+						fechaModalUsuario();						
+			
+			}		
+	
 }
 // ----------------------------------------------------------------------------------------------
 // UPDATE
@@ -181,9 +203,9 @@ function editarDados(clienteID) {
 
 	        obj[i] = {
 					id    : formImputID.value,
-					nome  : formImputNome.value.toUpperCase(),
-					email : formImputEmail.value.toLowerCase(),
-					senha : formImputSenha.value.toLowerCase(),
+					nome  : formImputNome.value,
+					email : formImputEmail.value,
+					senha : formImputSenha.value,
 					tipo  : formImputTipo.value,
 			};
 	    }

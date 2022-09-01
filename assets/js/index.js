@@ -24,7 +24,29 @@ function destravaScrollBars() {
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
+// **********************************************************************************************
+// ----------------------------------------------------------------------------------------------
+// BASE DE DADOS
+var bd_usuarios = [
+	{
+	"id":1,
+	"nome":"Administrador",
+	"email":"adm@adm.com",
+	"senha":"adm", 
+	"tipo":"adm",
+	}
+ ];
 
+function verificaLocalStorage() {
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+		
+	if (obj === null) {
+		salvaDadosLocalStorage("bd_usuarios", bd_usuarios);
+	}
+}
+// ----------------------------------------------------------------------------------------------
+// VERIFICA LOCAL STORAGE SE ESTIVER VAZIO ADICIONA UM ITEM
+verificaLocalStorage();
 var url = './assets/js/base-dados.js';
 function defineBaseDados(srtNomeBanco,srtCategoria) {
 	
@@ -240,12 +262,14 @@ btnLoginCadastrar.addEventListener('click', function () {
 	btnLoginEntrar.classList.remove('active');
 	telaCadastrar.classList.remove('ocultar');
 	telaEntrar.classList.add('ocultar');
+	imputNomeTelaCadastrar.focus();
 })
 btnLoginEntrar.addEventListener('click', function () {
 	btnLoginCadastrar.classList.remove('active');
 	btnLoginEntrar.classList.add('active');
 	telaCadastrar.classList.add('ocultar');
 	telaEntrar.classList.remove('ocultar');
+	imputEmailTelaEntrar.focus();
 })
 
 // ----------------------------------------------------------------------------------------------
@@ -263,6 +287,7 @@ function abreModalLogin() {
 	var top = window.scrollY;
 	modalLogin.style.top = `${top}px`;
 	modalLogin.classList.toggle('ocultar');
+	imputEmailTelaEntrar.focus();
 };
 function fechaModalLogin() {
 	destravaScrollBars();
@@ -274,39 +299,287 @@ function fechaModalLogin() {
 // **********************************************************************************************
 var btnPainel = document.querySelectorAll('.btn-painel');
 var spanNomeUsuario = document.querySelectorAll('.spanNomeUsuario');
+var btnUserLogin = document.querySelectorAll('.btn-login-nav');
+var btnUserSair = document.querySelectorAll('.btn-sair-nav');
 
-var usuarioSessao = 
+
+btnUserSair.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+	resetUser();
+	window.location.reload();
+	})
+})
+
+
+function resetUser() {	
+	localStorage.setItem('userId', "");
+	localStorage.setItem('userName', "Faça-Login!");
+	localStorage.setItem('userEmail', "");
+	localStorage.setItem('isLogaded', false);
+	localStorage.setItem('isADM', false);
+}
+// resetUser();
+setUser();
+
+
+
+var btnEntrarTelaEntrar = pegaElem('[data-formEntrar="btn-salvar"]');
+var btnCadastrarTelaEntrar = pegaElem('[data-formCadastrar="btn-salvar"]');
+var imputEmailTelaEntrar = pegaElem('[data-formEntrar="email"]');
+var imputSenhaTelaEntrar = pegaElem('[data-formEntrar="senha"]');
+
+var imputNomeTelaCadastrar = pegaElem('[data-formCadastrar="nome"]');
+var imputEmailCadastrar = pegaElem('[data-formCadastrar="email"]');
+var imputSenhaCadastrar = pegaElem('[data-formCadastrar="senha"]');
+var dica = pegaElem('details');
+
+btnEntrarTelaEntrar.addEventListener('click', function (e) {
+	e.preventDefault();
+	dica.removeAttribute("open");
+
+		if (imputEmailTelaEntrar.value === "") {
+		imputEmailTelaEntrar.focus();
+		imputEmailTelaEntrar.classList.add('invalid');
+		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir um email!");
+
+		setTimeout(function () {
+			imputEmailTelaEntrar.placeholder = "Email";
+			imputEmailTelaEntrar.classList.remove('invalid')
+		},1250);
+
+		} else if  (imputSenhaTelaEntrar.value === "") {
+		imputSenhaTelaEntrar.focus();
+		imputSenhaTelaEntrar.classList.add('invalid');
+		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir uma senha!");
+		
+		setTimeout(function () {
+			imputSenhaTelaEntrar.placeholder = "Senha";
+			imputSenhaTelaEntrar.classList.remove('invalid')
+		},1250);
+
+		} else {
+		    login();
+		}
+
+
+
+})
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// MENSAGEM TELA ENTRAR
+var msgLogin = pegaElem('.mensagem-tela-entrar');
+var msgCadastro = pegaElem('.mensagem-tela-cadastro');
+
+function mensagemLogin(elemento, classe, mensagem) {
+ var root = document.querySelector(':root');
+ var balao = elemento.querySelector('.msg-balao');			
+	
+	switch(classe) {
+	case "msg-erro":
+		var cor = '#d9534f';
+		break;
+	case "msg-sucesso":
+		var cor = "#5cb85c";
+		break;
+	default:
+		var cor = "transparent";
+		break;
+	}
+
+	root.style.setProperty("--cor-borda-after",cor);
+	elemento.classList.remove('ocultar');
+	balao.classList.add(classe);
+	var p = balao.querySelector('p');
+	p.innerHTML = mensagem;
+	
+	setTimeout(function () {
+	root.style.setProperty("--cor-borda-after","transparent");
+	elemento.classList.add('ocultar');
+	console.log()
+	},1250);
+}
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// LOGIN
+function login() {
+	
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var usuarioSessao = [];
+
+	for (var i in obj) {
+		// console.log(obj[i].email + "   " + imputEmailTelaEntrar.value)
+			var id = obj[i].id;
+			var nome = obj[i].nome;
+			var email = obj[i].email;
+			var senha = obj[i].senha;
+			var tipo = obj[i].tipo;
+
+		if ((imputEmailTelaEntrar.value == email)
+			&& (imputSenhaTelaEntrar.value == senha)) {
+			localStorage.setItem('userId', id);
+			localStorage.setItem('userName', nome);
+			localStorage.setItem('userEmail', email);
+			localStorage.setItem('isLogaded', true);
+			if (tipo === "adm") {localStorage.setItem('isADM', true);}
+			setUser();			
+			mensagemLogin(msgLogin,"msg-sucesso",":-) SUCESSO!... <br> Seja bem vindo!");			
+				setTimeout(function () {
+					fechaModalLogin();
+				},900);
+			break;
+
+        } 
+		else {mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Usuário ou email inválidos!");}
+
+	}
+
+		
+}
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// SETAR USUARIO SESSAO
+function setUser() {
+
+	if (localStorage.getItem('isLogaded') == 'false') {
+	var nome = localStorage.getItem('userName').split(' ')[0];
+	spanNomeUsuario.forEach(function (span) {
+	span.innerText = nome;
+	}) 
+	btnPainel.forEach(function (btn) {
+	btn.classList.add('ocultar');
+	})
+	}
+
+	if (localStorage.getItem('isLogaded') == 'true') {
+	var nome = localStorage.getItem('userName').split(' ')[0];
+	spanNomeUsuario.forEach(function (span) {
+	span.innerText = nome;
+	}) 
+	btnPainel.forEach(function (btn) {
+	btn.classList.remove('ocultar');
+	})
+	btnUserLogin.forEach(function (btn) {
+	btn.classList.add('ocultar');
+	})
+	btnUserSair.forEach(function (btn) {
+	btn.classList.remove('ocultar');
+	})
+	}
+
+	if (localStorage.getItem('isADM') == 'true') {
+	btnPainel.forEach(function (btn) {
+	btn.classList.remove('ocultar');
+	})
+	} else {
+	btnPainel.forEach(function (btn) {
+	btn.classList.add('ocultar');
+	})
+	}
+
+}
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// COPIA USUARIO ADMINISTRADOR PARA IMPUTS TELA ENTRAR
+var btnCopy = pegaElem('.btn-copy');
+btnCopy.addEventListener('click', function () {
+	dica.removeAttribute("open");
+	imputEmailTelaEntrar.value = "adm@adm.com";
+	imputSenhaTelaEntrar.value = "adm"
+})
+
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// INSERIR DADOS
+function inserirDados() {
+
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var id = Math.round( Math.random()*1e13 );
+
+for (var i=obj.length-1; i>=0; i--) {
+
+if (obj[i].email == imputEmailCadastrar.value) {
+
+	// console.log('igual')
+	imputEmailCadastrar.value = "";
+	imputEmailCadastrar.classList.add('invalid')
+	imputEmailCadastrar.focus();
+	imputEmailCadastrar.placeholder = "Email já cadastrado!"
+	mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Email já existe!");
+
+	setTimeout(function () {
+	imputEmailCadastrar.placeholder = "Email"
+	imputEmailCadastrar.classList.remove('invalid')
+	},800);
+
+	return;
+} 
+} 
+	
+	if (imputNomeTelaCadastrar.value === "") {
+		imputNomeTelaCadastrar.focus();
+		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite um nome!");
+		imputNomeTelaCadastrar.classList.add('invalid')
+		
+		setTimeout(function () {
+			imputNomeTelaCadastrar.classList.remove('invalid')
+		},800);
+	}
+	else if (imputEmailCadastrar.value === "") 
 	{
-	"id":    "",
-	"nome":  "Faça Login!",
-	"email": "",
-	};
- 
+		imputEmailCadastrar.focus();
+		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite um email!");
+		imputEmailCadastrar.classList.add('invalid')
 
-function criaSessaoUsuario() {	
-	sessionStorage.setItem('sessionUsuario', JSON.stringify(usuarioSessao));
-	// sessionStorage.setItem('isLogaded', false);
-	// sessionStorage.setItem('isADM', false);
+		setTimeout(function () {
+			imputEmailCadastrar.classList.remove('invalid')
+		},800);
+	}
+	else if (imputSenhaCadastrar.value === "") 
+	{
+		imputSenhaCadastrar.focus();
+		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite uma senha!");
+		imputSenhaCadastrar.classList.add('invalid')
 
-	sessionStorage.setItem('isLogaded', true);
-	sessionStorage.setItem('isADM', true);
+		setTimeout(function () {
+			imputSenhaCadastrar.classList.remove('invalid')
+		},800);
+	}
+	else
+	{		
+
+
+
+			var usuario = {
+				id    : id,
+				nome  : imputNomeTelaCadastrar.value,
+				email : imputEmailCadastrar.value,
+				senha : imputSenhaCadastrar.value,
+				tipo  : 'usuario'
+			};
+
+			obj.push(usuario);
+			salvaDadosLocalStorage("bd_usuarios", obj);
+			mensagemLogin(msgCadastro,"msg-sucesso",":-) SUCESSO!... <br> Usuário cadastrado com sucesso!");
+			// form.reset();
+		setTimeout(function () {
+			imputEmailTelaEntrar.value = imputEmailCadastrar.value;
+			imputSenhaTelaEntrar.value = imputSenhaCadastrar.value;
+			btnLoginEntrar.dispatchEvent(new Event('click'));			
+		},800);
+			// fechaModalUsuario();
+	}		
 }
-window.onload = criaSessaoUsuario();
 
-if (sessionStorage.getItem('isLogaded') == 'false') {
-	spanNomeUsuario.forEach(function (span) {
-		span.innerText = usuarioSessao.nome;
-	}) 
-	btnPainel.forEach(function (btn) {
-		btn.classList.add('ocultar');
-	})
-}
 
-if (sessionStorage.getItem('isLogaded') == 'true') {
-	spanNomeUsuario.forEach(function (span) {
-		span.innerText = 'Erwin!';
-	}) 
-	btnPainel.forEach(function (btn) {
-		btn.classList.remove('ocultar');
-	})
-}
+btnCadastrarTelaEntrar.addEventListener('click', function (e) {
+	e.preventDefault();
+	inserirDados();
+})

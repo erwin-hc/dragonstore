@@ -104,10 +104,10 @@
 		padding-top: 125px;
 	}
 	.nav_lateral--links li {
-		font-size: 18px;
+		font-size: 14px;
 	}
 	.nav__lateral--categoria p {
-		font-size: 18px;
+		font-size: 14px;
 	}
 
 }
@@ -192,9 +192,15 @@
 	font-size: 10px;
 	height: 30px;
   padding: .5rem;
+  width: 75px;
 }
 .btn-painel {
 	width: 30px;
+}
+
+.titulo--user span {display:inline-block}
+.titulo--user span::first-letter {
+	text-transform: uppercase;
 }
 /*------------------------------------------------*/
 /*------------------------------------------------*/
@@ -490,7 +496,9 @@ img {vertical-align: middle;}
 		.produtos__destaques {
 			display: none;
 		}
-
+		.msg-balao p {
+			font-size: 14px;
+		}
 }
 
 /*------------------------------------------------*/
@@ -731,7 +739,7 @@ a:hover .fa-brands {
 .modal--login--wrapper {
 	position: relative;
 	width: min(90%, 800px);
-	min-height: 500px;
+	min-height: 580px;
 	background-color: var(--cor-600);
 	/*border: 2px solid transparent;*/
 	border-radius: 8px;
@@ -765,7 +773,7 @@ a:hover .fa-brands {
 
 	color: var(--cor-100);
 	background-color: var(--cor-900);
-	border: 2px solid var(--cor-bordas);
+	border: 1px solid var(--cor-bordas);
 	border-bottom: none;
 
 	font-size: 12px;
@@ -776,8 +784,8 @@ a:hover .fa-brands {
 .btn-entrar-login.active {
 	color: var(--cor-azul);
 	background-color: var(--cor-600);
-	border: 2px solid var(--cor-azul);
-	border-bottom: 2px solid var(--cor-600);
+	border: 1px solid var(--cor-azul);
+	border-bottom: 1px solid var(--cor-600);
 	z-index: 10;
 }
 .btn-entrar-login.active i {
@@ -800,7 +808,7 @@ a:hover .fa-brands {
 
 	color: var(--cor-100);
 	background-color: var(--cor-900);
-	border: 2px solid var(--cor-bordas);
+	border: 1px solid var(--cor-bordas);
 	border-bottom: none;
 
 	font-size: 12px;
@@ -810,13 +818,17 @@ a:hover .fa-brands {
 .btn-cadastrar-login.active {
 	color: var(--cor-laranja);
 	background-color: var(--cor-600);
-	border: 2px solid var(--cor-laranja);
-	border-bottom: 2px solid var(--cor-600);
+	border: 1px solid var(--cor-laranja);
+	border-bottom: 1px solid var(--cor-600);
 	z-index: 10;
 }
 .btn-cadastrar-login.active i {
 		color: var(--cor-laranja);
 }
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
 /*------------------------------------------------*/
 /*TELA ENTRAR*/
 .tela--entrar {
@@ -833,7 +845,7 @@ a:hover .fa-brands {
 	height: 100%;
 	
 	border-radius: 8px;
-	border: 2px solid var(--cor-azul);
+	border: 1px solid var(--cor-azul);
 }
 
 .tela--entrar form {
@@ -857,12 +869,13 @@ a:hover .fa-brands {
 .tela--entrar input {
 	font-size: var(--fonte-m);
 	width: 80%;
-	height: 40px;
+	height: 25px;
 	border-radius: 8px;
 	background-color: var(--cor-900);
 	outline: none;
 	border: 1px solid var(--cor-bordas);
-	padding: 1.5rem;
+	padding: 1.25rem;
+	text-transform: lowercase;
 }
 
 .tela--entrar .inputs:focus {
@@ -870,24 +883,63 @@ a:hover .fa-brands {
 }
 
 .tela--entrar button {
-	height: 40px;
+	/*height: 25px;*/
 	width: 125px;
+	color: var(--cor-100);
+	font-weight: bolder;
+	font-size: 12px;
+	letter-spacing: 2px;
+	cursor: pointer;
 }
-.tela--entrar button i {
-	color: var(--cor-900);
+
+summary {
+	cursor: pointer;
+	font-size: 14px;
+	color: var(--cor-azul);
+}
+details{
+	background-color: var(--cor-600);
+	border: 1px solid var(--cor-bordas);
+	padding: .5rem 1.25rem;
+	border-radius: 8px;	
+}
+details p {
+	color: var(--cor-laranja);
+}
+
+details summary::before { 
+  content:"\02192    "; 
+  font-size: 20px;
+  font-weight: bolder;
+  color: var(--cor-azul); 
+}
+details[open] summary::before { 
+  content:"\02193    ";
+  font-size: 20px;
+  font-weight: bolder; 
+  color: var(--cor-azul); 
+}
+.dica {
+	width: 80%;
+	line-height: 1.5;
+	letter-spacing: 2px;
+	font-size: 12px;
+	font-weight: 400;
+}
+.dica i {
+	color: var(--cor-azul);
+	cursor: pointer;
+}
+.dica span {
+	color: var(--cor-azul);
+	font-weight: bolder;
 }
 /*------------------------------------------------*/
-/*DIV CONTAINER MENSAGEM TELA ENTRAR*/
-.mensagem-tela-entrar {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	width: 100%;
-  flex: 1;
-
-}
-
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
 /*------------------------------------------------*/
 /*TELA CADASTAR*/
 .tela--cadastrar {
@@ -904,7 +956,7 @@ a:hover .fa-brands {
 	height: 100%;
 	
 	border-radius: 8px;
-	border: 2px solid var(--cor-laranja);
+	border: 1px solid var(--cor-laranja);
 }
 
 .tela--cadastrar form {
@@ -928,12 +980,13 @@ a:hover .fa-brands {
 .tela--cadastrar input {
 	font-size: var(--fonte-m);
 	width: 80%;
-	height: 40px;
+	height: 25px;
 	border-radius: 8px;
 	background-color: var(--cor-900);
 	outline: none;
 	border: 1px solid var(--cor-bordas);
-	padding: 1.5rem;
+	padding: 1.25rem;
+	text-transform: lowercase;
 }
 
 .tela--cadastrar .inputs:focus {
@@ -941,41 +994,48 @@ a:hover .fa-brands {
 }
 
 .tela--cadastrar button {
-	height: 40px;
+	/*height: 40px;*/
 	width: 150px;
-}
-.tela--cadastrar button i {
 	color: var(--cor-900);
+	font-weight: bolder;
+	font-size: 12px;
+	letter-spacing: 2px;
+	cursor: pointer;
 }
 /*------------------------------------------------*/
-/*CONTAINER MENSAGEM*/
-.mensagem-tela {
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*DIV CONTAINER MENSAGEM */
+.mensagem-tela-entrar,
+.mensagem-tela-cadastro {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
-	/*justify-content: center;*/
-
-	width: 100%;	  
+	justify-content: center;
+	width: 100%;
   flex: 1;
 
 }
-.mensagem-tela img {
-  padding-bkock: .5rem;
+.mensagem-tela-entrar img,
+.mensagem-tela-cadastro img {
+  padding: .5rem;
   filter: invert(99%) sepia(3%) saturate(157%) hue-rotate(112deg) brightness(112%) contrast(84%);
-  width: 120px;
+  width: 70px;
 }
 .msg-login-wrapper {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-
+	padding-left: .25rem;
 	width: 100%;
 	height: 100%;
 	flex: 3;
 }
-.msg-login {
+.msg-balao {
 	position: relative;
-	width: 95%;
+	width: 90%;
   height: 80px;
 
 	
@@ -983,22 +1043,52 @@ a:hover .fa-brands {
 	letter-spacing: 2px;
 
 	border-radius: 8px;
-	border: 2px solid var(--cor-verde);
+	border: 1px solid var(--cor-100);
 	
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
+	padding-left: .5rem;
 }
 
-.msg-login:after {
+.msg-balao:after {
     content: '';
     position: absolute;
-    left: -20px;
-    top: 2px;
+    left: -10px;
+    top: 20px;
     width: 0;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 20px solid var(--cor-verde);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 10px solid var(--cor-borda-after);
     clear: both;
+}
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/* MENSAGEM DANGER*/
+
+.msg-erro {
+	background-color: rgba(var(--rgb-vermelho),0.1);
+	border: 2px solid var(--cor-borda-after);
+	color: var(--cor-900);
+}
+.msg-erro p {
+	letter-spacing: 2px;
+	color: var(--cor-laranja);
+	font-weight: bolder;
+}
+
+.msg-sucesso {
+	background-color: rgba(var(--rgb-verde),0.1);
+	border: 2px solid var(--cor-borda-after);
+	color: var(--cor-900);
+}
+.msg-sucesso p {
+	letter-spacing: 2px;
+	color: var(--cor-laranja);
+	font-weight: bolder;
 }

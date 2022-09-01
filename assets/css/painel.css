@@ -68,6 +68,7 @@
 .nav__lista span {
 	color: var(--cor-laranja);
 	font-size: var(--fonte-m);
+	text-transform: capitalize;
 }
 .flex-item-1 {
 	justify-self: flex-start;
@@ -242,7 +243,7 @@
 	font-size: var(--fonte-p);
 	border-radius: var(--radius);
 	background-color: var(--cor-600);
-	border: 2px solid var(--cor-laranja);
+	border: 1px solid var(--cor-laranja);
 
 
 }
@@ -276,19 +277,16 @@
 	border-radius: var(--radius);
   	outline: none;
   	background-color: var(--cor-900);
+  	text-transform: lowercase;
 }
 
 .form-usuarios select {
 	margin-bottom: 2rem;
 } 
 .inputs:focus {
-	border: 2.5px solid var(--cor-laranja);
+	border: 1px solid var(--cor-laranja);
 }
 
-.invalid {	
-	background-color: rgba(var(--rgb-vermelho),0.1);
-	border: 2px solid var(--cor-vermelho)!important;
-}
 
 /*------------------------------------------------*/
 /*------------------------------------------------*/

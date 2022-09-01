@@ -489,11 +489,31 @@ tabelaProdutos.forEach(function (tabela) {
 // ----------------------------------------------------------------------------------------------
 // BOTAO RESET BANCO DADOS
 var btnPainelLimpar = pegaElem('.btn-painel-limpar');
+var btnPainelSair = pegaElem('.btn-painel-sair');
+
 btnPainelLimpar.onclick = resetaBase;
+btnPainelSair.onclick = resetUser;
+
 function resetaBase() {
 	console.log('clicado')
 	window.localStorage.clear();
 	// window.location.reload(true);
 	window.location.href = 'index.html';
 
+}
+
+var nomeUsuario = pegaElem('.nomeUsuario');
+setUser();
+
+function setUser() {
+	var user = localStorage.getItem('userName');
+	nomeUsuario.innerText = user;
+}
+
+function resetUser() {	
+	localStorage.setItem('userId', "");
+	localStorage.setItem('userName', "Faça-Login!");
+	localStorage.setItem('userEmail', "");
+	localStorage.setItem('isLogaded', false);
+	localStorage.setItem('isADM', false);
 }

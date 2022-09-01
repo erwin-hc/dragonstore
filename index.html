@@ -36,10 +36,11 @@
 						<div class="nav__cliente__container flex-center flex-iten-3">
 								
 								<div class="titulo--user">
-								<p>Olá, <span class="spanNomeUsuario"></span></p>
+								<p>Olá, <span class="spanNomeUsuario">Faça-Login!</span></p>
 										<div class="btn--usuario--wrapper">
-												<button class="btn btn-primary btn-login-nav"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;ENTRAR</button>	
-												<a href="painel.html"><button class="btn btn-danger btn-painel ocultar"><i class="fa-solid fa-gear"></i> &nbsp;</button></a>	
+												<button class="btn btn-primary btn-login-nav">ENTRAR</button>	
+												<button class="btn btn-danger btn-sair-nav ocultar">SAIR</button>	
+												<a href="painel.html"><button class="btn btn-warning btn-painel ocultar"><i class="fa-solid fa-gear"></i> &nbsp;ADM</button></a>	
 								  	</div>
 						  	</div>
 
@@ -260,11 +261,12 @@
 
 	<div class="nav__lateral--usuario flex-center titulo--user">
 		<div class="titulo--usuarios--wrapper">
-		<p>Olá, <span class="spanNomeUsuario"></span></p>
+		<p>Olá, <span class="spanNomeUsuario">Faça-Login!</span></p>
 		</div>
 		<div class="btn--usuarios--wrapper">
-			<button class="btn btn-primary btn-login-nav"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;ENTRAR</button>		
-			<a href="painel.html"><button class="btn btn-danger btn-painel ocultar"><i class="fa-solid fa-gear"></i> &nbsp;ADM</button></a>		
+			<button class="btn btn-primary btn-login-nav">ENTRAR</button>		
+			<button class="btn btn-danger btn-sair-nav ocultar">SAIR</button>		
+			<a href="painel.html"><button class="btn btn-warning btn-painel ocultar"><i class="fa-solid fa-gear"></i> &nbsp;ADM</button></a>		
 		</div>
 	</div>
 	
@@ -298,20 +300,31 @@
 				<div class="tela--entrar ">
 
 					<form action="" class="form-tela-entrar">
-						<h3><i class="fa-solid fa-right-to-bracket"></i> ENTRAR</h3>
-						<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="email" type="email" placeholder="Email" required>		
-						<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="senha" type="text"  placeholder="Senha" required>
+						<h3>ENTRAR</h3>
+							<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="email" type="email" placeholder="Email" required>		
+							<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="senha" type="text"  placeholder="Senha" required>
+
+							<div class="dica">
+								<details>
+  							<summary>Dica...</summary>
+								<p>Faça login como administrador para habilitar as opções de atualizar, excluir ou incluir itens e usuários, habilitando o painel administrativo ;-)
+								<br>
+								email: <span>adm@adm.com</span> <br>
+								senha: <span>adm</span></p> <br>
+								<i class="btn-copy fa-regular fa-copy fa-xl"></i>
+								</details>
+							</div>
 
 						<div class="btn-container flex-center">
-							<button data-formUser="btn-salvar"  class="btn btn-primary" ><i class="fa-solid fa-right-to-bracket"></i>&nbsp;Entrar</button>
+							<button data-formEntrar="btn-salvar"  class="btn btn-primary">ENTRAR</button>
 						</div>
 					</form>
 
-					<div class="mensagem-tela">
+					<div class="mensagem-tela-entrar ocultar">
 						<img src="assets/img/dragon.svg">
 						<div class="msg-login-wrapper">
-								<div class="msg-login">
-									<p>Bem vindo!</p>
+								<div class="msg-balao">
+									<p></p>
 								</div>
 						</div>
 					</div>
@@ -321,21 +334,21 @@
 				<div class="tela--cadastrar ocultar">
 
 					<form action="" class="form-tela-cadastrar">
-						<h3><i class="fa-solid fa-user-plus"></i> CADASTRAR</h3>
+						<h3>CADASTRAR</h3>
 						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="nome" type="text"   placeholder="Nome"  required>	 
 						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="email" type="email" placeholder="Email" required>		
 						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="senha" type="text"  placeholder="Senha" required>
 
 						<div class="btn-container flex-center">
-							<button data-formUser="btn-salvar"  class="btn btn-warning"><i class="fa-solid fa-user-plus"></i>&nbsp;CADASTRAR</button>
+							<button data-formCadastrar="btn-salvar"  class="btn btn-warning">CADASTRAR</button>
 						</div>
 					</form>
 
-					<div class="mensagem-tela">
+					<div class="mensagem-tela-cadastro ocultar">
 						<img src="assets/img/dragon.svg">
 						<div class="msg-login-wrapper">
-								<div class="msg-login">
-									<p>Bem vindo!</p>
+								<div class="msg-balao">
+									<p></p>
 								</div>
 						</div>
 					</div>
@@ -352,7 +365,6 @@
 <script type="module" src="assets/js/index.js" ></script>
 
 <script>
-
 
 // SLIDE PROMOCOES
 
