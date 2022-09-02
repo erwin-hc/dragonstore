@@ -678,7 +678,8 @@ html {
 	color: var(--cor-100);
 	background-color: var(--cor-900);
 	border: 1px solid var(--cor-bordas);
-	outline: none;
+	/*outline: none;*/
+
 }
 .sobre__formulario input:focus {
 	border: 1px solid var(--cor-laranja);
@@ -739,7 +740,7 @@ a:hover .fa-brands {
 .modal--login--wrapper {
 	position: relative;
 	width: min(90%, 800px);
-	min-height: 580px;
+	min-height: 600px;
 	background-color: var(--cor-600);
 	/*border: 2px solid transparent;*/
 	border-radius: 8px;
@@ -849,6 +850,7 @@ a:hover .fa-brands {
 }
 
 .tela--entrar form {
+	position: absolute;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -856,7 +858,10 @@ a:hover .fa-brands {
 	gap: 1rem;
 
 	width: 100%;
-	flex: 3;
+	height: 500px;
+	/*flex: 1;*/
+	top: 100px;
+
 }
 
 .tela--entrar h3,
@@ -960,6 +965,7 @@ details[open] summary::before {
 }
 
 .tela--cadastrar form {
+	position: absolute;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -967,7 +973,10 @@ details[open] summary::before {
 	gap: 1rem;
 
 	width: 100%;
-	flex: 3;
+	height: 500px;
+	/*flex: 1;*/
+	top: 100px;
+
 }
 
 .tela--cadastrar h3,
@@ -1011,11 +1020,14 @@ details[open] summary::before {
 /*DIV CONTAINER MENSAGEM */
 .mensagem-tela-entrar,
 .mensagem-tela-cadastro {
+	position: absolute;
+	top: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-  flex: 1;
+	height: 100px;
+
 
 }
 .mensagem-tela-entrar img,
@@ -1031,11 +1043,12 @@ details[open] summary::before {
 	padding-left: .25rem;
 	width: 100%;
 	height: 100%;
-	flex: 3;
+
 }
 .msg-balao {
 	position: relative;
-	width: 90%;
+	width: 98%;
+	margin-right: .5rem;
   height: 80px;
 
 	
@@ -1072,23 +1085,155 @@ details[open] summary::before {
 /* MENSAGEM DANGER*/
 
 .msg-erro {
-	background-color: rgba(var(--rgb-vermelho),0.1);
-	border: 2px solid var(--cor-borda-after);
-	color: var(--cor-900);
+	background-color: rgba(var(--rgb-vermelho),1);
+	border: 2px solid var(--cor-borda-after);	
 }
 .msg-erro p {
 	letter-spacing: 2px;
-	color: var(--cor-laranja);
-	font-weight: bolder;
+	padding-left: .5rem;
+	color: var(--cor-900);
+	font-weight: 800;
 }
 
 .msg-sucesso {
-	background-color: rgba(var(--rgb-verde),0.1);
+	background-color: rgba(var(--rgb-verde),1);
 	border: 2px solid var(--cor-borda-after);
-	color: var(--cor-900);
 }
 .msg-sucesso p {
 	letter-spacing: 2px;
+	padding-left: .5rem;
+	color: var(--cor-900);
+	font-weight: 800;
+}
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/* MODAL DETALHE PRODUTO*/
+.modal__detalhe--wrapper {
+	z-index: 99999999999999999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(8px);
+	width: 100vw;
+	min-height: 100vh;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.modal__detalhe {
+	position: relative;
+	border: 1px solid var(--cor-laranja);
+	border-radius: 8px;
+
+	margin: 30px;
+	background-color: var(--cor-600);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: .5rem;
+}
+.modal__detalhe::after {
+	content: "⛌";
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	width: 30px;
+	height: 30px;
+
+	font-size: 20px;
+
+	color: var(--cor-100);
+	background-color: rgba(var(--rgb-vermelho),1);
+	border-radius: 50%;
+	border: 2px solid var(--cor-laranja);
+
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+.modal__detalhe > * {
+	/*flex: 1;*/
+	width: 350px;
+	/*min-height: 500px;*/
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 30px;
+}
+@media (max-width: 840px) {
+	.modal__detalhe {
+		width: 80%;
+	}
+}
+
+
+/*------------------------------------------------*/
+/*  DETALHE IMGAGEM*/
+.detalhe--img img {
+	width: 250px;	
+	border: 2px solid var(--cor-bordas);
+}
+
+.detalhe-inf {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: .5rem;
+	margin: 2rem;
+}
+.detalhe-inf h1 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	flex: 1;
+
+	font-family: var(--ff-titulo);
 	color: var(--cor-laranja);
-	font-weight: bolder;
+	font-size: var(--fonte-xg);
+
+}
+.detalhe-inf p {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	letter-spacing: 1px;
+	line-height: 1.5;
+
+	font-size: var(--fonte-m);
+
+	width: 100%;
+	flex: 3;
+}
+
+
+.detalhe-inf button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+
+	width: 100%;
+	height: 50px;
+	/*flex: 1;*/
+
+	font-size: var(--fonte-g);
+	font-family: var(--ff-titulo);
+	color: var(--cor-100);
 }

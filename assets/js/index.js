@@ -130,11 +130,19 @@ function populaCardsProdutos(nomeBanco, cardContainer) {
 								</div>
 
 								<div class="card-img">
-								<img src="${index.poster}">
+								<img class="conteudo-img" src="${index.poster}">
 								</div>
 
 								<div class="card-valor">
-								<p>R$ ${index.valor}</p>
+								<p class="conteudo-valor">R$ ${index.valor}</p>
+								</div>
+
+								<div class="ocultar">
+								<p class="conteudo-id">${index.id}</p>
+								<p class="conteudo-titulo">${index.titulo}</p>
+								<p class="conteudo-categoria">${index.categoria}</p>
+								<p class="conteudo-nota">${index.nota}</p>
+								<p class="conteudo-resumo">${index.resumo}</p>
 								</div>
 
 						</div>	
@@ -269,7 +277,7 @@ btnLoginEntrar.addEventListener('click', function () {
 	btnLoginEntrar.classList.add('active');
 	telaCadastrar.classList.add('ocultar');
 	telaEntrar.classList.remove('ocultar');
-	imputEmailTelaEntrar.focus();
+	//imputEmailTelaEntrar.focus();
 })
 
 // ----------------------------------------------------------------------------------------------
@@ -287,7 +295,7 @@ function abreModalLogin() {
 	var top = window.scrollY;
 	modalLogin.style.top = `${top}px`;
 	modalLogin.classList.toggle('ocultar');
-	imputEmailTelaEntrar.focus();
+	//imputEmailTelaEntrar.focus();
 };
 function fechaModalLogin() {
 	destravaScrollBars();
@@ -338,7 +346,7 @@ btnEntrarTelaEntrar.addEventListener('click', function (e) {
 	dica.removeAttribute("open");
 
 		if (imputEmailTelaEntrar.value === "") {
-		imputEmailTelaEntrar.focus();
+		//imputEmailTelaEntrar.focus();
 		imputEmailTelaEntrar.classList.add('invalid');
 		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir um email!");
 
@@ -348,7 +356,7 @@ btnEntrarTelaEntrar.addEventListener('click', function (e) {
 		},1250);
 
 		} else if  (imputSenhaTelaEntrar.value === "") {
-		imputSenhaTelaEntrar.focus();
+		//imputSenhaTelaEntrar.focus();
 		imputSenhaTelaEntrar.classList.add('invalid');
 		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir uma senha!");
 		
@@ -428,7 +436,7 @@ function login() {
 			mensagemLogin(msgLogin,"msg-sucesso",":-) SUCESSO!... <br> Seja bem vindo!");			
 				setTimeout(function () {
 					fechaModalLogin();
-				},900);
+				},1250);
 			break;
 
         } 
@@ -517,7 +525,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 	setTimeout(function () {
 	imputEmailCadastrar.placeholder = "Email"
 	imputEmailCadastrar.classList.remove('invalid')
-	},800);
+	},1250);
 
 	return;
 } 
@@ -530,7 +538,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 		
 		setTimeout(function () {
 			imputNomeTelaCadastrar.classList.remove('invalid')
-		},800);
+		},1250);
 	}
 	else if (imputEmailCadastrar.value === "") 
 	{
@@ -540,7 +548,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 
 		setTimeout(function () {
 			imputEmailCadastrar.classList.remove('invalid')
-		},800);
+		},1250);
 	}
 	else if (imputSenhaCadastrar.value === "") 
 	{
@@ -550,7 +558,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 
 		setTimeout(function () {
 			imputSenhaCadastrar.classList.remove('invalid')
-		},800);
+		},1250);
 	}
 	else
 	{		
@@ -573,7 +581,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 			imputEmailTelaEntrar.value = imputEmailCadastrar.value;
 			imputSenhaTelaEntrar.value = imputSenhaCadastrar.value;
 			btnLoginEntrar.dispatchEvent(new Event('click'));			
-		},800);
+		},1250);
 			// fechaModalUsuario();
 	}		
 }
@@ -582,4 +590,65 @@ if (obj[i].email == imputEmailCadastrar.value) {
 btnCadastrarTelaEntrar.addEventListener('click', function (e) {
 	e.preventDefault();
 	inserirDados();
+})
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var modalDetalhe = pegaElem('.modal__detalhe--wrapper');
+// ----------------------------------------------------------------------------------------------
+// FECHA MODAL NO ESC
+document.onkeydown = function(e) {
+    e = e || window.event;
+    if (e.keyCode == 27) {
+        abreModalDetalhes();
+    }
+};
+// ----------------------------------------------------------------------------------------------
+// MODAL PRODUTOS
+function abreModalDetalhes() {
+	travaScrollBars();
+	var top = window.scrollY;
+	modalDetalhe.style.top = `${top}px`;
+	modalDetalhe.classList.toggle('ocultar');
+	//imputEmailTelaEntrar.focus();
+};
+function fechaModalDetalhes() {
+	destravaScrollBars();
+	modalDetalhe.classList.add('ocultar');
+};
+// ----------------------------------------------------------------------------------------------
+modalDetalhe.addEventListener('click', function (e) {
+	if ((e.target.classList.contains('modal__detalhe--wrapper'))
+	    || (e.target.classList.contains('modal__detalhe'))) {
+		fechaModalDetalhes();
+	}
+})
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+
+var botaoDetalhe = document.querySelectorAll('.btn-detalhes');
+var detalheImg = pegaElem('.detalhe_img'); 
+var detalheTitulo = pegaElem('.detalhe_titulo'); 
+var detalheDescricao = pegaElem('.detalhe_descricao'); 
+
+botaoDetalhe.forEach(function (btn) {
+	btn.addEventListener('click', function (e) {
+		// 
+		var id = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+		var titulo = btn.parentElement.parentElement.querySelector('.conteudo-titulo').innerText;
+		var valor = btn.parentElement.parentElement.querySelector('.conteudo-valor').innerText;
+		var categoria = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
+		var nota = btn.parentElement.parentElement.querySelector('.conteudo-nota').innerText;
+		var poster = btn.parentElement.parentElement.querySelector('.conteudo-img').src;
+		var descricao = btn.parentElement.parentElement.querySelector('.conteudo-resumo').innerText;
+
+		detalheImg.src = poster;
+		detalheTitulo.innerText = titulo;
+		detalheDescricao.innerText = descricao;
+
+		abreModalDetalhes();
+
+	})
 })

@@ -299,6 +299,15 @@
 
 				<div class="tela--entrar ">
 
+					<div class="mensagem-tela-entrar ocultar">
+						<img src="assets/img/dragon.svg">
+						<div class="msg-login-wrapper">
+								<div class="msg-balao">
+									<p></p>
+								</div>
+						</div>
+					</div>
+
 					<form action="" class="form-tela-entrar">
 						<h3>ENTRAR</h3>
 							<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="email" type="email" placeholder="Email" required>		
@@ -307,7 +316,7 @@
 							<div class="dica">
 								<details>
   							<summary>Dica...</summary>
-								<p>Faça login como administrador para habilitar as opções de atualizar, excluir ou incluir itens e usuários, habilitando o painel administrativo ;-)
+								<p>Faça login como administrador para habilitar funções extras, habilitando o painel administrativo ;-)
 								<br>
 								email: <span>adm@adm.com</span> <br>
 								senha: <span>adm</span></p> <br>
@@ -320,29 +329,10 @@
 						</div>
 					</form>
 
-					<div class="mensagem-tela-entrar ocultar">
-						<img src="assets/img/dragon.svg">
-						<div class="msg-login-wrapper">
-								<div class="msg-balao">
-									<p></p>
-								</div>
-						</div>
-					</div>
 					
 				</div>
 
 				<div class="tela--cadastrar ocultar">
-
-					<form action="" class="form-tela-cadastrar">
-						<h3>CADASTRAR</h3>
-						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="nome" type="text"   placeholder="Nome"  required>	 
-						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="email" type="email" placeholder="Email" required>		
-						<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="senha" type="text"  placeholder="Senha" required>
-
-						<div class="btn-container flex-center">
-							<button data-formCadastrar="btn-salvar"  class="btn btn-warning">CADASTRAR</button>
-						</div>
-					</form>
 
 					<div class="mensagem-tela-cadastro ocultar">
 						<img src="assets/img/dragon.svg">
@@ -352,14 +342,43 @@
 								</div>
 						</div>
 					</div>
+
+					<form action="" class="form-tela-cadastrar">
+						<h3>CADASTRAR</h3>
+							<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="nome" type="text"   placeholder="Nome"  required>	 
+							<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="email" type="email" placeholder="Email" required>		
+							<input class="inputs" spellcheck="false" autocomplete="off" data-formCadastrar="senha" type="text"  placeholder="Senha" required>
+
+							<div class="btn-container flex-center">
+								<button data-formCadastrar="btn-salvar" class="btn btn-warning">CADASTRAR</button>
+							</div>
+					</form>
+
 							
 				</div>
 
 		</div>
+</div> <!-- FIM MODA USUARIOS -->
 
-</div>
 <!-- -------------------------------------------------------------------------------------------------- -->
-	
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- MODAL PRODUTOS DETALHES -->
+<div class="modal__detalhe--wrapper ocultar">
+		<div class="modal__detalhe">
+			<div class="detalhe--img">
+				<img class="detalhe_img" src="https://image.tmdb.org/t/p/original//g7Ii9sYAFG96W7cvMQ4zXq39RJ5.jpg" alt="">
+			</div>
+			<div class="detalhe-inf">
+				<h1 class="detalhe_titulo detalhe--titulo">O Predador: A Caçada</h1>
+				<p class="detalhe_descricao detalhe--descricao">Ambientado no mundo da Nação Comanche no início de 1700, \"O Predador: A Caçada\" é a história não contada de uma jovem guerreira altamente qualificada, desesperada para proteger seu povo do perigo iminente. Ela persegue e finalmente confronta sua presa, que acaba sendo um predador alienígena altamente evoluído com um arsenal tecnologicamente avançado, resultando em um confronto brutal e aterrorizante entre os adversários.
+
+				</p>
+				<button class="detalhe--btn btn-danger"><i class="fa-solid fa-cart-shopping fa-xl"></i>&nbsp;COMPRAR</button>
+			</div>
+		</div>
+</div>	<!-- FIM MODAL PRODUTOS DETALHES -->
+
+
 </body>
 
 <script type="module" src="assets/js/index.js" ></script>

@@ -47,7 +47,7 @@
 	grid-area: footer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 	.nav__principal__painel .img-logo {
 		display: none;
 	}

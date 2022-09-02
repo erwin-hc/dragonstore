@@ -291,7 +291,7 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 			var produto = {
 				id        : id,
 				titulo    : formImputTitulo.value,
-				valor     : formImputValor.value,
+				valor     : parseFloat(formImputValor.value).toFixed(2).replace(".", ","),
 				categoria : categoria,
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,
