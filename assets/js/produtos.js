@@ -291,7 +291,7 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 			var produto = {
 				id        : id,
 				titulo    : formImputTitulo.value,
-				valor     : parseFloat(formImputValor.value).toFixed(2).replace(".", ","),
+				valor     : formImputValor.value,
 				categoria : categoria,
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,
@@ -495,9 +495,10 @@ btnPainelLimpar.onclick = resetaBase;
 btnPainelSair.onclick = resetUser;
 
 function resetaBase() {
-	console.log('clicado')
+
 	window.localStorage.clear();
 	// window.location.reload(true);
+	localStorage.setItem('reloadIndex', 'true');
 	window.location.href = 'index.html';
 
 }

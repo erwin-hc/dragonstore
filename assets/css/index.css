@@ -1133,7 +1133,7 @@ details[open] summary::before {
 	border: 1px solid var(--cor-laranja);
 	border-radius: 8px;
 
-	margin: 30px;
+	margin: 1rem;
 	background-color: var(--cor-600);
 
 	display: flex;
@@ -1177,6 +1177,9 @@ details[open] summary::before {
 	.modal__detalhe {
 		width: 80%;
 	}
+	.detalhe--img {
+		display: none;
+	}
 }
 
 
@@ -1216,13 +1219,11 @@ details[open] summary::before {
 	letter-spacing: 1px;
 	line-height: 1.5;
 
-	font-size: var(--fonte-m);
+	font-size: var(--fonte-g);
 
 	width: 100%;
 	flex: 3;
 }
-
-
 .detalhe-inf button {
 	display: flex;
 	align-items: center;
@@ -1237,3 +1238,12 @@ details[open] summary::before {
 	font-family: var(--ff-titulo);
 	color: var(--cor-100);
 }
+/*------------------------------------------------*/
+/*AVALIACAO*/
+.nota {
+	color: var(--cor-laranja);
+	
+}
+
+
+/*------------------------------------------------*/

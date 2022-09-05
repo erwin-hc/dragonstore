@@ -134,15 +134,11 @@ function populaCardsProdutos(nomeBanco, cardContainer) {
 								</div>
 
 								<div class="card-valor">
-								<p class="conteudo-valor">R$ ${index.valor}</p>
+								<p class="conteudo-valor">R$ ${index.valor.replace(".",",")}</p>
 								</div>
 
 								<div class="ocultar">
 								<p class="conteudo-id">${index.id}</p>
-								<p class="conteudo-titulo">${index.titulo}</p>
-								<p class="conteudo-categoria">${index.categoria}</p>
-								<p class="conteudo-nota">${index.nota}</p>
-								<p class="conteudo-resumo">${index.resumo}</p>
 								</div>
 
 						</div>	
@@ -601,21 +597,26 @@ var modalDetalhe = pegaElem('.modal__detalhe--wrapper');
 document.onkeydown = function(e) {
     e = e || window.event;
     if (e.keyCode == 27) {
-        abreModalDetalhes();
+        fechaModalDetalhes();
     }
 };
 // ----------------------------------------------------------------------------------------------
+var produtosInicioContainer = pegaElem('.container__inicio');
+
 // MODAL PRODUTOS
 function abreModalDetalhes() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalDetalhe.style.top = `${top}px`;
+	// travaScrollBars();
+	// var top = window.scrollY;
+	// var top = 0;
+	// modalDetalhe.style.top = `${top}px`;
 	modalDetalhe.classList.toggle('ocultar');
+	produtosInicioContainer.classList.add('ocultar');
 	//imputEmailTelaEntrar.focus();
 };
 function fechaModalDetalhes() {
-	destravaScrollBars();
+	// destravaScrollBars();
 	modalDetalhe.classList.add('ocultar');
+	produtosInicioContainer.classList.remove('ocultar');
 };
 // ----------------------------------------------------------------------------------------------
 modalDetalhe.addEventListener('click', function (e) {
@@ -632,23 +633,43 @@ var botaoDetalhe = document.querySelectorAll('.btn-detalhes');
 var detalheImg = pegaElem('.detalhe_img'); 
 var detalheTitulo = pegaElem('.detalhe_titulo'); 
 var detalheDescricao = pegaElem('.detalhe_descricao'); 
+var detalheNota = pegaElem('.nota');
+var detalheValor = pegaElem('.valor');
 
 botaoDetalhe.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
-		// 
-		var id = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
-		var titulo = btn.parentElement.parentElement.querySelector('.conteudo-titulo').innerText;
-		var valor = btn.parentElement.parentElement.querySelector('.conteudo-valor').innerText;
-		var categoria = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
-		var nota = btn.parentElement.parentElement.querySelector('.conteudo-nota').innerText;
-		var poster = btn.parentElement.parentElement.querySelector('.conteudo-img').src;
-		var descricao = btn.parentElement.parentElement.querySelector('.conteudo-resumo').innerText;
 
-		detalheImg.src = poster;
-		detalheTitulo.innerText = titulo;
-		detalheDescricao.innerText = descricao;
+		// var id = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+		// var titulo = btn.parentElement.parentElement.querySelector('.conteudo-titulo').innerText;
+		// var valor = btn.parentElement.parentElement.querySelector('.conteudo-valor').innerText;
+		// var categoria = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
+		// var nota = btn.parentElement.parentElement.querySelector('.conteudo-nota').innerText;
+		// var poster = btn.parentElement.parentElement.querySelector('.conteudo-img').src;
+		// var descricao = btn.parentElement.parentElement.querySelector('.conteudo-resumo').innerText;
+
+		// detalheImg.src = poster;
+		// detalheTitulo.innerText = titulo;
+		// detalheDescricao.innerText = descricao;
+
+		var obj = pegaDadosLocalStorage('bd_todos');
+
+		for (var i = 0; i < obj.length; i++) {
+			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+
+			if (obj[i].id == search_term) {
+				detalheImg.src = obj[i].poster;
+				detalheTitulo.innerText = obj[i].titulo;
+				detalheDescricao.innerText = obj[i].resumo;
+				detalheNota.innerText = obj[i].nota;
+				detalheValor.innerText = obj[i].valor;
+			}
+
+		}
 
 		abreModalDetalhes();
 
 	})
 })
+
+
+

@@ -371,8 +371,10 @@
 			<div class="detalhe-inf">
 				<h1 class="detalhe_titulo detalhe--titulo">O Predador: A Caçada</h1>
 				<p class="detalhe_descricao detalhe--descricao">Ambientado no mundo da Nação Comanche no início de 1700, \"O Predador: A Caçada\" é a história não contada de uma jovem guerreira altamente qualificada, desesperada para proteger seu povo do perigo iminente. Ela persegue e finalmente confronta sua presa, que acaba sendo um predador alienígena altamente evoluído com um arsenal tecnologicamente avançado, resultando em um confronto brutal e aterrorizante entre os adversários.
-
 				</p>
+				<br>
+				<p>Avaliação: &nbsp;&nbsp;<span class="nota"></span></p>
+				<p>Valor: &nbsp;&nbsp;<span class="valor"></span></p>
 				<button class="detalhe--btn btn-danger"><i class="fa-solid fa-cart-shopping fa-xl"></i>&nbsp;COMPRAR</button>
 			</div>
 		</div>
@@ -381,11 +383,20 @@
 
 </body>
 
-<script type="module" src="assets/js/index.js" ></script>
+<script type="module"  async src="assets/js/index.js" ></script>
 
 <script>
-
 // SLIDE PROMOCOES
+
+
+
+
+setTimeout(function () {
+	if (localStorage.getItem('reloadIndex') == 'true') {
+	location.reload(); 
+	localStorage.setItem('reloadIndex', false);
+}
+},800);
 
 let slideIndex = 1;
 showSlides(slideIndex);
