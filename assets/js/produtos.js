@@ -78,7 +78,7 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 							</td>
 							<td class="colunaID" id='tdId'>${index.id}</td>
 							<td id='tdTitulo'>${index.titulo}</td>
-							<td id='tdValor'>${index.valor}</td>
+							<td id='tdValor'>${index.valor.replace(".",",")}</td>
 							<td id='tdCategoria'>${index.categoria}</td>
 							<td id='tdNota'>${index.nota}</td>
 							<td id='tdPoster'>${index.poster}</td>
@@ -291,7 +291,7 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 			var produto = {
 				id        : id,
 				titulo    : formImputTitulo.value,
-				valor     : formImputValor.value,
+				valor     : formImputValor.value.replace(".",","),
 				categoria : categoria,
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,
@@ -320,7 +320,7 @@ function editarDadosPro(produtoID, srtNomeBanco) {
 	        obj[i] = {
 				id        : formImputId.value,
 				titulo    : formImputTitulo.value,
-				valor     : formImputValor.value,
+				valor     : formImputValor.value.replace(".",","),
 				categoria : obj[i].categoria,
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,

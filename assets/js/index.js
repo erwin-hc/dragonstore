@@ -139,6 +139,7 @@ function populaCardsProdutos(nomeBanco, cardContainer) {
 
 								<div class="ocultar">
 								<p class="conteudo-id">${index.id}</p>
+								<p class="conteudo-categoria">${index.categoria}</p>
 								</div>
 
 						</div>	
@@ -168,6 +169,7 @@ function populaCardsProdutosTodas() {
 
 
 var bdAcaco = pegaDadosLocalStorage('bd_acao');
+var timePlus = 200;
 
 if (bdAcaco !== null)
 {
@@ -176,12 +178,12 @@ if (bdAcaco !== null)
 else
 {
 	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
-	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 1500);
-	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 2500);
-	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 3500);
-	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 4500);
-	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 5500);
-	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 6500);
+	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 600 + timePlus);
+	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 700 + timePlus);
+	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 800 + timePlus);
+	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 900 + timePlus);
+	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 1000 + timePlus);
+	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 1100 + timePlus);
 }
 
 
@@ -266,14 +268,14 @@ btnLoginCadastrar.addEventListener('click', function () {
 	btnLoginEntrar.classList.remove('active');
 	telaCadastrar.classList.remove('ocultar');
 	telaEntrar.classList.add('ocultar');
-	imputNomeTelaCadastrar.focus();
+
 })
 btnLoginEntrar.addEventListener('click', function () {
 	btnLoginCadastrar.classList.remove('active');
 	btnLoginEntrar.classList.add('active');
 	telaCadastrar.classList.add('ocultar');
 	telaEntrar.classList.remove('ocultar');
-	//imputEmailTelaEntrar.focus();
+
 })
 
 // ----------------------------------------------------------------------------------------------
@@ -291,7 +293,7 @@ function abreModalLogin() {
 	var top = window.scrollY;
 	modalLogin.style.top = `${top}px`;
 	modalLogin.classList.toggle('ocultar');
-	//imputEmailTelaEntrar.focus();
+
 };
 function fechaModalLogin() {
 	destravaScrollBars();
@@ -342,7 +344,7 @@ btnEntrarTelaEntrar.addEventListener('click', function (e) {
 	dica.removeAttribute("open");
 
 		if (imputEmailTelaEntrar.value === "") {
-		//imputEmailTelaEntrar.focus();
+
 		imputEmailTelaEntrar.classList.add('invalid');
 		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir um email!");
 
@@ -352,7 +354,7 @@ btnEntrarTelaEntrar.addEventListener('click', function (e) {
 		},1250);
 
 		} else if  (imputSenhaTelaEntrar.value === "") {
-		//imputSenhaTelaEntrar.focus();
+
 		imputSenhaTelaEntrar.classList.add('invalid');
 		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir uma senha!");
 		
@@ -514,7 +516,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 	// console.log('igual')
 	imputEmailCadastrar.value = "";
 	imputEmailCadastrar.classList.add('invalid')
-	imputEmailCadastrar.focus();
+
 	imputEmailCadastrar.placeholder = "Email já cadastrado!"
 	mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Email já existe!");
 
@@ -528,7 +530,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 } 
 	
 	if (imputNomeTelaCadastrar.value === "") {
-		imputNomeTelaCadastrar.focus();
+
 		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite um nome!");
 		imputNomeTelaCadastrar.classList.add('invalid')
 		
@@ -538,7 +540,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 	}
 	else if (imputEmailCadastrar.value === "") 
 	{
-		imputEmailCadastrar.focus();
+
 		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite um email!");
 		imputEmailCadastrar.classList.add('invalid')
 
@@ -548,7 +550,7 @@ if (obj[i].email == imputEmailCadastrar.value) {
 	}
 	else if (imputSenhaCadastrar.value === "") 
 	{
-		imputSenhaCadastrar.focus();
+
 		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite uma senha!");
 		imputSenhaCadastrar.classList.add('invalid')
 
@@ -611,7 +613,7 @@ function abreModalDetalhes() {
 	// modalDetalhe.style.top = `${top}px`;
 	modalDetalhe.classList.toggle('ocultar');
 	produtosInicioContainer.classList.add('ocultar');
-	//imputEmailTelaEntrar.focus();
+
 };
 function fechaModalDetalhes() {
 	// destravaScrollBars();
@@ -636,24 +638,41 @@ var detalheDescricao = pegaElem('.detalhe_descricao');
 var detalheNota = pegaElem('.nota');
 var detalheValor = pegaElem('.valor');
 
+
+
 botaoDetalhe.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
 
-		// var id = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
-		// var titulo = btn.parentElement.parentElement.querySelector('.conteudo-titulo').innerText;
-		// var valor = btn.parentElement.parentElement.querySelector('.conteudo-valor').innerText;
-		// var categoria = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
-		// var nota = btn.parentElement.parentElement.querySelector('.conteudo-nota').innerText;
-		// var poster = btn.parentElement.parentElement.querySelector('.conteudo-img').src;
-		// var descricao = btn.parentElement.parentElement.querySelector('.conteudo-resumo').innerText;
+			var srtNomeBanco;
 
-		// detalheImg.src = poster;
-		// detalheTitulo.innerText = titulo;
-		// detalheDescricao.innerText = descricao;
+			var attrGenero = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
+			switch(attrGenero) {
+			case 'Ação':
+			srtNomeBanco = 'bd_acao';
+			break;
+			case 'Aventura':
+			srtNomeBanco = 'bd_aventura';
+			break;
+			case 'Comédia':
+			srtNomeBanco = 'bd_comedia';
+			break;
+			case 'Drama':
+			srtNomeBanco = 'bd_drama';
+			break;
+			case 'Fantasia':
+			srtNomeBanco = 'bd_fantasia';
+			break;
+			case 'Horror':
+			srtNomeBanco = 'bd_horror';
+			break;
+			case 'Ficção':
+			srtNomeBanco = 'bd_ficcao';
+			break;
+			}
 
-		var obj = pegaDadosLocalStorage('bd_todos');
+			var obj = pegaDadosLocalStorage(srtNomeBanco);
 
-		for (var i = 0; i < obj.length; i++) {
+			for (var i = 0; i < obj.length; i++) {
 			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
 
 			if (obj[i].id == search_term) {
@@ -661,15 +680,69 @@ botaoDetalhe.forEach(function (btn) {
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
 				detalheNota.innerText = obj[i].nota;
-				detalheValor.innerText = obj[i].valor;
+				detalheValor.innerText = "R$ " + obj[i].valor.replace(".",",");
 			}
 
-		}
+			}
 
-		abreModalDetalhes();
+			abreModalDetalhes();
 
-	})
+			})
 })
 
 
 
+var idDestaque = document.querySelectorAll('.id-destaque');
+var categoriaDestaque = document.querySelectorAll('.categoria-destaque');
+var imgDestaque = document.querySelectorAll('.imgDestaque');
+
+imgDestaque.forEach(function (img) {
+	img.addEventListener('click', function (e) {
+
+		var srtNomeBanco;
+
+			var attrGenero = e.target.parentElement.querySelector('.categoria-destaque').innerText;
+			switch(attrGenero) {
+			case 'Ação':
+			srtNomeBanco = 'bd_acao';
+			break;
+			case 'Aventura':
+			srtNomeBanco = 'bd_aventura';
+			break;
+			case 'Comédia':
+			srtNomeBanco = 'bd_comedia';
+			break;
+			case 'Drama':
+			srtNomeBanco = 'bd_drama';
+			break;
+			case 'Fantasia':
+			srtNomeBanco = 'bd_fantasia';
+			break;
+			case 'Horror':
+			srtNomeBanco = 'bd_horror';
+			break;
+			case 'Ficção':
+			srtNomeBanco = 'bd_ficcao';
+			break;
+			}
+
+			var obj = pegaDadosLocalStorage(srtNomeBanco);
+
+			for (var i = 0; i < obj.length; i++) {
+			var search_term = e.target.parentElement.querySelector('.id-destaque').innerText;
+
+			if (obj[i].id == search_term) {
+				detalheImg.src = obj[i].poster;
+				detalheTitulo.innerText = obj[i].titulo;
+				detalheDescricao.innerText = obj[i].resumo;
+				detalheNota.innerText = obj[i].nota;
+				detalheValor.innerText = "R$ " + obj[i].valor.replace(".",",");
+			}
+
+			}
+
+			abreModalDetalhes();
+
+			})
+		// body...
+	})

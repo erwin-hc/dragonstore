@@ -2,7 +2,8 @@
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=yes">
 	<title>Dragon Blurays - Filmes em bluray</title>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -93,6 +94,8 @@
 								<div class="text-cima">DESTAQUES</div>
 								<img class="imgDestaque" src="https://image.tmdb.org/t/p/original//9e6wp707XMouPG939o2fHunXXJR.jpg" style="width:100%">
 								<div class="text tituloDestaque">A Família Addams 2: Pé na Estrada</div>
+								<div class="ocultar id-destaque">9811559605828</div>
+								<div class="ocultar categoria-destaque">Aventura</div>
 								</div>
 
 								<div class="mySlides fade">
@@ -100,6 +103,8 @@
 								<div class="text-cima">DESTAQUES</div>
 								<img class="imgDestaque" src="https://image.tmdb.org/t/p/original//ubNevniKd5NYo60DqYIQ29T0uyB.jpg" style="width:100%;">
 								<div class="text tituloDestaque">John Carter: Entre Dois Mundos</div>
+								<div class="ocultar id-destaque">5670348311956</div>
+								<div class="ocultar categoria-destaque">Ficção</div>
 								</div>
 
 								<div class="mySlides fade">
@@ -107,6 +112,8 @@
 								<div class="text-cima">DESTAQUES</div>
 								<img class="imgDestaque" src="https://image.tmdb.org/t/p/original//blfZnm6StMPnTY35kaooPBCsSVp.jpg" style="width:100%">
 								<div class="text tituloDestaque">Uma Noite de Crime: Anarquia</div>
+								<div class="ocultar id-destaque">5318980341526</div>
+								<div class="ocultar categoria-destaque">Ficção</div>
 								</div>
 
 
@@ -316,7 +323,7 @@
 							<div class="dica">
 								<details>
   							<summary>Dica...</summary>
-								<p>Faça login como administrador para habilitar funções extras, habilitando o painel administrativo ;-)
+								<p>Faça login como administrador para habilitar o painel de controle ;-)
 								<br>
 								email: <span>adm@adm.com</span> <br>
 								senha: <span>adm</span></p> <br>
@@ -396,7 +403,7 @@ setTimeout(function () {
 	location.reload(); 
 	localStorage.setItem('reloadIndex', false);
 }
-},800);
+},1500);
 
 let slideIndex = 1;
 showSlides(slideIndex);
