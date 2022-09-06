@@ -1140,7 +1140,7 @@ details[open] summary::before {
 	position: absolute;
 	top: 0;
 	left: 0;
-
+padding-block: 2rem ;
 	/*background-color: rgba(0, 0, 0, .8);*/
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -1156,6 +1156,7 @@ details[open] summary::before {
 }
 
 .modal__detalhe {
+	padding-block: 1rem ;
 	z-index: 9;
 	position: relative;
 	border: 1px solid var(--cor-laranja);

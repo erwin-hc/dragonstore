@@ -678,7 +678,7 @@ botaoDetalhe.forEach(function (btn) {
 			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
 
 			if (obj[i].id == search_term) {
-				modalDetalheWrapper.style.backgroundImage = `linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.9)), url(${obj[i].background})`;
+				modalDetalheWrapper.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.9)), url(${obj[i].background})`;
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
