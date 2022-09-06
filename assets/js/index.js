@@ -678,11 +678,13 @@ botaoDetalhe.forEach(function (btn) {
 			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
 
 			if (obj[i].id == search_term) {
+				modalDetalheWrapper.style.backgroundImage = `linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0.9)), url(${obj[i].background})`;
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
 				detalheNota.innerText = obj[i].nota;
 				detalheValor.innerText = "R$ " + obj[i].valor.replace(".",",");
+
 			}
 
 			}
@@ -697,6 +699,7 @@ botaoDetalhe.forEach(function (btn) {
 var idDestaque = document.querySelectorAll('.id-destaque');
 var categoriaDestaque = document.querySelectorAll('.categoria-destaque');
 var imgDestaque = document.querySelectorAll('.imgDestaque');
+var modalDetalheWrapper = document.querySelector('.modal__detalhe--wrapper');
 
 imgDestaque.forEach(function (img) {
 	img.addEventListener('click', function (e) {
@@ -734,6 +737,7 @@ imgDestaque.forEach(function (img) {
 			var search_term = e.target.parentElement.querySelector('.id-destaque').innerText;
 
 			if (obj[i].id == search_term) {
+				modalDetalheWrapper.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),url(${obj[i].background})`;
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
@@ -755,6 +759,7 @@ imgDestaque.forEach(function (img) {
 var inputSearch = document.querySelector('.input-search');
 var produtosDestaques = pegaElem('.produtos__destaques');
 var iconeApagar = pegaElem('.icone-apagar');
+var produtosContainer = document.querySelectorAll('.produtos__container');
 
 inputSearch.addEventListener('keyup', function (event) {
 
@@ -765,15 +770,34 @@ inputSearch.addEventListener('keyup', function (event) {
 			cards = cardContainer.querySelectorAll('.card-container');
 			for (i = 0; i < cards.length; i++) {
 			title = cards[i].querySelector(".conteudo-titulo");
+			
 			if (title.innerText.toUpperCase().indexOf(filter) > -1) {
-			cards[i].style.display = "";
-			produtosDestaques.style.display = "";
-			iconeApagar.classList.add('ocultar');
+					cards[i].style.display = "";
+					produtosDestaques.style.display = "";
+					iconeApagar.classList.add('ocultar');
 			} else {
-			cards[i].style.display = "none";
-			produtosDestaques.style.display = "none";
-			iconeApagar.classList.remove('ocultar');
+					cards[i].style.display = "none";
+					produtosDestaques.style.display = "none";
+					iconeApagar.classList.remove('ocultar');
+
 			}
+
+					iconeApagar.addEventListener('click', function (e) {
+					inputSearch.value = "";
+					title.value = "";
+					iconeApagar.classList.add('ocultar');
+					produtosDestaques.style.display = "";
+					
+					cards.forEach(function (card) {
+					card.style.display = "";
+					})
+					produtosContainer.forEach(function (section) {
+					section.style.display = "";	
+					})
+
+
+					})
+
 			}
 
 			ocultaCategorias(produtosContainerAcao);
@@ -783,8 +807,9 @@ inputSearch.addEventListener('keyup', function (event) {
 			ocultaCategorias(produtosContainerFantasia);
 			ocultaCategorias(produtosContainerHorror);
 			ocultaCategorias(produtosContainerFiccao);
-
+			
 })
+
 
 
 var produtosContainerAcao = document.querySelector('.produtos__acao__container');
@@ -811,7 +836,4 @@ function ocultaCategorias(elemento) {
 		}	
 }
 
-iconeApagar.addEventListener('click', function (e) {
-	inputSearch.value = "";
 
-})

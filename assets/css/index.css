@@ -65,51 +65,47 @@
 /*------------------------------------------------*/
 /*------------------------------------------------*/
 @media (max-width: 768px) {
-	.container__inicio {
-	grid-template-areas: "navc navc navc"
-						 ". main ."
-						 "ftc ftc ftc";
-	grid-template-rows: auto 
-						1fr
-						auto;	
-}
-	.nav__principal__inicio {
-		display: grid;
-		grid-template-areas: "logo icone"
-							 "pesq pesq";
+					.container__inicio {
+					grid-template-areas: "navc navc navc"
+					 ". main ."
+					 "ftc ftc ftc";
+					grid-template-rows: auto 
+					1fr
+					auto;	
+					}
+				.nav__principal__inicio {
+					display: grid;
+					grid-template-areas: "logo icone"
+										 "pesq pesq";
 
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 80px 60px;			
-	} 
-	.flex-iten-1 {
-		grid-area: logo;
-	}
-	.flex-iten-2 {
-		grid-area: pesq;
-		border-bottom: 1px solid var(--cor-bordas);
-	}
-	.flex-iten-3 {
-		display: none;
-	}
-	.flex-iten-4 {
-		grid-area: icone;
-	}
-	.flex-iten-5 {
-		display: none;
-	}
-
-	.produtos__container {
-		padding-top: 50px;
-	}
-	.produtos__acao__container {
-		padding-top: 125px;
-	}
-	.nav_lateral--links li {
-		font-size: 14px;
-	}
-	.nav__lateral--categoria p {
-		font-size: 14px;
-	}
+					grid-template-columns: 1fr 1fr;
+					grid-template-rows: 80px 60px;			
+				} 
+				.flex-iten-1 {
+					grid-area: logo;
+				}
+				.flex-iten-2 {
+					grid-area: pesq;
+					border-bottom: 1px solid var(--cor-bordas);
+				}
+				.flex-iten-3 {
+					display: none;
+				}
+				.flex-iten-4 {
+					grid-area: icone;
+				}
+				.flex-iten-5 {
+					display: none;
+				}
+				.produtos__container {
+					padding-top: 50px;
+				}
+				.nav_lateral--links li {
+					font-size: 14px;
+				}
+				.nav__lateral--categoria p {
+					font-size: 14px;
+				}
 
 }
 /*------------------------------------------------*/
@@ -147,11 +143,10 @@
 }
 .icone--cart {
 	position: relative;
-	width: 40;
 	height: 40px;
 	margin-inline: 20px ;
 }
-/*icone--cart*/
+
 .icone-carrinho-wrapper::before {
 	z-index: 1;
 	position: absolute;
@@ -542,7 +537,7 @@ html {
 
 .produtos__container  {
 	margin-inline: 15px;
-	margin-top: 50px;
+	margin-top: 125px;
 	margin-bottom: 0;
 }
 
@@ -936,7 +931,6 @@ details{
 }
 details p {
 	color: var(--cor-laranja);
-	text-size-adjust: none;
 }
 
 details summary::before { 
@@ -1142,14 +1136,18 @@ details[open] summary::before {
 /*------------------------------------------------*/
 /* MODAL DETALHE PRODUTO*/
 .modal__detalhe--wrapper {
-	z-index: 99999999999999999;
+	z-index: 2;	
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(8px);
+
+	/*background-color: rgba(0, 0, 0, .8);*/
+	background-repeat: no-repeat;
+	background-size: cover;
+
 	width: 100vw;
 	min-height: 100vh;
+
 
 	display: flex;
 	align-items: center;
@@ -1158,10 +1156,14 @@ details[open] summary::before {
 }
 
 .modal__detalhe {
+	z-index: 9;
 	position: relative;
 	border: 1px solid var(--cor-laranja);
 	border-radius: 8px;
-	background-color: var(--cor-600);
+	/*background-color: var(--cor-600);*/
+	background-color: transparent;
+	backdrop-filter: blur(20px);
+
 
 	display: flex;
 	align-items: center;
