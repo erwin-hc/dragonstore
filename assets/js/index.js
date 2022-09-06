@@ -124,7 +124,9 @@ function populaCardsProdutos(nomeBanco, cardContainer) {
 	var html = `<div class="card-container">						
 
 						<div class="card">
-
+								<div class="ocultar">
+								<p class="conteudo-titulo">${index.titulo}</p>
+								</div>
 								<div class="svg-bluray-container">
 								<img class="svg-bluray" src="assets/img/bluray.svg">
 								</div>
@@ -746,3 +748,70 @@ imgDestaque.forEach(function (img) {
 			})
 		// body...
 	})
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var inputSearch = document.querySelector('.input-search');
+var produtosDestaques = pegaElem('.produtos__destaques');
+var iconeApagar = pegaElem('.icone-apagar');
+
+inputSearch.addEventListener('keyup', function (event) {
+
+			var  filter, cards, cardContainer, title, i;
+			filter = inputSearch.value.toUpperCase();
+			cardContainer = document.querySelector('.produtos__inicio--container');
+
+			cards = cardContainer.querySelectorAll('.card-container');
+			for (i = 0; i < cards.length; i++) {
+			title = cards[i].querySelector(".conteudo-titulo");
+			if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+			cards[i].style.display = "";
+			produtosDestaques.style.display = "";
+			iconeApagar.classList.add('ocultar');
+			} else {
+			cards[i].style.display = "none";
+			produtosDestaques.style.display = "none";
+			iconeApagar.classList.remove('ocultar');
+			}
+			}
+
+			ocultaCategorias(produtosContainerAcao);
+			ocultaCategorias(produtosContainerAventura);
+			ocultaCategorias(produtosContainerComedia);
+			ocultaCategorias(produtosContainerDrama);
+			ocultaCategorias(produtosContainerFantasia);
+			ocultaCategorias(produtosContainerHorror);
+			ocultaCategorias(produtosContainerFiccao);
+
+})
+
+
+var produtosContainerAcao = document.querySelector('.produtos__acao__container');
+var produtosContainerAventura = document.querySelector('.produtos__aventura__container');
+var produtosContainerComedia = document.querySelector('.produtos__comedia__container');
+var produtosContainerDrama = document.querySelector('.produtos__drama__container');
+var produtosContainerFantasia = document.querySelector('.produtos__fantasia__container');
+var produtosContainerHorror = document.querySelector('.produtos__horror__container');
+var produtosContainerFiccao = document.querySelector('.produtos__ficcao__container');
+
+function ocultaCategorias(elemento) {
+	var childrens = elemento.children[1].children;
+	var count = 0;
+
+	for (var i = 0; i<childrens.length; i++) {
+		if (childrens[i].style.display == 'none') {
+			count++;
+		}	
+		}
+		if (count == 20) {
+			elemento.style.display = 'none';
+		} else {
+			elemento.style.display = '';
+		}	
+}
+
+iconeApagar.addEventListener('click', function (e) {
+	inputSearch.value = "";
+
+})
