@@ -230,14 +230,6 @@ body.addEventListener('click', function (e) {
 	}
 })
 
-// FECHA MODAL NO ESC
-	document.onkeydown = function(e) {
-	    e = e || window.event;
-	    if (e.keyCode == 27) {
-	    	fechaNavLateral();
-	    }
-	};
-
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
@@ -253,11 +245,6 @@ btnLoginNav.forEach(function (btn) {
 	abreModalLogin();
 	})
 });
-
-
-
-
-
 
 modalLogin.addEventListener('click', function (e) {
 	if (e.target.classList.contains('modal--login--container')) {
@@ -286,6 +273,8 @@ document.onkeydown = function(e) {
     e = e || window.event;
     if (e.keyCode == 27) {
         fechaModalLogin();
+        fechaModalDetalhes();
+        fechaNavLateral();
     }
 };
 // ----------------------------------------------------------------------------------------------
@@ -596,31 +585,24 @@ btnCadastrarTelaEntrar.addEventListener('click', function (e) {
 // **********************************************************************************************
 // **********************************************************************************************
 var modalDetalhe = pegaElem('.modal__detalhe--wrapper');
-// ----------------------------------------------------------------------------------------------
-// FECHA MODAL NO ESC
-document.onkeydown = function(e) {
-    e = e || window.event;
-    if (e.keyCode == 27) {
-        fechaModalDetalhes();
-    }
-};
-// ----------------------------------------------------------------------------------------------
 var produtosInicioContainer = pegaElem('.container__inicio');
 
 // MODAL PRODUTOS
+var top;
 function abreModalDetalhes() {
 	// travaScrollBars();
-	// var top = window.scrollY;
-	// var top = 0;
+	top = window.scrollY;
 	// modalDetalhe.style.top = `${top}px`;
 	modalDetalhe.classList.toggle('ocultar');
 	produtosInicioContainer.classList.add('ocultar');
 
 };
+
 function fechaModalDetalhes() {
 	// destravaScrollBars();
 	modalDetalhe.classList.add('ocultar');
 	produtosInicioContainer.classList.remove('ocultar');
+	window.scroll(0,top);
 };
 // ----------------------------------------------------------------------------------------------
 modalDetalhe.addEventListener('click', function (e) {
@@ -678,7 +660,7 @@ botaoDetalhe.forEach(function (btn) {
 			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
 
 			if (obj[i].id == search_term) {
-				modalDetalheWrapper.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.9)), url(${obj[i].background})`;
+				modalDetalhe.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.9)), url(${obj[i].background})`;
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
@@ -699,7 +681,7 @@ botaoDetalhe.forEach(function (btn) {
 var idDestaque = document.querySelectorAll('.id-destaque');
 var categoriaDestaque = document.querySelectorAll('.categoria-destaque');
 var imgDestaque = document.querySelectorAll('.imgDestaque');
-var modalDetalheWrapper = document.querySelector('.modal__detalhe--wrapper');
+// var modalDetalheWrapper = document.querySelector('.modal__detalhe--wrapper');
 
 imgDestaque.forEach(function (img) {
 	img.addEventListener('click', function (e) {
@@ -737,7 +719,7 @@ imgDestaque.forEach(function (img) {
 			var search_term = e.target.parentElement.querySelector('.id-destaque').innerText;
 
 			if (obj[i].id == search_term) {
-				modalDetalheWrapper.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),url(${obj[i].background})`;
+				modalDetalhe.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),url(${obj[i].background})`;
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;

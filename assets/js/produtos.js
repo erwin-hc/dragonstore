@@ -24,492 +24,235 @@ function travaScrollBars() {
 function destravaScrollBars() {
     document.documentElement.style.overflowY = 'initial';
 }
+
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
+var inputSearch = document.querySelector('.input-search');
+var iconeApagar = pegaElem('.icone-apagar');
+var produtosContainer = document.querySelectorAll('.produtos__todos__container');
+var cardsWrapperTodos = pegaElem('.cards-wrapper--todos');
 
-// ----------------------------------------------------------------------------------------------
-// COLAPSE TABLE
+inputSearch.addEventListener('keyup', function (event) {
 
-function collapseTable() {
-var coll = document.getElementsByClassName("thead-collapse");
-	for (var i = 0; i < coll.length; i++) {
-		coll[i].addEventListener("click", function() {
-		var content = this.nextElementSibling;
-		var seta = this.querySelector('.icone-seta');
-		var header = this.querySelector('.thead-cabeçalho');
-		var btn = this.parentElement.querySelector('.btn-expande');
-		var footer = this.parentElement.querySelector('tfoot');
+			var  filter, cards, cardContainer, title, i;
+			filter = inputSearch.value.toUpperCase();
+			cardContainer = document.querySelector('.produtos__inicio--container');
 
-		    if (content.style.display === "table-row-group") {
-		      content.style.display = "none";
-		      footer.style.display = "none";
-		      header.style.display = "none";
-		      seta.innerHTML = `<i class="fa-solid fa-angles-down"></i>Expandir`;
+			cards = cardContainer.querySelectorAll('.card-container');
+			for (i = 0; i < cards.length; i++) {
+			title = cards[i].querySelector(".conteudo-titulo");
+			
+			if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+					cards[i].style.display = "";
+					iconeApagar.classList.add('ocultar');
+					// cardsWrapperTodos.style.justifyContent = "space-evenly";
+			} else {
+					cards[i].style.display = "none";
+					iconeApagar.classList.remove('ocultar');
+					// cardsWrapperTodos.style.justifyContent = "flex-start";
+			}
 
-		    } else {
-		      content.style.display = "table-row-group";
-		      footer.style.display = "table-row-group";
-		      header.style.display = "table-row";
-		      seta.innerHTML = `<i class="fa-solid fa-angles-up"></i>Recolher`;
-		    }
-		});
-	}
-}
-collapseTable();
+					iconeApagar.addEventListener('click', function (e) {
+					inputSearch.value = "";
+					title.value = "";
+					iconeApagar.classList.add('ocultar');
+					
+					cards.forEach(function (card) {
+					card.style.display = "";
+					})
+					produtosContainer.forEach(function (section) {
+					section.style.display = "";	
+					})
 
-// ----------------------------------------------------------------------------------------------
-// POPULA TABELAS DE PRODUTOS
-function populaTabelaProdutos(nomeBanco, nomeTabela) {
+
+					})
+
+			}
+
+			
+})
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+function populaCardsProdutos(nomeBanco, cardContainer) {
 	var dados = pegaDadosLocalStorage(nomeBanco);
 	if (dados === null || dados.length <= 0)
 	{
 	dados = [];
 	}
 
-	var tbody = pegaElem(nomeTabela).querySelector('tbody');
-	tbody.innerHTML = "";
+	var container = pegaElem(cardContainer);
+
+	container.innerHTML = "";
 	dados.forEach(function (index, i) {
-		var html = `						
-							<td>
-								<div class="btn-editar" data-acao="editar" data-index=${i}>
-									<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
-								</div>											
-							</td>
-							<td class="colunaID" id='tdId'>${index.id}</td>
-							<td id='tdTitulo'>${index.titulo}</td>
-							<td id='tdValor'>${index.valor.replace(".",",")}</td>
-							<td id='tdCategoria'>${index.categoria}</td>
-							<td id='tdNota'>${index.nota}</td>
-							<td id='tdPoster'>${index.poster}</td>
-							<td id='tdResumo'>${index.resumo}</td>
-						
-					`;
-		 var novaLinha = tbody.insertRow(tbody.rows.length);
-		 novaLinha.classList.add('rowHover');
-		 novaLinha.innerHTML = html;
+
+	var html = `<div class="card-container">						
+
+						<div class="card">
+								<div class="ocultar">
+								<p class="conteudo-titulo">${index.titulo}</p>
+								</div>
+								<div class="svg-bluray-container">
+								<img class="svg-bluray" src="assets/img/bluray.svg">
+								</div>
+
+								<div class="card-img">
+								<img class="conteudo-img" src="${index.poster}">
+								</div>
+
+								<div class="card-valor">
+								<p class="conteudo-valor">R$ ${index.valor.replace(".",",")}</p>
+								</div>
+
+								<div class="ocultar">
+								<p class="conteudo-id">${index.id}</p>
+								<p class="conteudo-categoria">${index.categoria}</p>
+								</div>
+
+						</div>	
+
+						<div class="card-btns-wrapper">	
+						<button class="btncard btn-detalhes"><i class="fa-solid fa-eye fa-xl"></i></button>
+						<button class="btncard btn-cart"><i class="fa-solid fa-cart-shopping fa-xl"></i></button>
+						</div>
+			</div>				
+	`;
+					container.innerHTML += html;
+
 	});
-	
+
 };
 
 
-function populaTabelaProdutosTodas() {
-	populaTabelaProdutos('bd_acao','.tabela__produtos-acao');
-	populaTabelaProdutos('bd_aventura','.tabela__produtos-aventura');
-	populaTabelaProdutos('bd_comedia','.tabela__produtos-comedia');
-	populaTabelaProdutos('bd_drama','.tabela__produtos-drama');
-	populaTabelaProdutos('bd_fantasia','.tabela__produtos-fantasia');
-	populaTabelaProdutos('bd_horror','.tabela__produtos-horror');
-	populaTabelaProdutos('bd_ficcao','.tabela__produtos-ficcao');
-}
+var bdTodos = pegaDadosLocalStorage('bd_todos');
 
-var bdAcaco = pegaDadosLocalStorage('bd_acao');
-
-if (bdAcaco !== null)
+if (bdTodos !== null)
 {
-	populaTabelaProdutosTodas();
-}
-else
-{
-	setTimeout(function () { populaTabelaProdutos('bd_acao','.tabela__produtos-acao');}, 500);
-	setTimeout(function () { populaTabelaProdutos('bd_aventura','.tabela__produtos-aventura'); }, 1500);
-	setTimeout(function () { populaTabelaProdutos('bd_comedia','.tabela__produtos-comedia'); }, 2500);
-	setTimeout(function () { populaTabelaProdutos('bd_drama','.tabela__produtos-drama'); }, 3500);
-	setTimeout(function () { populaTabelaProdutos('bd_fantasia','.tabela__produtos-fantasia'); }, 4500);
-	setTimeout(function () { populaTabelaProdutos('bd_horror','.tabela__produtos-horror'); }, 5500);
-	setTimeout(function () { populaTabelaProdutos('bd_ficcao','.tabela__produtos-ficcao'); }, 6500);
+	populaCardsProdutos('bd_todos','.cards-wrapper--todos');
 }
 
 
-// ----------------------------------------------------------------------------------------------
-// ABRE-FECHA MODAL
-var btnTableProdutosAdicionar = document.querySelectorAll('.btn-tableProdutos-adicionar');
-var modalProduto = pegaElem('.modal__produtos');
-var modalUsuario = pegaElem('.modal__usuarios');
 
-var form = pegaElem('.form-produtos');
-var formImputNome = pegaElem('[data-formprodutos="nome"]');
-var formImputEmail = pegaElem('[data-formprodutos="email"]');
-var formImputSenha = pegaElem('[data-formprodutos="senha"]');
 
-var bntFormSalvarCliente =  pegaElem('[data-formUser="btn-salvar"]');
-var btnFormExcluirCliente = pegaElem('[data-formUser="btn-excluir"]');
-var btnFormUpdateCliente =  pegaElem('[data-formUser="btn-update"]');
-var bntFormSalvar =  pegaElem('[data-formprodutos="btn-salvar"]');
-var btnFormExcluir = pegaElem('[data-formprodutos="btn-excluir"]');
-var btnFormUpdate =  pegaElem('[data-formprodutos="btn-update"]');
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 
+var iconeHamburguer = pegaElem('.icone-hamburguer');
+var navLateral = pegaElem('.nav__lateral--inicio');
+iconeHamburguer.onclick = abreNavLateral;
+var iconeXis = pegaElem('.icone-xis');
+iconeXis.onclick = fechaNavLateral;
 var body = pegaElem('.body');
+
+
+// ABRE NAV LATERAL
+function abreNavLateral() {
+	// window.scrollTo(0, 0);
+	var top = window.scrollY;
+navLateral.style.top = `calc(${top}px + 10px)`;
+	// gb.travaScrollBars();
+	navLateral.classList.remove('remove-nav-lateral');
+
+}
+function fechaNavLateral() {
+	// window.scrollTo(0, 0);
+	// gb.destravaScrollBars();
+	navLateral.classList.add('remove-nav-lateral');
+}
+
+// var top = window.scrollY;
+// navLateral.style.top = `${top}px`;
+
+document.addEventListener('scroll', function (e) {
+	 fechaNavLateral();	
+})
+
+
 body.addEventListener('click', function (e) {
-	if (e.target.classList.contains('modal__produtos')) {
-        fechaModalProduto();
+	if (!e.target.parentElement.classList.contains('helper')) {
+	 fechaNavLateral();
 	}
 })
-// ----------------------------------------------------------------------------------------------
+
 // FECHA MODAL NO ESC
 document.onkeydown = function(e) {
     e = e || window.event;
     if (e.keyCode == 27) {
-        fechaModalProduto();
-        fechaModalUsuario();
+        fechaModalLogin();
+        fechaModalDetalhes();
+        fechaNavLateral();
     }
 };
-// ----------------------------------------------------------------------------------------------
-// MODAL PRODUTOS
-function abreModalProduto() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalProduto.style.top = `${top}px`;
-	modalProduto.classList.toggle('ocultar');
-};
-function fechaModalProduto() {
-	destravaScrollBars();
-	modalProduto.classList.add('ocultar');
-	form.reset();
-	bntFormSalvar.disabled = false;
-	btnFormUpdate.disabled = true;
-	btnFormExcluir.disabled = true;
-};
-// ----------------------------------------------------------------------------------------------
-// MODAL USUARIOS
-function abreModalUsuario() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalUsuario.style.top = `${top}px`;
-	modalUsuario.classList.toggle('ocultar');
-	formImputNome.focus();
-};
-function fechaModalUsuario() {
-	destravaScrollBars();
-	modalUsuario.classList.add('ocultar');
-	form.reset();
-	bntFormSalvarCliente.disabled = false;
-	btnFormUpdateCliente.disabled = true;
-	btnFormExcluirCliente.disabled = false;
-};
-// ----------------------------------------------------------------------------------------------
 
-btnTableProdutosAdicionar.forEach(function (btn) {
-	btn.addEventListener('click', function (e) {
-		abreModalProduto();
-		bntFormSalvar.disabled = false;
-		btnFormUpdate.disabled = true;
-		btnFormExcluir.disabled = true;
-				var tabelaGenero = e.target.getAttribute('data-genero');
-				bntFormSalvarProdutos.setAttribute('data-genero',tabelaGenero);
-				bntFormUpdateProdutos.setAttribute('data-genero',tabelaGenero);
-				bntFormExcluirProdutos.setAttribute('data-genero',tabelaGenero);
-	});
-});
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 
-// ----------------------------------------------------------------------------------------------
-var formImputId = pegaElem('[data-formProdutos="id"]');
-var formImputTitulo = pegaElem('[data-formProdutos="titulo"]');
-var formImputNota = pegaElem('[data-formProdutos="nota"]');
-var formImputValor = pegaElem('[data-formProdutos="valor"]');
-var formImputCategoria = pegaElem('[data-formProdutos="categoria"]');
-var formImputPoster = pegaElem('[data-formProdutos="poster"]');
-var formImputResumo = pegaElem('[data-formProdutos="resumo"]');
+var btnLoginNav = document.querySelectorAll('.btn-login-nav');
+var modalLogin = pegaElem('.modal--login--container');
+var btnLoginEntrar = pegaElem('.btn-entrar-login'); // active
+var btnLoginCadastrar = pegaElem('.btn-cadastrar-login');
+var telaEntrar = pegaElem('.tela--entrar'); // ocultar 
+var telaCadastrar = pegaElem('.tela--cadastrar');  
 
-var bntFormSalvarProdutos =  pegaElem('[data-formProdutos="btn-salvar"]');
-var bntFormUpdateProdutos =  pegaElem('[data-formProdutos="btn-update"]');
-var bntFormExcluirProdutos =  pegaElem('[data-formProdutos="btn-excluir"]');
-
-var tabelaProdutos = document.querySelectorAll('.tb-produtos');
-
-var srtNomeBanco;
-var categoria;
-
-
-// ----------------------------------------------------------------------------------------------
-// INSERIR DADOS
-function inserirDadosPro(srtNomeBanco, categoria) {
-
-	var obj = pegaDadosLocalStorage(srtNomeBanco);
-	var id = Math.round( Math.random()*1e13 );
-	
-	if (formImputTitulo.value === "") {
-		formImputTitulo.focus();
-		formImputTitulo.placeholder = "Digite um titulo!";
-		formImputTitulo.classList.add('invalid');
-		
-		setTimeout(function () {
-			formImputTitulo.placeholder = "Titulo";
-			formImputTitulo.classList.remove('invalid')
-		},800);
-	}
-	else if (formImputNota.value === "" || isNaN(formImputNota.value)) 
-	{
-		formImputNota.focus();
-		formImputNota.value = "";
-		formImputNota.placeholder = "Somente Números! Use ponto!";
-		formImputNota.classList.add('invalid');
-
-		setTimeout(function () {
-			formImputNota.placeholder = "Nota";
-			formImputNota.classList.remove('invalid')
-		},800);
-	}
-	else if (formImputValor.value === "" || isNaN(formImputValor.value)) 
-	{
-		formImputValor.focus();
-		formImputValor.value = "";
-		formImputValor.placeholder = "Somente Números! Use ponto!";
-		formImputValor.classList.add('invalid');
-
-		setTimeout(function () {
-			formImputValor.placeholder = "Valor";
-			formImputValor.classList.remove('invalid')
-		},800);
-	}
-	else if (formImputPoster.value === "") 
-	{
-		formImputPoster.focus();
-		formImputPoster.value = "";
-		formImputPoster.placeholder = "Digite uma URL válida!";
-		formImputPoster.classList.add('invalid');
-
-		setTimeout(function () {
-			formImputPoster.placeholder = "URL-Poster";
-			formImputPoster.classList.remove('invalid')
-		},800);
-	}	
-	else if (formImputResumo.value === "") 
-	{
-		formImputResumo.focus();
-		formImputResumo.placeholder = "Digite um resumo!";
-		formImputResumo.classList.add('invalid');
-
-		setTimeout(function () {
-			formImputResumo.placeholder = "Resumo";
-			formImputResumo.classList.remove('invalid')
-		},800);
-	}
-	else
-	{		
-
-			var produto = {
-				id        : id,
-				titulo    : formImputTitulo.value,
-				valor     : formImputValor.value.replace(".",","),
-				categoria : categoria,
-				resumo    : formImputResumo.value,
-				nota      : formImputNota.value,
-				poster    : formImputPoster.value,
-			};
-
-			obj.push(produto);
-			salvaDadosLocalStorage(srtNomeBanco, obj);
-			form.reset();
-
-			// formImputTitulo.focus();
-			fechaModalProduto();
-			populaTabelaProdutosTodas()
-
-	}		
-}
-// ----------------------------------------------------------------------------------------------
-// UPDATE
-function editarDadosPro(produtoID, srtNomeBanco) {
-	var obj = pegaDadosLocalStorage(srtNomeBanco);
-	var search_term = produtoID;
-
-	for (var i=obj.length-1; i>=0; i--) {
-	    if (obj[i].id == search_term) {
-
-	        obj[i] = {
-				id        : formImputId.value,
-				titulo    : formImputTitulo.value,
-				valor     : formImputValor.value.replace(".",","),
-				categoria : obj[i].categoria,
-				resumo    : formImputResumo.value,
-				nota      : formImputNota.value,
-				poster    : formImputPoster.value,
-			};
-	    }
-	}
-
-			
-	salvaDadosLocalStorage(srtNomeBanco, obj);
-	populaTabelaProdutosTodas();
-
-	fechaModalProduto();
-
-}
-// ----------------------------------------------------------------------------------------------
-// DELETE
-function deletarDadosPro(produtoID, srtNomeBanco) {
-	var obj = pegaDadosLocalStorage(srtNomeBanco);
-	
-	var search_term = produtoID;
-
-	for (var i=obj.length-1; i>=0; i--) {
-	    if (obj[i].id == search_term) {
-	        obj.splice(i, 1);
-	    }
-	}
-
-	salvaDadosLocalStorage(srtNomeBanco, obj);
-	populaTabelaProdutosTodas();
-
-	fechaModalProduto();
-}
-// ----------------------------------------------------------------------------------------------
-// BOTAO SALVAR FORM PRODUTOS
-
-bntFormSalvarProdutos.addEventListener('click', function (e) {
-
-var attrGenero = this.getAttribute('data-genero');
-switch(attrGenero) {
-case 'acao':
-srtNomeBanco = 'bd_acao';
-categoria = 'Ação';
-break;
-case 'aventura':
-srtNomeBanco = 'bd_aventura';
-categoria = 'Aventura';
-break;
-case 'comedia':
-srtNomeBanco = 'bd_comedia';
-categoria = 'Comédia';
-break;
-case 'drama':
-srtNomeBanco = 'bd_drama';
-categoria = 'Drama';
-break;
-case 'fantasia':
-srtNomeBanco = 'bd_fantasia';
-categoria = 'Fantasia';
-break;
-case 'horror':
-srtNomeBanco = 'bd_horror';
-categoria = 'Horror';
-break;
-case 'ficcao':
-srtNomeBanco = 'bd_ficcao';
-categoria = 'Ficção';
-break;
-default:
-}	
-	inserirDadosPro(srtNomeBanco, categoria);
-})
-
-// ----------------------------------------------------------------------------------------------
-// BOTAO EDITAR MODAL PRODUTOS
-bntFormUpdateProdutos.addEventListener('click', function (e) {
-	var produtoID = this.parentElement.parentElement[0].value;
-	e.preventDefault();
-	
-	editarDadosPro(produtoID, srtNomeBanco);
-	bntFormSalvarProdutos.disabled = false;
-	bntFormUpdateProdutos.disabled = true;
-	bntFormExcluirProdutos.disabled = false;
-})
-
-// ----------------------------------------------------------------------------------------------
-// BOTAO EXCLUIR MODAL PRODUTOS
-bntFormExcluirProdutos.addEventListener('click', function () {	
-	var produtoID = this.parentElement.parentElement[0].value;			
-	deletarDadosPro(produtoID,srtNomeBanco);
-	form.reset();
-	fechaModalProduto();
-	bntFormUpdateProdutos.disabled = true;
-	bntFormSalvarProdutos.disabled = false;
-	bntFormExcluirProdutos.disabled = false;
-
-
-})
-
-
-// ----------------------------------------------------------------------------------------------
-tabelaProdutos.forEach(function (tabela) {
-	tabela.addEventListener('click', function (e) {
-	var btnAlvo = e.target.getAttribute('data-acao');	
-	var attrGenero = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.btn-tableProdutos-adicionar').getAttribute('data-genero');
-	
-		if (btnAlvo === 'editar') {
-
-			switch(attrGenero) {
-			case 'acao':
-			srtNomeBanco = 'bd_acao';
-			categoria = 'Ação';
-			break;
-			case 'aventura':
-			srtNomeBanco = 'bd_aventura';
-			categoria = 'Aventura';
-			break;
-			case 'comedia':
-			srtNomeBanco = 'bd_comedia';
-			categoria = 'Comédia';
-			break;
-			case 'drama':
-			srtNomeBanco = 'bd_drama';
-			categoria = 'Drama';
-			break;
-			case 'fantasia':
-			srtNomeBanco = 'bd_fantasia';
-			categoria = 'Fantasia';
-			break;
-			case 'horror':
-			srtNomeBanco = 'bd_horror';
-			categoria = 'Horror';
-			break;
-			case 'ficcao':
-			srtNomeBanco = 'bd_ficcao';
-			categoria = 'Ficção';
-			break;
-			default:	
-			}				
-
-			var tdIdText =    e.target.closest('tr').cells[1].innerText;
-			var tdTitulo = 	  e.target.closest('tr').cells[2].innerText;
-			var tdValor =     e.target.closest('tr').cells[3].innerText;
-			var tdNota =      e.target.closest('tr').cells[5].innerText;
-			var tdPoster =    e.target.closest('tr').cells[6].innerText;
-			var tdResumo =    e.target.closest('tr').cells[7].innerText;
-
-			abreModalProduto();
-
-			bntFormSalvarProdutos.disabled = true;
-			bntFormUpdateProdutos.disabled = false;
-			bntFormExcluirProdutos.disabled = false;
-
-			formImputId.value = tdIdText;
-			formImputTitulo.value = tdTitulo;
-			formImputValor.value = tdValor;
-			formImputNota.value = tdNota;
-			formImputPoster.value = tdPoster;
-			formImputResumo.value = tdResumo;
-			
-		} 	
-								
+btnLoginNav.forEach(function (btn) {
+	btn.addEventListener('click', function () {
+	abreModalLogin();
 	})
 });
 
-// ----------------------------------------------------------------------------------------------
-// BOTAO RESET BANCO DADOS
-var btnPainelLimpar = pegaElem('.btn-painel-limpar');
-var btnPainelSair = pegaElem('.btn-painel-sair');
+modalLogin.addEventListener('click', function (e) {
+	if (e.target.classList.contains('modal--login--container')) {
+		fechaModalLogin();
+	}
+})
 
-btnPainelLimpar.onclick = resetaBase;
-btnPainelSair.onclick = resetUser;
+btnLoginCadastrar.addEventListener('click', function () {
+	btnLoginCadastrar.classList.add('active');
+	btnLoginEntrar.classList.remove('active');
+	telaCadastrar.classList.remove('ocultar');
+	telaEntrar.classList.add('ocultar');
 
-function resetaBase() {
+})
+btnLoginEntrar.addEventListener('click', function () {
+	btnLoginCadastrar.classList.remove('active');
+	btnLoginEntrar.classList.add('active');
+	telaCadastrar.classList.add('ocultar');
+	telaEntrar.classList.remove('ocultar');
 
-	window.localStorage.clear();
-	// window.location.reload(true);
-	localStorage.setItem('reloadIndex', 'true');
-	window.location.href = 'index.html';
+})
 
-}
+function abreModalLogin() {
+	travaScrollBars();
+	var top = window.scrollY;
+	modalLogin.style.top = `${top}px`;
+	modalLogin.classList.toggle('ocultar');
 
-var nomeUsuario = pegaElem('.nomeUsuario');
-setUser();
+};
+function fechaModalLogin() {
+	destravaScrollBars();
+	modalLogin.classList.add('ocultar');
+};
 
-function setUser() {
-	var user = localStorage.getItem('userName');
-	nomeUsuario.innerText = user;
-}
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var btnPainel = document.querySelectorAll('.btn-painel');
+var spanNomeUsuario = document.querySelectorAll('.spanNomeUsuario');
+var btnUserLogin = document.querySelectorAll('.btn-login-nav');
+var btnUserSair = document.querySelectorAll('.btn-sair-nav');
+
+
+btnUserSair.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+	resetUser();
+	window.location.reload();
+	})
+})
+
 
 function resetUser() {	
 	localStorage.setItem('userId', "");
@@ -518,3 +261,362 @@ function resetUser() {
 	localStorage.setItem('isLogaded', false);
 	localStorage.setItem('isADM', false);
 }
+// resetUser();
+setUser();
+
+
+
+var btnEntrarTelaEntrar = pegaElem('[data-formEntrar="btn-salvar"]');
+var btnCadastrarTelaEntrar = pegaElem('[data-formCadastrar="btn-salvar"]');
+var imputEmailTelaEntrar = pegaElem('[data-formEntrar="email"]');
+var imputSenhaTelaEntrar = pegaElem('[data-formEntrar="senha"]');
+
+var imputNomeTelaCadastrar = pegaElem('[data-formCadastrar="nome"]');
+var imputEmailCadastrar = pegaElem('[data-formCadastrar="email"]');
+var imputSenhaCadastrar = pegaElem('[data-formCadastrar="senha"]');
+var dica = pegaElem('details');
+
+btnEntrarTelaEntrar.addEventListener('click', function (e) {
+	e.preventDefault();
+	dica.removeAttribute("open");
+
+		if (imputEmailTelaEntrar.value === "") {
+
+		imputEmailTelaEntrar.classList.add('invalid');
+		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir um email!");
+
+		setTimeout(function () {
+			imputEmailTelaEntrar.placeholder = "Email";
+			imputEmailTelaEntrar.classList.remove('invalid')
+		},1250);
+
+		} else if  (imputSenhaTelaEntrar.value === "") {
+
+		imputSenhaTelaEntrar.classList.add('invalid');
+		mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Favor inserir uma senha!");
+		
+		setTimeout(function () {
+			imputSenhaTelaEntrar.placeholder = "Senha";
+			imputSenhaTelaEntrar.classList.remove('invalid')
+		},1250);
+
+		} else {
+		    login();
+		}
+
+
+
+})
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// MENSAGEM TELA ENTRAR
+var msgLogin = pegaElem('.mensagem-tela-entrar');
+var msgCadastro = pegaElem('.mensagem-tela-cadastro');
+
+function mensagemLogin(elemento, classe, mensagem) {
+ var root = document.querySelector(':root');
+ var balao = elemento.querySelector('.msg-balao');			
+	
+	switch(classe) {
+	case "msg-erro":
+		var cor = '#d9534f';
+		break;
+	case "msg-sucesso":
+		var cor = "#5cb85c";
+		break;
+	default:
+		var cor = "transparent";
+		break;
+	}
+
+	root.style.setProperty("--cor-borda-after",cor);
+	elemento.classList.remove('ocultar');
+	balao.classList.add(classe);
+	var p = balao.querySelector('p');
+	p.innerHTML = mensagem;
+	
+	setTimeout(function () {
+	root.style.setProperty("--cor-borda-after","transparent");
+	elemento.classList.add('ocultar');
+	console.log()
+	},1250);
+}
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// LOGIN
+function login() {
+	
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var usuarioSessao = [];
+
+	for (var i in obj) {
+		// console.log(obj[i].email + "   " + imputEmailTelaEntrar.value)
+			var id = obj[i].id;
+			var nome = obj[i].nome;
+			var email = obj[i].email;
+			var senha = obj[i].senha;
+			var tipo = obj[i].tipo;
+
+		if ((imputEmailTelaEntrar.value == email)
+			&& (imputSenhaTelaEntrar.value == senha)) {
+			localStorage.setItem('userId', id);
+			localStorage.setItem('userName', nome);
+			localStorage.setItem('userEmail', email);
+			localStorage.setItem('isLogaded', true);
+			if (tipo === "adm") {localStorage.setItem('isADM', true);}
+			setUser();			
+			mensagemLogin(msgLogin,"msg-sucesso",":-) SUCESSO!... <br> Seja bem vindo!");			
+				setTimeout(function () {
+					fechaModalLogin();
+				},1250);
+			break;
+
+        } 
+		else {mensagemLogin(msgLogin,"msg-erro",":-( ERRO!... <br> Usuário ou email inválidos!");}
+
+	}
+
+		
+}
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// SETAR USUARIO SESSAO
+function setUser() {
+
+	if (localStorage.getItem('isLogaded') == 'false') {
+	var nome = localStorage.getItem('userName').split(' ')[0];
+	spanNomeUsuario.forEach(function (span) {
+	span.innerText = nome;
+	}) 
+	btnPainel.forEach(function (btn) {
+	btn.classList.add('ocultar');
+	})
+	}
+
+	if (localStorage.getItem('isLogaded') == 'true') {
+	var nome = localStorage.getItem('userName').split(' ')[0];
+	spanNomeUsuario.forEach(function (span) {
+	span.innerText = nome;
+	}) 
+	btnPainel.forEach(function (btn) {
+	btn.classList.remove('ocultar');
+	})
+	btnUserLogin.forEach(function (btn) {
+	btn.classList.add('ocultar');
+	})
+	btnUserSair.forEach(function (btn) {
+	btn.classList.remove('ocultar');
+	})
+	}
+
+	if (localStorage.getItem('isADM') == 'true') {
+	btnPainel.forEach(function (btn) {
+	btn.classList.remove('ocultar');
+	})
+	} else {
+	btnPainel.forEach(function (btn) {
+	btn.classList.add('ocultar');
+	})
+	}
+
+}
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// COPIA USUARIO ADMINISTRADOR PARA IMPUTS TELA ENTRAR
+var btnCopy = pegaElem('.btn-copy');
+btnCopy.addEventListener('click', function () {
+	dica.removeAttribute("open");
+	imputEmailTelaEntrar.value = "adm@adm.com";
+	imputSenhaTelaEntrar.value = "adm"
+})
+
+
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// INSERIR DADOS
+function inserirDados() {
+
+	var obj = pegaDadosLocalStorage('bd_usuarios');
+	var id = Math.round( Math.random()*1e13 );
+
+for (var i=obj.length-1; i>=0; i--) {
+
+if (obj[i].email == imputEmailCadastrar.value) {
+
+	// console.log('igual')
+	imputEmailCadastrar.value = "";
+	imputEmailCadastrar.classList.add('invalid')
+
+	imputEmailCadastrar.placeholder = "Email já cadastrado!"
+	mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Email já existe!");
+
+	setTimeout(function () {
+	imputEmailCadastrar.placeholder = "Email"
+	imputEmailCadastrar.classList.remove('invalid')
+	},1250);
+
+	return;
+} 
+} 
+	
+	if (imputNomeTelaCadastrar.value === "") {
+
+		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite um nome!");
+		imputNomeTelaCadastrar.classList.add('invalid')
+		
+		setTimeout(function () {
+			imputNomeTelaCadastrar.classList.remove('invalid')
+		},1250);
+	}
+	else if (imputEmailCadastrar.value === "") 
+	{
+
+		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite um email!");
+		imputEmailCadastrar.classList.add('invalid')
+
+		setTimeout(function () {
+			imputEmailCadastrar.classList.remove('invalid')
+		},1250);
+	}
+	else if (imputSenhaCadastrar.value === "") 
+	{
+
+		mensagemLogin(msgCadastro,"msg-erro",":-( ERRO!... <br> Digite uma senha!");
+		imputSenhaCadastrar.classList.add('invalid')
+
+		setTimeout(function () {
+			imputSenhaCadastrar.classList.remove('invalid')
+		},1250);
+	}
+	else
+	{		
+			var usuario = {
+				id    : id,
+				nome  : imputNomeTelaCadastrar.value,
+				email : imputEmailCadastrar.value,
+				senha : imputSenhaCadastrar.value,
+				tipo  : 'usuario'
+			};
+
+			obj.push(usuario);
+			salvaDadosLocalStorage("bd_usuarios", obj);
+			mensagemLogin(msgCadastro,"msg-sucesso",":-) SUCESSO!... <br> Usuário cadastrado com sucesso!");
+			// form.reset();
+		setTimeout(function () {
+			imputEmailTelaEntrar.value = imputEmailCadastrar.value;
+			imputSenhaTelaEntrar.value = imputSenhaCadastrar.value;
+			btnLoginEntrar.dispatchEvent(new Event('click'));			
+		},1250);
+			// fechaModalUsuario();
+	}		
+}
+
+
+btnCadastrarTelaEntrar.addEventListener('click', function (e) {
+	e.preventDefault();
+	inserirDados();
+})
+
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var modalDetalhe = pegaElem('.modal__detalhe--wrapper');
+var produtosInicioContainer = pegaElem('.container__inicio');
+
+// MODAL PRODUTOS
+var top;
+function abreModalDetalhes() {
+	// travaScrollBars();
+	top = window.scrollY;
+	// modalDetalhe.style.top = `${top}px`;
+	modalDetalhe.classList.toggle('ocultar');
+	produtosInicioContainer.classList.add('ocultar');
+
+};
+
+function fechaModalDetalhes() {
+	// destravaScrollBars();
+	modalDetalhe.classList.add('ocultar');
+	produtosInicioContainer.classList.remove('ocultar');
+	window.scroll(0,top);
+};
+
+modalDetalhe.addEventListener('click', function (e) {
+	if ((e.target.classList.contains('modal__detalhe--wrapper'))
+	    || (e.target.classList.contains('modal__detalhe'))) {
+		fechaModalDetalhes();
+	}
+})
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+
+
+var botaoDetalhe = document.querySelectorAll('.btn-detalhes');
+var detalheImg = pegaElem('.detalhe_img'); 
+var detalheTitulo = pegaElem('.detalhe_titulo'); 
+var detalheDescricao = pegaElem('.detalhe_descricao'); 
+var detalheNota = pegaElem('.nota');
+var detalheValor = pegaElem('.valor');
+
+
+
+botaoDetalhe.forEach(function (btn) {
+	btn.addEventListener('click', function (e) {
+
+			var srtNomeBanco;
+
+			var attrGenero = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
+			switch(attrGenero) {
+			case 'Ação':
+			srtNomeBanco = 'bd_acao';
+			break;
+			case 'Aventura':
+			srtNomeBanco = 'bd_aventura';
+			break;
+			case 'Comédia':
+			srtNomeBanco = 'bd_comedia';
+			break;
+			case 'Drama':
+			srtNomeBanco = 'bd_drama';
+			break;
+			case 'Fantasia':
+			srtNomeBanco = 'bd_fantasia';
+			break;
+			case 'Horror':
+			srtNomeBanco = 'bd_horror';
+			break;
+			case 'Ficção':
+			srtNomeBanco = 'bd_ficcao';
+			break;
+			}
+
+			var obj = pegaDadosLocalStorage(srtNomeBanco);
+
+			for (var i = 0; i < obj.length; i++) {
+			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+
+			if (obj[i].id == search_term) {
+				modalDetalhe.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.9)), url(${obj[i].background})`;
+				detalheImg.src = obj[i].poster;
+				detalheTitulo.innerText = obj[i].titulo;
+				detalheDescricao.innerText = obj[i].resumo;
+				detalheNota.innerText = obj[i].nota;
+				detalheValor.innerText = "R$ " + obj[i].valor.replace(".",",");
+
+			}
+
+			}
+
+			abreModalDetalhes();
+
+			})
+})
