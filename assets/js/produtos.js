@@ -76,61 +76,110 @@ inputSearch.addEventListener('keyup', function (event) {
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
-function populaCardsProdutos(nomeBanco, cardContainer) {
+function populaCardsProdutos(nomeBanco) {
+
+
 	var dados = pegaDadosLocalStorage(nomeBanco);
 	if (dados === null || dados.length <= 0)
 	{
 	dados = [];
 	}
 
-	var container = pegaElem(cardContainer);
 
-	container.innerHTML = "";
 	dados.forEach(function (index, i) {
+				var Ptitulo = index.titulo;
+				var Pid = index.id;
+				var Pcategoria = index.categoria;
+				var SRCcardIMG = index.poster;
+				var Pvalor = index.valor;
 
-	var html = `<div class="card-container">						
-
-						<div class="card">
-								<div class="ocultar">
-								<p class="conteudo-titulo">${index.titulo}</p>
-								</div>
-								<div class="svg-bluray-container">
-								<img class="svg-bluray" src="assets/img/bluray.svg">
-								</div>
-
-								<div class="card-img">
-								<img class="conteudo-img" src="${index.poster}">
-								</div>
-
-								<div class="card-valor">
-								<p class="conteudo-valor">R$ ${index.valor.replace(".",",")}</p>
-								</div>
-
-								<div class="ocultar">
-								<p class="conteudo-id">${index.id}</p>
-								<p class="conteudo-categoria">${index.categoria}</p>
-								</div>
-
-						</div>	
-
-						<div class="card-btns-wrapper">	
-						<button class="btncard btn-detalhes"><i class="fa-solid fa-eye fa-xl"></i></button>
-						<button class="btncard btn-cart"><i class="fa-solid fa-cart-shopping fa-xl"></i></button>
-						</div>
-			</div>				
-	`;
-					container.innerHTML += html;
+				criaCard(Ptitulo,Pid,Pcategoria,SRCcardIMG,Pvalor);
 
 	});
 
 };
 
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+
+function criaCard(Ptitulo,Pid,Pcategoria,SRCcardIMG,Pvalor) {
+
+var wrapper = pegaElem('.cards-wrapper--todos');
+
+var divContainer = document.createElement('div');
+divContainer.setAttribute("class","card-container");
+
+            var divCard = document.createElement("div");
+            divCard.setAttribute("class","card");
+            divContainer.appendChild(divCard);
+
+						var divOcultar = document.createElement("div");
+						divOcultar.setAttribute("class","ocultar");
+							var divOcultarP1 = document.createElement('p');
+							var divOcultarP2 = document.createElement('p');
+							var divOcultarP3 = document.createElement('p');
+							divOcultarP1.setAttribute("class","conteudo-titulo");
+							divOcultarP2.setAttribute("class","conteudo-id");
+							divOcultarP3.setAttribute("class","conteudo-categoria");
+							divOcultarP1.textContent=`${Ptitulo}`;
+							divOcultarP2.textContent=`${Pid}`;
+							divOcultarP3.textContent=`${Pcategoria}`;
+							divOcultar.appendChild(divOcultarP1);
+							divOcultar.appendChild(divOcultarP2);
+							divOcultar.appendChild(divOcultarP3);
+						divCard.appendChild(divOcultar);
+
+						var divIconeBluray = document.createElement('div');
+						divIconeBluray.setAttribute("class", "svg-bluray-container");
+							var divIconeBlurayIMG = document.createElement('img');
+							divIconeBlurayIMG.setAttribute("class","svg-bluray");
+							divIconeBlurayIMG.src = 'assets/img/bluray.svg';
+							divIconeBluray.appendChild(divIconeBlurayIMG);	
+						divCard.appendChild(divIconeBluray);
+
+						var divImg = document.createElement('div');
+						divImg.setAttribute("class","card-img");
+							var divImgIMG = document.createElement('img');
+							divImgIMG.setAttribute("class","conteudo-img");
+							divImgIMG.src = SRCcardIMG;
+							divImg.appendChild(divImgIMG);
+						divCard.appendChild(divImg);
+
+						var divValor = document.createElement('div');
+						divValor.setAttribute("class", "card-valor");
+							var divValorP = document.createElement('p');
+							divValorP.setAttribute("class","conteudo-valor");
+							divValorP.textContent=`${Pvalor}`;
+							divValor.appendChild(divValorP);
+						divCard.appendChild(divValor);
+
+
+			var divBotoes = document.createElement('div');
+			divBotoes.setAttribute("class","card-btns-wrapper");
+					var divBotoesBTN1 = document.createElement('button');
+					var divBotoesBTN2 = document.createElement('button');
+					divBotoesBTN1.setAttribute("class","btncard btn-detalhes");
+					divBotoesBTN2.setAttribute("class","btncard btn-cart");
+					divBotoesBTN1.innerHTML = '<i class="fa-solid fa-eye fa-xl"></i>';
+					divBotoesBTN2.innerHTML = '<i class="fa-solid fa-cart-shopping fa-xl"></i>';
+					divBotoes.appendChild(divBotoesBTN1);
+					divBotoes.appendChild(divBotoesBTN2);
+			divContainer.appendChild(divBotoes);
+            
+    
+wrapper.appendChild(divContainer);
+
+};
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 
 var bdTodos = pegaDadosLocalStorage('bd_todos');
 
 if (bdTodos !== null)
 {
-	populaCardsProdutos('bd_todos','.cards-wrapper--todos');
+	populaCardsProdutos('bd_todos');
 }
 
 
@@ -605,7 +654,6 @@ botaoDetalhe.forEach(function (btn) {
 			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
 
 			if (obj[i].id == search_term) {
-				modalDetalhe.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.9)), url(${obj[i].background})`;
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
@@ -620,3 +668,7 @@ botaoDetalhe.forEach(function (btn) {
 
 			})
 })
+
+
+
+

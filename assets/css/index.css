@@ -1141,9 +1141,8 @@ details[open] summary::before {
 	top: 0;
 	left: 0;
   padding-block: 2rem ;
-	/*background-color: rgba(0, 0, 0, .8);*/
-	background-repeat: no-repeat;
-	background-size: cover;
+
+  background-color: var(--cor-900);
 
 	width: 100vw;
 	min-height: 100vh;
@@ -1155,16 +1154,14 @@ details[open] summary::before {
 	flex-direction: column;
 }
 
+
 .modal__detalhe {
 	padding-block: 1rem ;
 	z-index: 9;
 	position: relative;
 	border: 1px solid var(--cor-laranja);
 	border-radius: 8px;
-	/*background-color: var(--cor-600);*/
-	background-color: transparent;
-	backdrop-filter: blur(20px);
-
+	background-color: var(--cor-600);
 
 	display: flex;
 	align-items: center;
