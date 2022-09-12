@@ -192,12 +192,16 @@ if (bdTodos !== null)
 var iconeHamburguer = pegaElem('.icone-hamburguer');
 var navLateral = pegaElem('.nav__lateral--inicio');
 iconeHamburguer.onclick = abreNavLateral;
-var iconeXis = pegaElem('.icone-xis');
+var iconeXis = pegaElem('.nav__lateral--icons');
 iconeXis.onclick = fechaNavLateral;
 var body = pegaElem('.body');
 
-
-// ABRE NAV LATERAL
+var btnXix = pegaElem('.btn-xix');
+btnXix.addEventListener('click', function(e) {
+	if (e.target.classList.contains('btn-xix')) {
+		fechaModalLogin();
+	}	
+});
 function abreNavLateral() {
 	// window.scrollTo(0, 0);
 	var top = window.scrollY;
@@ -669,6 +673,51 @@ botaoDetalhe.forEach(function (btn) {
 			})
 })
 
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var rowLinks = document.querySelectorAll('.row--links');
+rowLinks.forEach(function (link) {
+	link.addEventListener('click', function (e) {
+		e.preventDefault();
+		var filtro = e.target.innerText.replace("→","");
+
+		if (filtro == "TODOS") {
+			filtro = "";
+		}
 
 
+		var filter, cards, cardContainer, title, i;
+			filter = filtro;
+			cardContainer = document.querySelector('.produtos__inicio--container');
 
+			cards = cardContainer.querySelectorAll('.card-container');
+			for (i = 0; i < cards.length; i++) {
+			title = cards[i].querySelector(".conteudo-categoria");
+			
+			if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+					cards[i].style.display = "";
+					iconeApagar.classList.add('ocultar');
+					// cardsWrapperTodos.style.justifyContent = "space-evenly";
+			} else {
+					cards[i].style.display = "none";
+					iconeApagar.classList.remove('ocultar');
+					// cardsWrapperTodos.style.justifyContent = "flex-start";
+			}
+
+					iconeApagar.addEventListener('click', function (e) {
+					inputSearch.value = "";
+					title.value = "";
+					iconeApagar.classList.add('ocultar');
+					
+					cards.forEach(function (card) {
+					card.style.display = "";
+					})
+					produtosContainer.forEach(function (section) {
+					section.style.display = "";	
+					})
+					});
+
+			}
+	})
+})

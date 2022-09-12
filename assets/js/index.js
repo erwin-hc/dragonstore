@@ -246,7 +246,7 @@ else
 var iconeHamburguer = pegaElem('.icone-hamburguer');
 var navLateral = pegaElem('.nav__lateral--inicio');
 iconeHamburguer.onclick = abreNavLateral;
-var iconeXis = pegaElem('.icone-xis');
+var iconeXis = pegaElem('.nav__lateral--icons');
 iconeXis.onclick = fechaNavLateral;
 var body = pegaElem('.body');
 
@@ -255,7 +255,7 @@ var body = pegaElem('.body');
 function abreNavLateral() {
 	// window.scrollTo(0, 0);
 	var top = window.scrollY;
-navLateral.style.top = `calc(${top}px + 10px)`;
+	navLateral.style.top = `calc(${top}px + 15px)`;
 	// gb.travaScrollBars();
 	navLateral.classList.remove('remove-nav-lateral');
 
@@ -289,6 +289,13 @@ var btnLoginEntrar = pegaElem('.btn-entrar-login'); // active
 var btnLoginCadastrar = pegaElem('.btn-cadastrar-login');
 var telaEntrar = pegaElem('.tela--entrar'); // ocultar 
 var telaCadastrar = pegaElem('.tela--cadastrar');  
+
+var btnXix = pegaElem('.btn-xix');
+btnXix.addEventListener('click', function(e) {
+	if (e.target.classList.contains('btn-xix')) {
+		fechaModalLogin();
+	}	
+});
 
 btnLoginNav.forEach(function (btn) {
 	btn.addEventListener('click', function () {
@@ -325,6 +332,7 @@ document.onkeydown = function(e) {
         fechaModalLogin();
         fechaModalDetalhes();
         fechaNavLateral();
+        fechaModalCarrinho();
     }
 };
 // ----------------------------------------------------------------------------------------------
@@ -865,5 +873,55 @@ function ocultaCategorias(elemento) {
 			elemento.style.display = '';
 		}	
 }
+
+
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+var modalCarrinho = pegaElem('.modal__carrinho__wrapper');
+var produtosInicioContainer = pegaElem('.container__inicio');
+
+// MODAL PRODUTOS
+var top;
+function abreModalCarrinho() {
+	// travaScrollBars();
+	top = window.scrollY;
+	// modalDetalhe.style.top = `${top}px`;
+	modalCarrinho.classList.toggle('ocultar');
+	produtosInicioContainer.classList.add('ocultar');
+
+};
+
+function fechaModalCarrinho() {
+	// destravaScrollBars();
+	modalCarrinho.classList.add('ocultar');
+	produtosInicioContainer.classList.remove('ocultar');
+	window.scroll(0,top);
+};
+
+modalCarrinho.addEventListener('click', function (e) {
+	if ((e.target.classList.contains('modal__carrinho__wrapper'))
+	    || (e.target.classList.contains('carrinho--container'))) {
+		fechaModalCarrinho();
+	}
+})
+
+var iconeCarrinho = pegaElem('.icone-carrinho');
+var carrinhoVazioWraper = pegaElem('.carrinho-vazio--wraper');
+
+iconeCarrinho.addEventListener('click', function () {
+	abreModalCarrinho();
+
+	var count = iconeCarrinho.parentElement.getAttribute('data-carrinho-count');
+	if (count == 0) {
+		carrinhoVazioWraper.classList.remove('ocultar');
+	}
+	else
+	{
+		carrinhoVazioWraper.classList.add('ocultar');
+	}
+
+})
 
 

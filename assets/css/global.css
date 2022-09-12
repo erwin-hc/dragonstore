@@ -36,6 +36,9 @@
 	--box-shadow: 0 2px 8px #5f6368;
 	--radius: 8px;
 
+	--svg-branco: invert(98%) sepia(1%) saturate(3416%) hue-rotate(241deg) brightness(115%) contrast(84%);
+	--svg-vermelho: invert(42%) sepia(24%) saturate(2471%) hue-rotate(323deg) brightness(93%) contrast(81%);
+
 }
 
 @media (max-width: 768px) {
