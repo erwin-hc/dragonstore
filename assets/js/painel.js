@@ -69,26 +69,59 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 
 	var tbody = pegaElem(nomeTabela).querySelector('tbody');
 	tbody.innerHTML = "";
-	dados.forEach(function (index, i) {
-		var html = `						
-							<td>
-								<div class="btn-editar" data-acao="editar" data-index=${i}>
-									<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
-								</div>											
-							</td>
-							<td class="colunaID" id='tdId'>${index.id}</td>
-							<td id='tdTitulo'>${index.titulo}</td>
-							<td id='tdValor'>${index.valor.replace(".",",")}</td>
-							<td id='tdCategoria'>${index.categoria}</td>
-							<td id='tdNota'>${index.nota}</td>
-							<td id='tdPoster'>${index.poster}</td>
-							<td id='tdResumo'>${index.resumo}</td>
-						
-					`;
-		 var novaLinha = tbody.insertRow(tbody.rows.length);
-		 novaLinha.classList.add('rowHover');
-		 novaLinha.innerHTML = html;
-	});
+	
+
+	if (nomeBanco == "bd_todos") {
+
+									dados.forEach(function (index, i) {
+									var html = `						
+														<td class="ocultar">
+															<div class="btn-editar" data-acao="editar" data-index=${i}>
+																<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
+															</div>											
+														</td>
+														<td  class="colunaID" id='tdId'>${index.id}</td>
+														<td  style="min-width:300px;" id='tdTitulo'>${index.titulo}</td>
+														<td  id='tdValor'>${index.valor.replace(".",",")}</td>
+														<td  id='tdCategoria'>${index.categoria}</td>
+														<td  id='tdNota'>${index.nota}</td>
+														<td  id='tdPoster'>${index.poster}</td>
+														<td  id='tdResumo'>${index.resumo}</td>
+													
+												`;
+									 var novaLinha = tbody.insertRow(tbody.rows.length);
+									 novaLinha.classList.add('rowHover');
+									 novaLinha.innerHTML = html;
+									});
+
+	}
+	else
+	{
+
+									dados.forEach(function (index, i) {
+									var html = `						
+														<td>
+															<div class="btn-editar" data-acao="editar" data-index=${i}>
+																<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
+															</div>											
+														</td>
+														<td class="colunaID" id='tdId'>${index.id}</td>
+														<td id='tdTitulo'>${index.titulo}</td>
+														<td id='tdValor'>${index.valor.replace(".",",")}</td>
+														<td id='tdCategoria'>${index.categoria}</td>
+														<td id='tdNota'>${index.nota}</td>
+														<td id='tdPoster'>${index.poster}</td>
+														<td id='tdResumo'>${index.resumo}</td>
+													
+												`;
+									 var novaLinha = tbody.insertRow(tbody.rows.length);
+									 novaLinha.classList.add('rowHover');
+									 novaLinha.innerHTML = html;
+									});
+
+	}
+
+
 	
 };
 
@@ -101,6 +134,8 @@ function populaTabelaProdutosTodas() {
 	populaTabelaProdutos('bd_fantasia','.tabela__produtos-fantasia');
 	populaTabelaProdutos('bd_horror','.tabela__produtos-horror');
 	populaTabelaProdutos('bd_ficcao','.tabela__produtos-ficcao');
+	populaTabelaProdutos('bd_destaques','.tabela__produtos-destaques');
+	populaTabelaProdutos('bd_todos','.tabela__produtos-todos');
 }
 
 var bdAcaco = pegaDadosLocalStorage('bd_acao');
@@ -126,6 +161,7 @@ else
 var btnTableProdutosAdicionar = document.querySelectorAll('.btn-tableProdutos-adicionar');
 var modalProduto = pegaElem('.modal__produtos');
 var modalUsuario = pegaElem('.modal__usuarios');
+var modalTodos = pegaElem('.modal__todos');
 
 var form = pegaElem('.form-produtos');
 var formImputNome = pegaElem('[data-formprodutos="nome"]');
@@ -152,8 +188,22 @@ document.onkeydown = function(e) {
     if (e.keyCode == 27) {
         fechaModalProduto();
         fechaModalUsuario();
+        fechaModalTodos();
     }
 };
+// ----------------------------------------------------------------------------------------------
+// MODAL TODOS
+function abreModalTodos() {
+	travaScrollBars();
+	var top = window.scrollY;
+	modalTodos.style.top = `${top}px`;
+	modalTodos.classList.toggle('ocultar');
+};
+function fechaModalTodos() {
+	destravaScrollBars();
+	modalTodos.classList.add('ocultar');
+};
+// -----
 // ----------------------------------------------------------------------------------------------
 // MODAL PRODUTOS
 function abreModalProduto() {
@@ -191,11 +241,60 @@ function fechaModalUsuario() {
 
 btnTableProdutosAdicionar.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
+			var tabelaGenero = e.target.getAttribute('data-genero');
+
+			switch(tabelaGenero) {
+			case 'acao':
+			categoria = 'Ação';
+			break;
+			case 'aventura':
+			categoria = 'Aventura';
+			break;
+			case 'comedia':
+			categoria = 'Comédia';
+			break;
+			case 'drama':
+			categoria = 'Drama';
+			break;
+			case 'fantasia':
+			categoria = 'Fantasia';
+			break;
+			case 'horror':
+			categoria = 'Horror';
+			break;
+			case 'ficcao':
+			categoria = 'Ficção';
+			break;
+			case 'destaques':
+			categoria = 'Destaques';
+			break;
+			}	
+
+
+			var btnBuscar = pegaElem('.btn-buscar');
+
+			if (categoria == 'Destaques') {
+				btnBuscar.classList.remove('ocultar');
+
+				// formImputTitulo.disabled = true;
+				// formImputNota.disabled = true;
+				// formImputValor.disabled = true;
+				// formImputPoster.disabled = true;
+				// formImputResumo.disabled = true;
+			}
+			else
+			{
+				btnBuscar.classList.add('ocultar');
+			}
+
+			var tituloTabela = pegaElem('.titulo-tabela');
+			tituloTabela.innerHTML = categoria.toUpperCase();
+
 		abreModalProduto();
 		bntFormSalvar.disabled = false;
 		btnFormUpdate.disabled = true;
 		btnFormExcluir.disabled = true;
-				var tabelaGenero = e.target.getAttribute('data-genero');
+				
 				bntFormSalvarProdutos.setAttribute('data-genero',tabelaGenero);
 				bntFormUpdateProdutos.setAttribute('data-genero',tabelaGenero);
 				bntFormExcluirProdutos.setAttribute('data-genero',tabelaGenero);
@@ -356,7 +455,6 @@ function deletarDadosPro(produtoID, srtNomeBanco) {
 }
 // ----------------------------------------------------------------------------------------------
 // BOTAO SALVAR FORM PRODUTOS
-
 bntFormSalvarProdutos.addEventListener('click', function (e) {
 
 var attrGenero = this.getAttribute('data-genero');
@@ -389,7 +487,10 @@ case 'ficcao':
 srtNomeBanco = 'bd_ficcao';
 categoria = 'Ficção';
 break;
-default:
+case 'destaques':
+srtNomeBanco = 'bd_destaques';
+categoria = 'Destaques';
+break;
 }	
 	inserirDadosPro(srtNomeBanco, categoria);
 })
@@ -397,7 +498,7 @@ default:
 // ----------------------------------------------------------------------------------------------
 // BOTAO EDITAR MODAL PRODUTOS
 bntFormUpdateProdutos.addEventListener('click', function (e) {
-	var produtoID = this.parentElement.parentElement[0].value;
+	var produtoID = this.parentElement.parentElement.querySelector('[data-formprodutos="id"]').value;
 	e.preventDefault();
 	
 	editarDadosPro(produtoID, srtNomeBanco);
@@ -409,7 +510,7 @@ bntFormUpdateProdutos.addEventListener('click', function (e) {
 // ----------------------------------------------------------------------------------------------
 // BOTAO EXCLUIR MODAL PRODUTOS
 bntFormExcluirProdutos.addEventListener('click', function () {	
-	var produtoID = this.parentElement.parentElement[0].value;			
+	var produtoID = this.parentElement.parentElement.querySelector('[data-formprodutos="id"]').value;	
 	deletarDadosPro(produtoID,srtNomeBanco);
 	form.reset();
 	fechaModalProduto();
@@ -458,7 +559,10 @@ tabelaProdutos.forEach(function (tabela) {
 			srtNomeBanco = 'bd_ficcao';
 			categoria = 'Ficção';
 			break;
-			default:	
+			case 'destaques':
+			srtNomeBanco = 'bd_destaques';
+			categoria = 'Destaques';
+			break;
 			}				
 
 			var tdIdText =    e.target.closest('tr').cells[1].innerText;
@@ -467,6 +571,15 @@ tabelaProdutos.forEach(function (tabela) {
 			var tdNota =      e.target.closest('tr').cells[5].innerText;
 			var tdPoster =    e.target.closest('tr').cells[6].innerText;
 			var tdResumo =    e.target.closest('tr').cells[7].innerText;
+
+
+			var btnBuscar = pegaElem('.btn-buscar');
+			if (categoria == 'Destaques') {
+				abreModalTodos();
+			}
+			
+			var tituloTabela = pegaElem('.titulo-tabela');
+			tituloTabela.innerHTML = categoria.toUpperCase();
 
 			abreModalProduto();
 
@@ -517,4 +630,39 @@ function resetUser() {
 	localStorage.setItem('userEmail', "");
 	localStorage.setItem('isLogaded', false);
 	localStorage.setItem('isADM', false);
+}
+
+
+// ----------------------------------------------------------------------------------------------
+// IMPUT SEARCH TABELA TODOS
+
+var inputSearchTabela = pegaElem('.input-search-tabela');
+
+inputSearchTabela.addEventListener('keyup', function () {
+	var pesquisa = inputSearchTabela.value;
+
+			var input, filter, table, tr, td, i, txtValue;
+			input = pegaElem('.input-search-tabela');
+			filter = input.value.toUpperCase();
+			table = pegaElem('.tabela__produtos-todos');
+			tr = table.getElementsByTagName("tr");
+
+			// Loop through all table rows, and hide those who don't match the search query
+			for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[2];
+					if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+					} else {
+					tr[i].style.display = "none";
+					}
+					}
+			}
+
+})
+
+function filtraTabela() {
+  // Declare variables
+ 
 }

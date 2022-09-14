@@ -62,6 +62,40 @@
 					</tfoot>
 				</table>
 		</div>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- LISTA PRODUTOS CATEGORIA ACAO -->
+<div class="tabela__produtos__wrapper">
+<table class="tabela__produtos-destaques tb-padrao tb-produtos">
+	<thead class="thead-collapse">
+		<tr >
+			<th class="font-m" colspan="8">CATEGORIA: DESTAQUES 
+			<div class="icone-seta"><i class="fa-solid fa-angles-down"></i>Expandir</div></th>
+		</tr>
+		<tr class="thead-cabeçalho tbody-hidden">
+			<th>EDITAR</th>
+			<th class="headerID">ID</th>
+			<th>TITULO</th>
+			<th>VALOR</th>
+			<th>CATEGORIA</th>
+			<th>NOTA</th>
+			<th>POSTER</th>
+			<!-- <th>BACKG</th> -->
+			<th>RESUMO</th>
+		</tr>
+	</thead>
+	<tbody class="tbody-hidden"></tbody>
+	<tfoot class="tbody-hidden ocultar">
+		<tr>
+			<td colspan="8">
+				<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="destaques"> 
+					<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+				</button>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+</div>
 	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- LISTA PRODUTOS CATEGORIA ACAO -->
 	<div class="tabela__produtos__wrapper">
@@ -336,7 +370,8 @@
 <div class="modal__produtos ocultar">
 <!-- FORM USUARIOS -->
 <form action="" class="form-produtos">
-	<h3 class="font-m"><i class="fa-solid fa-compact-disc"></i> PRODUTOS</h3>
+	<h3 class="font-m"><i class="fa-solid fa-compact-disc">&nbsp;</i><span class="titulo-tabela">&nbsp;PRODUTOS</span></h3>
+	<!-- <div class="inputs fake-input"><button class="btn-buscar btn-sucess ocultar"><i class="fa-solid fa-magnifying-glass "></i> BUSCAR</button></div> -->
 		<input style="display: none;" data-formProdutos="id" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Id" required>	
 		<input data-formProdutos="titulo" class="inputs" spellcheck="false" autocomplete="off" type="text" placeholder="Titulo" required>	
 		<input data-formProdutos="nota" class="inputs" spellcheck="false" autocomplete="off" type="email"  placeholder="Nota" required>			
@@ -354,7 +389,47 @@
 
 </div>
 <!-- -------------------------------------------------------------------------------------------------- -->
+<!-- MODAL BUSCAR DESTAQUES -->
+<div class="modal__todos ocultar">
 
+	<div class="modal__todos--wrapper">	
+	
+	<input class="input-search-tabela inputs" type="text" spellcheck="false" placeholder="🔍︎ Pesquisar...">
+	<div class="tabela__produtos__wrapper tabela-todos-wrapper">
+			<table class="tabela__produtos-todos tb-padrao tb-produtos">
+				<thead>
+					<tr>
+						<th class="font-m" colspan="8">CATEGORIA: TODOS
+					</tr>
+					<tr class="thead-cabeçalho">
+						<!-- <th>EDITAR</th> -->
+						<th class="headerID">ID</th>
+						<th>TITULO</th>
+						<th>VALOR</th>
+						<th>CATEGORIA</th>
+						<th>NOTA</th>
+						<th>POSTER</th>
+						<th>BACKG</th>
+						<th>RESUMO</th>
+					</tr>
+				</thead>
+				<tbody class=""></tbody>
+<!-- 				<tfoot class="">
+					<tr>
+						<td colspan="8">
+							<button class="btn btn-tableProdutos-adicionar btn-expande" data-genero="ficcao">
+								<i class="fa-solid fa-compact-disc"></i> ADICIONAR
+							</button>
+						</td>
+					</tr>
+				</tfoot> -->
+			</table>
+	</div>
+
+</div>
+
+</div>
+</div>
 
 <script type="module" src="assets/js/clientes.js"></script>
 <script type="module" src="assets/js/painel.js"></script>

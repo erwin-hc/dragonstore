@@ -91,6 +91,7 @@ function defineBaseDadosTudo() {
 		defineBaseDados('bd_fantasia','Fantasia');
 		defineBaseDados('bd_horror','Horror');
 		defineBaseDados('bd_ficcao','Ficção');
+		defineBaseDados('bd_destaques','Destaques');
  } 
  defineBaseDadosTudo();
 

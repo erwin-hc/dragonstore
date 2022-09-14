@@ -179,6 +179,15 @@
 	border-radius: var(--radius);
 }
 
+.tabela-todos-wrapper {
+	min-height: 500px;
+	background-color: var(--cor-900);
+}
+
+.tabela-todos-wrapper tr {
+	cursor: pointer;
+
+}
 .tabela__produtos__wrapper:last-child {
 	margin-bottom: 50px;
 }
@@ -209,7 +218,8 @@
 /*------------------------------------------------*/
 /*MODAIS*/
 .modal__usuarios,
-.modal__produtos {
+.modal__produtos,
+.modal__todos {
 	position: absolute;
 	z-index: 9999999999;
 	
@@ -232,7 +242,8 @@
 /*------------------------------------------------*/
 /*FORMULARIO MODAL*/
 .form-usuarios,
-.form-produtos {
+.form-produtos,
+.modal__todos--wrapper {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -287,7 +298,18 @@
 	border: 1px solid var(--cor-laranja);
 }
 
+.modal__todos--wrapper {
+	height: 600px;
+}
 
+.tabela__produtos-todos thead {
+	display: none;
+}
+.modal__todos--wrapper input {
+	margin-top: 50px;
+	margin-bottom: -30px;
+	width: 95%;
+}
 /*------------------------------------------------*/
 /*------------------------------------------------*/
 /*------------------------------------------------*/
@@ -296,4 +318,25 @@
 .headerID,
 .colunaID {
 	display: none;
+}
+
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*BOTAO LUPA TABELA DESTAQUES*/
+.btn-buscar {
+	width: 90px;
+	height: 30px;
+	color: var(--cor-900);
+	font-size: 14px;
+	align-self: flex-start;
+}
+.btn-buscar i {
+	color: var(--cor-900);
+}
+.fake-input {
+	background-color: var(--cor-600);
+	border: none;
+	padding: 0;
+	margin-bottom: -20px;
 }

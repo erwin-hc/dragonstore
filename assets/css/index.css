@@ -762,8 +762,8 @@ a:hover .fa-brands {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.8);
-	backdrop-filter: blur(8px);
+	background-color: var(--cor-900);
+	/*backdrop-filter: blur(8px);*/
 	width: 100vw;
 	height: 100vh;
 
@@ -1188,7 +1188,7 @@ details[open] summary::before {
 	padding-block: 1rem ;
 	z-index: 9;
 	position: relative;
-	border: 1px solid var(--cor-laranja);
+	border: 1px solid var(--cor-azul);
 	border-radius: 8px;
 	background-color: var(--cor-600);
 

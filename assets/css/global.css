@@ -15,9 +15,10 @@
 	--fonte-xg: calc(var(--fb) + 8px);
 	
 	--cor-100: #EBEBEB;	
-
 	--cor-600: #161b22;
 	--cor-900: #010409;
+	--cor-bordas: #30363d;
+
 
 
 	--cor-hover: #3c4043;	
@@ -31,9 +32,10 @@
 	--cor-verde: #5cb85c;
 	--rgb-verde: 92, 184, 92;
 
-	--cor-bordas: #30363d;
+	
 	--cor-borda-after: transparent;
-	--box-shadow: 0 2px 8px #5f6368;
+	--box-shadow: 0 2px 8px #4c566a;
+	/*--box-shadow: 0 2px 8px #5f6368;*/
 	--radius: 8px;
 
 	--svg-branco: invert(98%) sepia(1%) saturate(3416%) hue-rotate(241deg) brightness(115%) contrast(84%);
