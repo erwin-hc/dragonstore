@@ -7,7 +7,8 @@
     "resumo": "Com suas capas balançando, Gamma 1 e Gamma 2 podem ser vistos fazendo algumas poses incríveis! Além disso, há alguns novos personagens originais que teremos que esperar para descobrir mais, não importa o quão difícil possa ser! Vestindo seu uniforme e tomando o centro do palco está Gohan, que parece estar se preparando para a luta de uma vida ao lado de Piccolo, Goku, Vegeta e Pan! (sinopse temporária)",
     "nota": 7.6,
     "poster": "https://image.tmdb.org/t/p/original//FiqBRypTDyHzqcxdbpPb3ddFep.jpg",
-    "background": "https://image.tmdb.org/t/p/original//ugS5FVfCI3RV0ZwZtBV3HAV75OX.jpg"
+    "background": "https://image.tmdb.org/t/p/original//ugS5FVfCI3RV0ZwZtBV3HAV75OX.jpg",
+    "slide": 1
   },
   {
     "id": 2675161594220,
@@ -17,7 +18,8 @@
     "resumo": "Ambientado no mundo da Nação Comanche no início de 1700, \"O Predador: A Caçada\" é a história não contada de uma jovem guerreira altamente qualificada, desesperada para proteger seu povo do perigo iminente. Ela persegue e finalmente confronta sua presa, que acaba sendo um predador alienígena altamente evoluído com um arsenal tecnologicamente avançado, resultando em um confronto brutal e aterrorizante entre os adversários.",
     "nota": 8.1,
     "poster": "https://image.tmdb.org/t/p/original//g7Ii9sYAFG96W7cvMQ4zXq39RJ5.jpg",
-    "background": "https://image.tmdb.org/t/p/original//7ZO9yoEU2fAHKhmJWfAc2QIPWJg.jpg"
+    "background": "https://image.tmdb.org/t/p/original//7ZO9yoEU2fAHKhmJWfAc2QIPWJg.jpg",
+    "slide": 2
   },
   {
     "id": 4076307112995,
@@ -27,7 +29,8 @@
     "resumo": "Thor parte em uma jornada de autodescoberta, diferente de tudo que ele já enfrentou. Mas seus esforços são interrompidos por um assassino galáctico conhecido como Gorr, o Carniceiro dos Deuses, que busca a extinção dos deuses. Para combater esta ameaça, Thor pede a ajuda da Rei Valquíria, Korg e da ex-namorada Jane Foster, que, para a surpresa de Thor, inexplicavelmente empunha seu mágico martelo, Mjolnir, como a Poderosa Thor. Juntos, eles embarcam em uma angustiante aventura cósmica para descobrir o mistério da vingança do Carniceiro dos Deuses e detê-lo antes que seja tarde demais.",
     "nota": 6.8,
     "poster": "https://image.tmdb.org/t/p/original//6OEBp0Gqv6DsOgi8diPUslT2kbA.jpg",
-    "background": "https://image.tmdb.org/t/p/original//p1F51Lvj3sMopG948F5HsBbl43C.jpg"
+    "background": "https://image.tmdb.org/t/p/original//p1F51Lvj3sMopG948F5HsBbl43C.jpg",
+    "slide": 3
   },
   {
     "id": 6763064880983,

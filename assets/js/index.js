@@ -48,6 +48,8 @@ function verificaLocalStorage() {
 // VERIFICA LOCAL STORAGE SE ESTIVER VAZIO ADICIONA UM ITEM
 verificaLocalStorage();
 var url = './assets/js/base-dados.js';
+
+
 function defineBaseDados(srtNomeBanco,srtCategoria) {
 	
 	fetch(url)
@@ -58,25 +60,49 @@ function defineBaseDados(srtNomeBanco,srtCategoria) {
 		var obj = pegaDadosLocalStorage(srtNomeBanco);
 		if (obj === null || obj.length <= 0) {
 		obj = [];
+
+		if (srtNomeBanco === 'bd_destaques') {
+				for (var i = 0; i < data.length; i++) {
+							if (data[i].categoria == srtCategoria) {
+								// console.log(data[i])
+								obj.push( 
+									{
+									'id'            : data[i].id,
+									'titulo'		: data[i].titulo,
+									'valor'		    : data[i].valor,
+									'categoria'		: data[i].categoria,
+									'resumo'		: data[i].resumo,
+									'nota'		    : data[i].nota,
+									'poster'		: data[i].poster,
+									'background'	: data[i].background,
+									'slide'         : data[i].slide,
+									}
+								);
+								salvaDadosLocalStorage(srtNomeBanco, obj)
+							}			
+					};
+
+		} else {
+				for (var i = 0; i < data.length; i++) {
+							if (data[i].categoria == srtCategoria) {
+								// console.log(data[i])
+								obj.push( 
+									{
+									'id'            : data[i].id,
+									'titulo'		: data[i].titulo,
+									'valor'		    : data[i].valor,
+									'categoria'		: data[i].categoria,
+									'resumo'		: data[i].resumo,
+									'nota'		    : data[i].nota,
+									'poster'		: data[i].poster,
+									'background'	: data[i].background,
+									}
+								);
+								salvaDadosLocalStorage(srtNomeBanco, obj)
+							}			
+					};
+		}
 		
-			for (var i = 0; i < data.length; i++) {
-						if (data[i].categoria == srtCategoria) {
-							// console.log(data[i])
-							obj.push( 
-								{
-								'id'            : data[i].id,
-								'titulo'		: data[i].titulo,
-								'valor'		    : data[i].valor,
-								'categoria'		: data[i].categoria,
-								'resumo'		: data[i].resumo,
-								'nota'		    : data[i].nota,
-								'poster'		: data[i].poster,
-								'background'	: data[i].background,
-								}
-							);
-							salvaDadosLocalStorage(srtNomeBanco, obj)
-						}			
-		    };
 	};
 });
 };
@@ -735,11 +761,29 @@ botaoDetalhe.forEach(function (btn) {
 })
 
 
-
 var idDestaque = document.querySelectorAll('.id-destaque');
 var categoriaDestaque = document.querySelectorAll('.categoria-destaque');
 var imgDestaque = document.querySelectorAll('.imgDestaque');
 // var modalDetalheWrapper = document.querySelector('.modal__detalhe--wrapper');
+function defineSlides() {
+
+	document.querySelectorAll('.imgDestaque')[0].src = pegaDadosLocalStorage('bd_destaques')[0].background;
+	document.querySelectorAll('.tituloDestaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].titulo;
+	document.querySelectorAll('.id-destaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].id;
+	document.querySelectorAll('.categoria-destaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].categoria;
+
+	document.querySelectorAll('.imgDestaque')[1].src = pegaDadosLocalStorage('bd_destaques')[1].background;
+	document.querySelectorAll('.tituloDestaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].titulo;
+	document.querySelectorAll('.id-destaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].id;
+	document.querySelectorAll('.categoria-destaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].categoria;
+
+	document.querySelectorAll('.imgDestaque')[2].src = pegaDadosLocalStorage('bd_destaques')[2].background;
+	document.querySelectorAll('.tituloDestaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].titulo;
+	document.querySelectorAll('.id-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].id;
+	document.querySelectorAll('.categoria-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].categoria;
+	
+}
+defineSlides();
 
 imgDestaque.forEach(function (img) {
 	img.addEventListener('click', function (e) {

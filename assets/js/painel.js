@@ -86,7 +86,34 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 														<td  id='tdCategoria'>${index.categoria}</td>
 														<td  id='tdNota'>${index.nota}</td>
 														<td  id='tdPoster'>${index.poster}</td>
+														<td  id='tdBackground'>${index.background}</td>
 														<td  id='tdResumo'>${index.resumo}</td>
+													
+												`;
+									 var novaLinha = tbody.insertRow(tbody.rows.length);
+									 novaLinha.classList.add('rowHover');
+									 novaLinha.innerHTML = html;
+									});
+
+	}
+	else if (nomeBanco == "bd_destaques") {
+
+									dados.forEach(function (index, i) {
+									var html = `						
+														<td>
+															<div class="btn-editar" data-acao="editar" data-index=${i}>
+																<i data-acao="editar" class="fa-solid fa-pen-to-square fa-lg"></i>
+															</div>											
+														</td>
+														<td  class="colunaID" id='tdId'>${index.id}</td>
+														<td  style="min-width:300px;" id='tdTitulo'>${index.titulo}</td>
+														<td  id='tdValor'>${index.valor.replace(".",",")}</td>
+														<td  id='tdCategoria'>${index.categoria}</td>
+														<td  id='tdNota'>${index.nota}</td>
+														<td  id='tdPoster'>${index.poster}</td>
+														<td  id='tdBackground'>${index.background}</td>
+														<td  id='tdResumo'>${index.resumo}</td>
+														<td  id='tdSlide'>${index.slide}</td>
 													
 												`;
 									 var novaLinha = tbody.insertRow(tbody.rows.length);
@@ -111,6 +138,7 @@ function populaTabelaProdutos(nomeBanco, nomeTabela) {
 														<td id='tdCategoria'>${index.categoria}</td>
 														<td id='tdNota'>${index.nota}</td>
 														<td id='tdPoster'>${index.poster}</td>
+														<td  id='tdBackground'>${index.background}</td>
 														<td id='tdResumo'>${index.resumo}</td>
 													
 												`;
@@ -180,6 +208,10 @@ body.addEventListener('click', function (e) {
 	if (e.target.classList.contains('modal__produtos')) {
         fechaModalProduto();
 	}
+	if (e.target.classList.contains('modal__todos')) {
+        fechaModalTodos();
+	}
+
 })
 // ----------------------------------------------------------------------------------------------
 // FECHA MODAL NO ESC
@@ -198,6 +230,8 @@ function abreModalTodos() {
 	var top = window.scrollY;
 	modalTodos.style.top = `${top}px`;
 	modalTodos.classList.toggle('ocultar');
+	inputSearchTabela.value = "";
+	inputSearchTabela.focus();
 };
 function fechaModalTodos() {
 	destravaScrollBars();
@@ -270,23 +304,6 @@ btnTableProdutosAdicionar.forEach(function (btn) {
 			break;
 			}	
 
-
-			var btnBuscar = pegaElem('.btn-buscar');
-
-			if (categoria == 'Destaques') {
-				btnBuscar.classList.remove('ocultar');
-
-				// formImputTitulo.disabled = true;
-				// formImputNota.disabled = true;
-				// formImputValor.disabled = true;
-				// formImputPoster.disabled = true;
-				// formImputResumo.disabled = true;
-			}
-			else
-			{
-				btnBuscar.classList.add('ocultar');
-			}
-
 			var tituloTabela = pegaElem('.titulo-tabela');
 			tituloTabela.innerHTML = categoria.toUpperCase();
 
@@ -308,7 +325,9 @@ var formImputNota = pegaElem('[data-formProdutos="nota"]');
 var formImputValor = pegaElem('[data-formProdutos="valor"]');
 var formImputCategoria = pegaElem('[data-formProdutos="categoria"]');
 var formImputPoster = pegaElem('[data-formProdutos="poster"]');
+var formImputBackground = pegaElem('[data-formProdutos="background"]');
 var formImputResumo = pegaElem('[data-formProdutos="resumo"]');
+var inputSlide = pegaElem('.input-slide');
 
 var bntFormSalvarProdutos =  pegaElem('[data-formProdutos="btn-salvar"]');
 var bntFormUpdateProdutos =  pegaElem('[data-formProdutos="btn-update"]');
@@ -373,6 +392,18 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 			formImputPoster.classList.remove('invalid')
 		},800);
 	}	
+	else if (formImputBackground.value === "") 
+	{
+		formImputBackground.focus();
+		formImputBackground.value = "";
+		formImputBackground.placeholder = "Digite uma URL válida!";
+		formImputBackground.classList.add('invalid');
+
+		setTimeout(function () {
+			formImputBackground.placeholder = "URL-Background";
+			formImputBackground.classList.remove('invalid')
+		},800);
+	}
 	else if (formImputResumo.value === "") 
 	{
 		formImputResumo.focus();
@@ -395,6 +426,7 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,
 				poster    : formImputPoster.value,
+				background: formImputBackground.value,
 			};
 
 			obj.push(produto);
@@ -424,6 +456,7 @@ function editarDadosPro(produtoID, srtNomeBanco) {
 				resumo    : formImputResumo.value,
 				nota      : formImputNota.value,
 				poster    : formImputPoster.value,
+				background: formImputBackground.value,
 			};
 	    }
 	}
@@ -523,6 +556,8 @@ bntFormExcluirProdutos.addEventListener('click', function () {
 
 
 // ----------------------------------------------------------------------------------------------
+var rowIndex;
+
 tabelaProdutos.forEach(function (tabela) {
 	tabela.addEventListener('click', function (e) {
 	var btnAlvo = e.target.getAttribute('data-acao');	
@@ -570,18 +605,23 @@ tabelaProdutos.forEach(function (tabela) {
 			var tdValor =     e.target.closest('tr').cells[3].innerText;
 			var tdNota =      e.target.closest('tr').cells[5].innerText;
 			var tdPoster =    e.target.closest('tr').cells[6].innerText;
-			var tdResumo =    e.target.closest('tr').cells[7].innerText;
+			var tdBackground =    e.target.closest('tr').cells[7].innerText;
+			var tdResumo =    e.target.closest('tr').cells[8].innerText;
+			var tdSlide =  e.target.closest('tr').cells[9].innerText;
 
 
 			var btnBuscar = pegaElem('.btn-buscar');
 			if (categoria == 'Destaques') {
 				abreModalTodos();
+				// console.log(tdSlide)
+
+			} else {
+				abreModalProduto();
 			}
 			
 			var tituloTabela = pegaElem('.titulo-tabela');
 			tituloTabela.innerHTML = categoria.toUpperCase();
 
-			abreModalProduto();
 
 			bntFormSalvarProdutos.disabled = true;
 			bntFormUpdateProdutos.disabled = false;
@@ -592,7 +632,9 @@ tabelaProdutos.forEach(function (tabela) {
 			formImputValor.value = tdValor;
 			formImputNota.value = tdNota;
 			formImputPoster.value = tdPoster;
+			formImputBackground.value = tdBackground;
 			formImputResumo.value = tdResumo;
+			inputSlide.value = tdSlide;
 			
 		} 	
 								
@@ -662,7 +704,39 @@ inputSearchTabela.addEventListener('keyup', function () {
 
 })
 
-function filtraTabela() {
-  // Declare variables
- 
-}
+var tabelaTodos = pegaElem('.tabela__produtos-todos');
+
+tabelaTodos.addEventListener('click', function (e) {
+	var produtoID = e.target.parentElement.cells[1].innerText;
+	var titulo = e.target.parentElement.cells[2].innerText;
+	var valor = e.target.parentElement.cells[3].innerText
+	var categoria = e.target.parentElement.cells[4].innerText
+	var nota = e.target.parentElement.cells[5].innerText
+	var srcPoster = e.target.parentElement.cells[6].innerText
+	var srcBakground = e.target.parentElement.cells[7].innerText
+	var resumo = e.target.parentElement.cells[8].innerText
+
+	var obj = pegaDadosLocalStorage('bd_destaques');
+	var index = inputSlide.value;
+
+		obj[index -1] = {
+			id        : produtoID,
+			titulo    : titulo,
+			valor     : valor,
+			categoria : categoria,
+			nota      : nota,
+			poster    : srcPoster,
+			background: srcBakground,
+			resumo    : resumo,
+			slide     : index,
+		};
+
+			
+	salvaDadosLocalStorage('bd_destaques', obj);
+	populaTabelaProdutosTodas();
+
+	fechaModalTodos();
+
+})
+
+
