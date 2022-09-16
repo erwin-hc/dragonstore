@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="assets/css/global.css">
 	<link rel="stylesheet" href="assets/css/index.css">
 
-	<script type="module"  async src="assets/js/index.js" ></script>
+	<script type="module"  defer src="assets/js/index.js" ></script>
 
 </head>
 <body class="body fonte-clara">
@@ -53,7 +53,7 @@
 						<div class="nav__carrinho__container flex-iten-4">
 
 									<div class="icone icone--cart flex-center">
-										<div data-carrinho-count="0" class="icone-carrinho-wrapper">											
+										<div data-carrinho-count="1" class="icone-carrinho-wrapper">											
 											<!-- <img src="assets/img/cart.svg" alt="Icone Carrinho" class="icones icone-carrinho"> -->
 											<i class="fa-solid fa-cart-shopping  fa-xl icones icone-carrinho"></i>
 										</div>
@@ -95,7 +95,7 @@
 								<div class="mySlides fade">
 								<!-- <div class="numbertext">3 / 3</div> -->
 								<div class="text-cima">DESTAQUES</div>
-			<img class="imgDestaque" src="" style="width:100%">
+			<img class="imgDestaque" src="#" style="width:100%">
 			<div class="text tituloDestaque"></div>
 			<div id = "1" class="ocultar id-destaque"></div>
 			<div class="ocultar categoria-destaque"></div>
@@ -104,7 +104,7 @@
 								<div class="mySlides fade">
 								<!-- <div class="numbertext">1 / 3</div> -->
 								<div class="text-cima">DESTAQUES</div>
-			<img class="imgDestaque" src="g" style="width:100%;">
+			<img class="imgDestaque" src="#" style="width:100%;">
 			<div class="text tituloDestaque"></div>
 			<div id = "2" class="ocultar id-destaque"></div>
 			<div class="ocultar categoria-destaque"></div>
@@ -113,7 +113,7 @@
 								<div class="mySlides fade">
 								<!-- <div class="numbertext">2 / 3</div> -->
 								<div class="text-cima">DESTAQUES</div>
-			<img class="imgDestaque" src="" style="width:100%">
+			<img class="imgDestaque" src="#" style="width:100%">
 			<div class="text tituloDestaque"></div>
 			<div id = "3" class="ocultar id-destaque"></div>
 			<div class="ocultar categoria-destaque"></div>
@@ -392,15 +392,76 @@
 
 <!-- -------------------------------------------------------------------------------------------------- -->
 <!-- MODAL CARRINHO -->
-<div class="modal__carrinho__wrapper ocultar">
+<div class="modal__carrinho__wrapper ">
 	<div class="carrinho--container">
 
-		<div class="carrinho-vazio--wraper">
+		<div class="carrinho-vazio--wraper ocultar">
 			<img src="assets/img/carrinho-vazio.svg" alt="Carrinho Compras Vazio" class="carrinho-vazio">
 			<h1>Seu carrinho está vaziu!!!</h1>
-			<a href="index.html"><button>CONTINUAR COMPRANDO</button></a>
+			<a href="#"><button class="btn-continuar-comprando">CONTINUAR COMPRANDO</button></a>
 		</div>
 
+		<div class="carrinho--wrapper">
+
+			<div class="carrinho__titulo">
+				<h1>CARRINHO</h1>				
+			</div>
+
+			<div class="carrinho__itens">
+				<details open>
+					<summary>&nbsp;&nbsp;&nbsp;&nbsp;ITENS</summary>		
+
+					<div>
+			<table class="tabela__carrinho__itens">
+						<tbody>
+
+								<tr>
+								<td><img src="https://image.tmdb.org/t/p/original//g7Ii9sYAFG96W7cvMQ4zXq39RJ5.jpg" style="width: 50px;"></td>
+								<td>O Predador: A Caçada</td>
+								<td>25.10</td>
+								<td class="valor-base ocultar">25.10</td>
+								<td><input class="qtd-input" type="number" value="1"></td>
+								<td><i class="delete-input fa-regular fa-trash-can fa-xl"></i></td>
+								</tr>
+
+								<tr>
+								<td><img src="https://image.tmdb.org/t/p/original//g7Ii9sYAFG96W7cvMQ4zXq39RJ5.jpg" style="width: 50px;"></td>
+								<td>O Predador: A Caçada</td>
+								<td>49.89</td>
+								<td class="valor-base ocultar">49.89</td>
+								<td><input class="qtd-input" type="number" value="1"></td>
+								<td><i class="delete-input fa-regular fa-trash-can fa-xl"></i></td>
+								</tr>
+
+			</tbody>
+			<tfoot >
+					<tr>
+						<td colspan="2"></td>
+							<td colspan="3">Total<input class="total-tfoot" type="text"></td>
+					</tr>
+			</tfoot>
+	</table>
+				</div>
+
+
+				</details>
+				<details>
+					<summary>&nbsp;&nbsp;&nbsp;&nbsp;ENTREGA</summary>		
+							<div style="height: 300px;border: 1px solid red;"></div>			
+				</details>
+				<details>
+					<summary>&nbsp;&nbsp;&nbsp;&nbsp;PAGAMENTO</summary>		
+						<div style="height: 300px;border: 1px solid red;"></div>						
+				</details>
+				<details>
+					<summary>&nbsp;&nbsp;&nbsp;&nbsp;USUÁRIO</summary>		
+						<div style="height: 300px;border: 1px solid red;"></div>						
+				</details>
+				
+			</div>
+			<div class="carrinho__total">
+			</div>
+		</div>
 
 	</div>
 </div>

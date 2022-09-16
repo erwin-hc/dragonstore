@@ -315,6 +315,7 @@ btnTableProdutosAdicionar.forEach(function (btn) {
 				bntFormSalvarProdutos.setAttribute('data-genero',tabelaGenero);
 				bntFormUpdateProdutos.setAttribute('data-genero',tabelaGenero);
 				bntFormExcluirProdutos.setAttribute('data-genero',tabelaGenero);
+
 	});
 });
 
@@ -443,6 +444,8 @@ function inserirDadosPro(srtNomeBanco, categoria) {
 // UPDATE
 function editarDadosPro(produtoID, srtNomeBanco) {
 	var obj = pegaDadosLocalStorage(srtNomeBanco);
+	var todos = pegaDadosLocalStorage('bd_todos');
+	var destaques = pegaDadosLocalStorage('bd_destaques');
 	var search_term = produtoID;
 
 	for (var i=obj.length-1; i>=0; i--) {
@@ -461,8 +464,41 @@ function editarDadosPro(produtoID, srtNomeBanco) {
 	    }
 	}
 
-			
-	salvaDadosLocalStorage(srtNomeBanco, obj);
+	for (var i=todos.length-1; i>=0; i--) {
+	    if (todos[i].id == search_term) {
+
+	        todos[i] = {
+				id        : formImputId.value,
+				titulo    : formImputTitulo.value,
+				valor     : formImputValor.value.replace(".",","),
+				categoria : todos[i].categoria,
+				resumo    : formImputResumo.value,
+				nota      : formImputNota.value,
+				poster    : formImputPoster.value,
+				background: formImputBackground.value,
+			};
+	    }
+	}
+
+	for (var i=destaques.length-1; i>=0; i--) {
+	    if (destaques[i].id == search_term) {
+
+	        destaques[i] = {
+				id        : formImputId.value,
+				titulo    : formImputTitulo.value,
+				valor     : formImputValor.value.replace(".",","),
+				categoria : todos[i].categoria,
+				resumo    : formImputResumo.value,
+				nota      : formImputNota.value,
+				poster    : formImputPoster.value,
+				background: formImputBackground.value,
+			};
+	    }
+	}
+	
+	salvaDadosLocalStorage(srtNomeBanco, obj);		
+	salvaDadosLocalStorage('bd_destaques', destaques);
+	salvaDadosLocalStorage('bd_todos', todos);
 	populaTabelaProdutosTodas();
 
 	fechaModalProduto();
@@ -607,13 +643,13 @@ tabelaProdutos.forEach(function (tabela) {
 			var tdPoster =    e.target.closest('tr').cells[6].innerText;
 			var tdBackground =    e.target.closest('tr').cells[7].innerText;
 			var tdResumo =    e.target.closest('tr').cells[8].innerText;
-			var tdSlide =  e.target.closest('tr').cells[9].innerText;
+			var tdSlide;
 
 
 			var btnBuscar = pegaElem('.btn-buscar');
 			if (categoria == 'Destaques') {
 				abreModalTodos();
-				// console.log(tdSlide)
+				tdSlide = e.target.closest('tr').cells[9].innerText;
 
 			} else {
 				abreModalProduto();
@@ -683,7 +719,7 @@ var inputSearchTabela = pegaElem('.input-search-tabela');
 inputSearchTabela.addEventListener('keyup', function () {
 	var pesquisa = inputSearchTabela.value;
 
-			var input, filter, table, tr, td, i, txtValue;
+			var input, filter, table, tr, td, i, txtValue, txtGenero, tdGenero;
 			input = pegaElem('.input-search-tabela');
 			filter = input.value.toUpperCase();
 			table = pegaElem('.tabela__produtos-todos');
@@ -692,13 +728,17 @@ inputSearchTabela.addEventListener('keyup', function () {
 			// Loop through all table rows, and hide those who don't match the search query
 			for (i = 0; i < tr.length; i++) {
 					td = tr[i].getElementsByTagName("td")[2];
-					if (td) {
+					tdGenero = tr[i].getElementsByTagName("td")[4];
+					if (td || tdGenero) {
 					txtValue = td.textContent || td.innerText;
-					if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-					} else {
-					tr[i].style.display = "none";
-					}
+					txtGenero = tdGenero.textContent || tdGenero.innerText;
+
+							if((txtValue.toUpperCase().indexOf(filter) > -1)
+								|| (txtGenero.toUpperCase().indexOf(filter) > -1))  {
+							tr[i].style.display = "";
+							} else {
+							tr[i].style.display = "none";
+							}
 					}
 			}
 

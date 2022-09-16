@@ -64,7 +64,7 @@
 /*------------------------------------------------*/
 /*------------------------------------------------*/
 /*------------------------------------------------*/
-@media (max-width: 768px) {
+@media (max-width: 800px) {
 					.container__inicio {
 					grid-template-areas: "navc navc navc"
 					 ". main ."
@@ -214,10 +214,11 @@
 }
 
 .nav--itens--row {
-	margin-inline: 5px;
-	letter-spacing: 2px;
+	margin-inline: 2px;
+	letter-spacing: 1px;
 	border-bottom: 3px solid transparent;
 	font-weight: bolder;
+	font-size: 14px;
 }
 .nav--itens--row:hover {
 	/*background-color: rgba(var(--rgb-laranja),0.02);*/
@@ -523,7 +524,7 @@ img {vertical-align: middle;}
 }
 
 /* On smaller screens, decrease text size */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
 		.produtos__destaques {
 			display: none;
 		}
@@ -774,6 +775,8 @@ a:hover .fa-brands {
 }
 
 .modal--login--wrapper {
+	margin: auto;
+
 	position: relative;
 	width: min(90%, 800px);
 	min-height: 600px;
@@ -951,30 +954,30 @@ a:hover .fa-brands {
 	cursor: pointer;
 }
 
-summary {
+.tela--entrar summary {
 	cursor: pointer;
 	font-size: 12px;
 	color: var(--cor-azul);
 }
-details{
+.tela--entrar details{
 	background-color: var(--cor-600);
 	border: 1px solid var(--cor-bordas);
 	padding: .5rem;
 	border-radius: 8px;	
 
 }
-details p {
+.tela--entrar details p {
 	color: var(--cor-laranja);
 }
 
-details summary::before { 
-  content:"\02192    "; 
+.tela--entrar details summary::before { 
+  content:"\02193    "; 
   font-size: 14px;
   font-weight: bolder;
   color: var(--cor-azul); 
 }
-details[open] summary::before { 
-  content:"\02193    ";
+.tela--entrar details[open] summary::before { 
+  content:"\02191    ";
   font-size: 14px;
   font-weight: bolder; 
   color: var(--cor-azul); 
@@ -1313,6 +1316,7 @@ details[open] summary::before {
 /*TELA CARRINHO*/
 
 .modal__carrinho__wrapper {
+	padding-block: 5rem;
 	z-index: 99999999999999999;
 	position: absolute;
 	top: 0;
@@ -1320,7 +1324,7 @@ details[open] summary::before {
 	background-color: var(--cor-900);
 
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 
 	display: flex;
 	align-items: center;
@@ -1330,8 +1334,8 @@ details[open] summary::before {
 
 .carrinho--container {
 	position: relative;
+
 	width: 90%;
-	min-height: 80vh;
 	border: 1px solid var(--cor-azul);
 	background-color: var(--cor-600);
 	border-radius: 8px;
@@ -1391,5 +1395,164 @@ details[open] summary::before {
 
 .carrinho-vazio--wraper button:hover {
 	opacity: 1;
-	transform: scale(1.1);
+	transform: scale(1.01);
 }
+/*------------------------------------------------*/
+/*------------------------------------------------*/
+/*TELA CARRINHO */
+
+.carrinho--wrapper {
+	padding-block: .25rem;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-rows: 50px auto;
+	grid-template-columns: 2fr 1fr;
+	grid-template-areas: "titulo titulo" 	
+												"itens totais";
+}
+
+.carrinho__titulo {
+	grid-area: titulo;
+	border-bottom: 1px solid var(--cor-bordas);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: calc(var(--fonte-xg) + 2px);
+}
+.carrinho__itens {
+	border-right: 1px solid var(--cor-bordas);
+	grid-area: itens;
+	min-height: 500px;
+}
+
+.carrinho__total {
+		/*border: 2px solid yellow;*/
+	grid-area: totais;
+}
+/*------------------------------------------------*/
+@media (max-width: 800px) {
+		.carrinho--wrapper {
+			  grid-template-rows: 50px auto auto;
+			  grid-template-columns: 1fr;
+				grid-template-areas: "titulo" 	
+														 "itens" 
+														 "totais";
+		}
+		.carrinho__itens {
+			border-right: none;
+			border-bottom: 1px solid var(--cor-bordas);
+		
+		}
+}
+
+
+
+
+.carrinho__itens summary {
+	cursor: pointer;
+	font-size: 12px;
+	padding: .5rem;
+	color: var(--cor-100);
+}
+.carrinho__itens details{
+	background-color: var(--cor-600);
+	border-bottom: 1px solid var(--cor-bordas);
+	padding: .5rem;
+
+}
+
+.carrinho__itens details summary::before { 
+  content:"\02192    "; 
+  font-size: 14px;
+  font-weight: bolder;
+  color: var(--cor-100); 
+}
+.carrinho__itens details[open] summary {
+	color: var(--cor-azul);	
+}
+.carrinho__itens details[open] summary::before { 
+  content:"\02193    ";
+  font-size: 14px;
+  font-weight: bolder; 
+ 	color: var(--cor-azul);
+}
+.tabela__carrinho__itens {
+ margin-block:  1rem;
+}
+.tabela__carrinho__itens,
+th,
+td,
+tr {
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid var(--cor-bordas);
+	font-size: 12px;
+	padding: .5rem;
+}
+/*PRIMEIRA COLUNA*/
+.tabela__carrinho__itens td:nth-child(1),
+.tabela__carrinho__itens th:nth-child(1) {
+	text-align: center;
+	width: 10%;
+
+}
+/*SEGUNDA COLUNA*/
+.tabela__carrinho__itens td:nth-child(2),
+.tabela__carrinho__itens th:nth-child(2) {
+	text-align: left;
+	width: 60%;
+
+}
+/*TERCEIRA COLUNA*/
+.tabela__carrinho__itens td:nth-child(3),
+.tabela__carrinho__itens th:nth-child(3) {
+	text-align: center;
+	width: 20%;
+
+}
+/*QUARTA COLUNA*/
+.tabela__carrinho__itens td:nth-child(4),
+.tabela__carrinho__itens th:nth-child(4) {
+	text-align: center;
+	width: 10%;
+
+}
+/*QUINTA COLUNA*/
+.tabela__carrinho__itens td:nth-child(5),
+.tabela__carrinho__itens th:nth-child(5) {
+	text-align: center;
+	width: 10%;
+
+}
+
+.tabela__carrinho__itens tfoot td {
+	border: none;
+	padding: .5rem;
+}
+.qtd-input {
+	width: 60px;
+	height: 40px;
+	padding: .5rem;
+	border: 1px solid var(--cor-bordas);
+	background-color: transparent;
+	outline: none;
+}
+.tabela__carrinho__itens i {
+	color: var(--cor-vermelho);
+	cursor: pointer;
+}
+.total-tfoot {
+	text-align: right;
+	width: 100%;
+	height: 40px;
+	padding: .5rem;
+	border: 1px solid var(--cor-bordas);
+	background-color: transparent;
+	outline: none;
+	font-size: 14px;
+}
+
+
+

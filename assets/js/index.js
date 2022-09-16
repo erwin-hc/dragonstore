@@ -13,14 +13,14 @@ function pegaElem(elemento) {
 	return document.querySelector(elemento);
 }
 // ----------------------------------------------------------------------------------------------
-// TRAVA SCROLLBAR
-function travaScrollBars() {
-    document.documentElement.style.overflowY = 'hidden';
-}
-// DESTRAVA SCROLLBAR
-function destravaScrollBars() {
-    document.documentElement.style.overflowY = 'initial';
-}
+// // TRAVA SCROLLBAR
+// function travaScrollBars() {
+//     document.documentElement.style.overflowY = 'hidden';
+// }
+// // DESTRAVA SCROLLBAR
+// function destravaScrollBars() {
+//     document.documentElement.style.overflowY = 'initial';
+// }
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
@@ -47,8 +47,10 @@ function verificaLocalStorage() {
 // ----------------------------------------------------------------------------------------------
 // VERIFICA LOCAL STORAGE SE ESTIVER VAZIO ADICIONA UM ITEM
 verificaLocalStorage();
-var url = './assets/js/base-dados.js';
 
+
+
+var url = './assets/js/base-dados.js';
 
 function defineBaseDados(srtNomeBanco,srtCategoria) {
 	
@@ -119,7 +121,7 @@ function defineBaseDadosTudo() {
 		defineBaseDados('bd_ficcao','Ficção');
 		defineBaseDados('bd_destaques','Destaques');
  } 
- defineBaseDadosTudo();
+defineBaseDadosTudo();
 
 setTimeout(function () { 
 	var bdTodos = [
@@ -143,10 +145,7 @@ function populaCardsProdutos(nomeBanco, cardContainer) {
 	dados = [];
 	}
 
-	// var container = pegaElem(cardContainer);
-
-	// container.innerHTML = "";
-	dados.forEach(function (index, i) {
+	dados.forEach(function (index) {
 
 				var Ptitulo = index.titulo;
 				var Pid = index.id;
@@ -248,7 +247,7 @@ function populaCardsProdutosTodas() {
 
 
 var bdAcaco = pegaDadosLocalStorage('bd_acao');
-var timePlus = 200;
+var timePlus = 100;
 
 if (bdAcaco !== null)
 {
@@ -275,32 +274,25 @@ var navLateral = pegaElem('.nav__lateral--inicio');
 iconeHamburguer.onclick = abreNavLateral;
 var iconeXis = pegaElem('.nav__lateral--icons');
 iconeXis.onclick = fechaNavLateral;
-var body = pegaElem('.body');
+
 
 
 // ABRE NAV LATERAL
 function abreNavLateral() {
-	// window.scrollTo(0, 0);
 	var top = window.scrollY;
 	navLateral.style.top = `calc(${top}px + 15px)`;
-	// gb.travaScrollBars();
 	navLateral.classList.remove('remove-nav-lateral');
 
 }
 function fechaNavLateral() {
-	// window.scrollTo(0, 0);
-	// gb.destravaScrollBars();
 	navLateral.classList.add('remove-nav-lateral');
 }
-
-// var top = window.scrollY;
-// navLateral.style.top = `${top}px`;
 
 document.addEventListener('scroll', function (e) {
 	 fechaNavLateral();	
 })
 
-
+var body = pegaElem('.body');
 body.addEventListener('click', function (e) {
 	if (!e.target.parentElement.classList.contains('helper')) {
 	 fechaNavLateral();
@@ -365,15 +357,16 @@ document.onkeydown = function(e) {
 // ----------------------------------------------------------------------------------------------
 // MODAL PRODUTOS
 function abreModalLogin() {
-	travaScrollBars();
 	var top = window.scrollY;
 	modalLogin.style.top = `${top}px`;
 	modalLogin.classList.toggle('ocultar');
+	produtosInicioContainer.classList.add('ocultar');
+
 
 };
 function fechaModalLogin() {
-	destravaScrollBars();
 	modalLogin.classList.add('ocultar');
+	produtosInicioContainer.classList.remove('ocultar');
 };
 // ----------------------------------------------------------------------------------------------
 // **********************************************************************************************
@@ -400,7 +393,6 @@ function resetUser() {
 	localStorage.setItem('isLogaded', false);
 	localStorage.setItem('isADM', false);
 }
-// resetUser();
 setUser();
 
 
@@ -492,7 +484,6 @@ function login() {
 	var usuarioSessao = [];
 
 	for (var i in obj) {
-		// console.log(obj[i].email + "   " + imputEmailTelaEntrar.value)
 			var id = obj[i].id;
 			var nome = obj[i].nome;
 			var email = obj[i].email;
@@ -637,8 +628,6 @@ if (obj[i].email == imputEmailCadastrar.value) {
 	else
 	{		
 
-
-
 			var usuario = {
 				id    : id,
 				nome  : imputNomeTelaCadastrar.value,
@@ -675,16 +664,13 @@ var produtosInicioContainer = pegaElem('.container__inicio');
 // MODAL PRODUTOS
 var top;
 function abreModalDetalhes() {
-	// travaScrollBars();
 	top = window.scrollY;
-	// modalDetalhe.style.top = `${top}px`;
 	modalDetalhe.classList.toggle('ocultar');
 	produtosInicioContainer.classList.add('ocultar');
 
 };
 
 function fechaModalDetalhes() {
-	// destravaScrollBars();
 	modalDetalhe.classList.add('ocultar');
 	produtosInicioContainer.classList.remove('ocultar');
 	window.scroll(0,top);
@@ -930,16 +916,13 @@ var produtosInicioContainer = pegaElem('.container__inicio');
 // MODAL PRODUTOS
 var top;
 function abreModalCarrinho() {
-	// travaScrollBars();
 	top = window.scrollY;
-	// modalDetalhe.style.top = `${top}px`;
 	modalCarrinho.classList.toggle('ocultar');
 	produtosInicioContainer.classList.add('ocultar');
 
 };
 
 function fechaModalCarrinho() {
-	// destravaScrollBars();
 	modalCarrinho.classList.add('ocultar');
 	produtosInicioContainer.classList.remove('ocultar');
 	window.scroll(0,top);
@@ -969,4 +952,56 @@ iconeCarrinho.addEventListener('click', function () {
 
 })
 
+var btnContinuarComprando = pegaElem('.btn-continuar-comprando');
 
+btnContinuarComprando.addEventListener('click', function (e) {
+	e.preventDefault();
+	fechaModalCarrinho();
+});
+
+// ---------------------------------------------------------------------------------------
+// TABELA ITENS CARRINHO
+var tabelaCarrinhoItens = pegaElem('.tabela__carrinho__itens');
+var qtdItemTabela = document.querySelectorAll('.qtd-input');
+var deleteInput = document.querySelectorAll('.delete-input');
+var totalFoot = pegaElem('.total-tfoot');
+
+
+qtdItemTabela.forEach(function (item) {
+item.addEventListener('change', function () {
+if (item.value <1) {item.value = 1}
+var valor = this.parentElement.parentElement.cells[2];
+var valorBase = this.parentElement.parentElement.cells[3];		
+
+var total = parseFloat(valorBase.innerText) * parseFloat(item.value);
+valor.innerText = parseFloat(total).toFixed(2);
+atualizaValoresTabela();
+})
+item.addEventListener('click', function () {
+atualizaValoresTabela();
+})
+})
+
+
+
+deleteInput.forEach(function (item) {
+	item.addEventListener('click', function () {
+		this.parentElement.parentElement.cells[4].children[0].value = '1';
+		this.parentElement.parentElement.remove();
+		atualizaValoresTabela();
+		
+	})
+})
+
+function atualizaValoresTabela() {
+	var linhasTabela = tabelaCarrinhoItens.querySelector('tbody').querySelectorAll('tr');
+	var total = 0;
+
+	linhasTabela.forEach(function (linha) {
+		var txtValor = linha.cells[2].innerText;
+		total = parseFloat(txtValor) + parseFloat(total);
+	})
+		totalFoot.value = total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+}
+
+atualizaValoresTabela();
