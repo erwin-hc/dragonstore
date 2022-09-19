@@ -935,19 +935,23 @@ modalCarrinho.addEventListener('click', function (e) {
 	}
 })
 
+var carrinhoCount = pegaElem('.icone-carrinho-wrapper');
 var iconeCarrinho = pegaElem('.icone-carrinho');
 var carrinhoVazioWraper = pegaElem('.carrinho-vazio--wraper');
+var carrinhoWrapper = pegaElem('.carrinho--wrapper');
 
 iconeCarrinho.addEventListener('click', function () {
 	abreModalCarrinho();
 
-	var count = iconeCarrinho.parentElement.getAttribute('data-carrinho-count');
+	var count = iconeCarrinho.parentElement.getAttribute('total-carrinho');
 	if (count == 0) {
 		carrinhoVazioWraper.classList.remove('ocultar');
+		carrinhoWrapper.classList.add('ocultar');
 	}
 	else
 	{
 		carrinhoVazioWraper.classList.add('ocultar');
+		carrinhoWrapper.classList.remove('ocultar');
 	}
 
 })
@@ -966,42 +970,153 @@ var qtdItemTabela = document.querySelectorAll('.qtd-input');
 var deleteInput = document.querySelectorAll('.delete-input');
 var totalFoot = pegaElem('.total-tfoot');
 
-
-qtdItemTabela.forEach(function (item) {
-item.addEventListener('change', function () {
-if (item.value <1) {item.value = 1}
-var valor = this.parentElement.parentElement.cells[2];
-var valorBase = this.parentElement.parentElement.cells[3];		
-
-var total = parseFloat(valorBase.innerText) * parseFloat(item.value);
-valor.innerText = parseFloat(total).toFixed(2);
-atualizaValoresTabela();
-})
-item.addEventListener('click', function () {
-atualizaValoresTabela();
-})
-})
+function atualizaTotalTabelaCarrinho() {
+	var tbody = tabelaCarrinhoItens.querySelector('tbody');
+	var linhas = Array(tbody.children);
 
 
 
-deleteInput.forEach(function (item) {
-	item.addEventListener('click', function () {
-		this.parentElement.parentElement.cells[4].children[0].value = '1';
-		this.parentElement.parentElement.remove();
-		atualizaValoresTabela();
-		
-	})
-})
 
-function atualizaValoresTabela() {
-	var linhasTabela = tabelaCarrinhoItens.querySelector('tbody').querySelectorAll('tr');
-	var total = 0;
 
-	linhasTabela.forEach(function (linha) {
-		var txtValor = linha.cells[2].innerText;
-		total = parseFloat(txtValor) + parseFloat(total);
-	})
-		totalFoot.value = total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 }
 
-atualizaValoresTabela();
+atualizaTotalTabelaCarrinho();
+
+tabelaCarrinhoItens.addEventListener('click', function (e) {
+				if (e.target.classList.contains('qtd-input')) {
+							if (e.target.value <1) {
+							e.target.value = 1;
+							}	
+
+				}
+
+				if (e.target.classList.contains('delete-input')) {
+					e.target.parentElement.parentElement.remove();
+
+
+								var obj = pegaDadosLocalStorage('bd_carrinho');								
+								var search_term = e.target.parentElement.parentElement.cells[0].innerText;
+
+								for (var i=obj.length-1; i>=0; i--) {
+								    if (obj[i].id == search_term) {
+								        obj.splice(i, 1);
+								    }
+								}
+
+								salvaDadosLocalStorage('bd_carrinho', obj);
+								populaCarrinho();
+
+
+					if (tabelaCarrinhoItens.children[0].rows.length <= 0) {
+					fechaModalCarrinho();
+					} 
+					carrinhoCount.setAttribute('total-carrinho', tabelaCarrinhoItens.children[0].rows.length);
+				}
+
+				if (e.target.classList.contains('qtd-input')) {
+					var id = e.target.parentElement.parentElement.cells[0].innerText;
+					var imagem = e.target.parentElement.parentElement.cells[1].children[0].src;
+					var titulo = e.target.parentElement.parentElement.cells[2].innerText;
+					var valorBase = parseFloat(e.target.parentElement.parentElement.cells[3].innerText.replace(",","."));
+					var valor = parseFloat(e.target.parentElement.parentElement.cells[4].innerText.replace(",","."));
+					var valorInput = e.target.parentElement.parentElement.cells[5].children[0].value;
+					var valorLinha = valorBase * valorInput;
+ 					
+ 						var obj = pegaDadosLocalStorage('bd_carrinho');
+						var search_term = id;
+
+						for (var i=obj.length-1; i>=0; i--) {
+						if (obj[i].id == search_term) {
+
+						    obj[i] = {
+								id        : id,
+								titulo    : titulo,
+								valor     : valorLinha,
+								valorBase : valorBase,
+								imagem    : imagem,
+								qtd 	  : valorInput,
+							};
+						}
+						}
+
+						salvaDadosLocalStorage('bd_carrinho', obj);	
+						populaCarrinho();
+					// console.log(valorLinha)
+				}
+
+})
+
+
+
+function editarDadosPro(id, titulo,valor,valorBase,imagem,qtd) {
+
+}
+// toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+var btnCart = document.querySelectorAll('.btn-cart');
+
+btnCart.forEach(function (btn) {
+	btn.addEventListener('click', function (e) {
+		var id = this.parentElement.parentElement.children[0].children[0].children[1].innerText;
+		var titulo = this.parentElement.parentElement.children[0].children[0].children[0].innerText;
+	    var valor = this.parentElement.parentElement.children[0].children[3].children[0].innerText;
+	    var valorBase = this.parentElement.parentElement.children[0].children[3].children[0].innerText;
+	    var imagem = this.parentElement.parentElement.children[0].children[2].children[0].src;
+
+		addItemCarrinho(id,titulo,valor,valorBase,imagem);
+		// atualizaValoresItens();
+
+	})
+})
+
+
+function addItemCarrinho(id,titulo,valor,valorBase,imagem) {
+
+		var obj = pegaDadosLocalStorage('bd_carrinho');
+		if (obj === null || obj.length <= 0) {
+		obj = [];
+		}
+
+		obj.push(
+		{
+		"id":id,
+		"titulo":titulo,
+		"valor":parseFloat(valor.replace(",",".")),
+		"valorBase":valor, 
+		"imagem":imagem,
+		"qtd":1,
+		}
+		);
+		
+		salvaDadosLocalStorage('bd_carrinho', obj);
+		populaCarrinho();
+}
+
+
+function populaCarrinho() {
+	var dados = pegaDadosLocalStorage('bd_carrinho');
+	if (dados === null || dados.length <= 0)
+	{
+	dados = [];
+	}
+
+	var tbody = pegaElem('.tabela__carrinho__itens').querySelector('tbody');
+	tbody.innerHTML = "";
+
+
+	dados.forEach(function (index) {
+	var html = `						
+		<td class="ocultar">${index.id}</td>					
+		<td><img src=${index.imagem} style="width: 50px;"></td>
+		<td>${index.titulo}</td>
+		<td class="valor-base ocultar">${index.valorBase}</td>
+		<td>${index.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+		<td><input class="qtd-input" type="number" value="${index.qtd}"></td>
+		<td><i class="delete-input fa-regular fa-trash-can fa-xl"></i></td>
+		`;
+	 var novaLinha = tbody.insertRow(tbody.rows.length);
+	 novaLinha.classList.add('rowHover');
+	 novaLinha.innerHTML = html;
+	});
+}
+
+populaCarrinho();
