@@ -687,11 +687,13 @@ modalDetalhe.addEventListener('click', function (e) {
 // **********************************************************************************************
 
 var botaoDetalhe = document.querySelectorAll('.btn-detalhes');
+var detalheId = pegaElem('.detalhe_id'); 
 var detalheImg = pegaElem('.detalhe_img'); 
 var detalheTitulo = pegaElem('.detalhe_titulo'); 
 var detalheDescricao = pegaElem('.detalhe_descricao'); 
 var detalheNota = pegaElem('.nota');
-var detalheValor = pegaElem('.valor');
+var detalheValor = pegaElem('.detalhe_valor');
+var detalheBase = pegaElem('.valor_detalhe_base');
 
 
 
@@ -731,11 +733,14 @@ botaoDetalhe.forEach(function (btn) {
 			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
 
 			if (obj[i].id == search_term) {
+				detalheId.innerText = obj[i].id,
 				detalheImg.src = obj[i].poster;
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
 				detalheNota.innerText = obj[i].nota;
-				detalheValor.innerText = "R$ " + obj[i].valor.replace(".",",");
+				detalheValor.innerText = obj[i].valor;
+				detalheBase.innerText = obj[i].valor;
+
 
 			}
 
@@ -811,7 +816,7 @@ imgDestaque.forEach(function (img) {
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
 				detalheNota.innerText = obj[i].nota;
-				detalheValor.innerText = "R$ " + obj[i].valor.replace(".",",");
+				detalheValor.innerText = obj[i].valor.replace(".",",");
 			}
 
 			}
@@ -971,23 +976,31 @@ var deleteInput = document.querySelectorAll('.delete-input');
 var totalFoot = pegaElem('.total-tfoot');
 
 function atualizaTotalTabelaCarrinho() {
-	var tbody = tabelaCarrinhoItens.querySelector('tbody');
-	var linhas = Array(tbody.children);
+	var obj = pegaDadosLocalStorage('bd_carrinho');
+	if (obj === null || obj.length <= 0)
+	{
+	obj = [];
+	}
 
+	var total, valor;
 
+	var total = obj.map(item => item.valor).reduce((prev, curr) => prev + curr, 0);
+	total = total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+	totalFoot.value = total;
 
-
+	carrinhoCount.setAttribute('total-carrinho', obj.length)
 
 }
 
 atualizaTotalTabelaCarrinho();
+
 
 tabelaCarrinhoItens.addEventListener('click', function (e) {
 				if (e.target.classList.contains('qtd-input')) {
 							if (e.target.value <1) {
 							e.target.value = 1;
 							}	
-
+							atualizaTotalTabelaCarrinho();
 				}
 
 				if (e.target.classList.contains('delete-input')) {
@@ -995,38 +1008,45 @@ tabelaCarrinhoItens.addEventListener('click', function (e) {
 
 
 								var obj = pegaDadosLocalStorage('bd_carrinho');								
-								var search_term = e.target.parentElement.parentElement.cells[0].innerText;
+								var search_term = e.target.parentElement.parentElement.cells[1].innerText;
 
 								for (var i=obj.length-1; i>=0; i--) {
-								    if (obj[i].id == search_term) {
+								    if (obj[i].item == search_term) {
 								        obj.splice(i, 1);
 								    }
 								}
 
 								salvaDadosLocalStorage('bd_carrinho', obj);
+								atualizaTotalTabelaCarrinho();
 								populaCarrinho();
 
 
 					if (tabelaCarrinhoItens.children[0].rows.length <= 0) {
 					fechaModalCarrinho();
 					} 
-					carrinhoCount.setAttribute('total-carrinho', tabelaCarrinhoItens.children[0].rows.length);
+
 				}
 
 				if (e.target.classList.contains('qtd-input')) {
 					var id = e.target.parentElement.parentElement.cells[0].innerText;
-					var imagem = e.target.parentElement.parentElement.cells[1].children[0].src;
-					var titulo = e.target.parentElement.parentElement.cells[2].innerText;
-					var valorBase = parseFloat(e.target.parentElement.parentElement.cells[3].innerText.replace(",","."));
-					var valor = parseFloat(e.target.parentElement.parentElement.cells[4].innerText.replace(",","."));
-					var valorInput = e.target.parentElement.parentElement.cells[5].children[0].value;
+					var item = e.target.parentElement.parentElement.cells[1].innerText;
+					var imagem = e.target.parentElement.parentElement.cells[2].children[0].src;
+					var titulo = e.target.parentElement.parentElement.cells[3].innerText;
+					var valorBase = parseFloat(e.target.parentElement.parentElement.cells[4].innerText.replace(",","."));
+					var valor = parseFloat(e.target.parentElement.parentElement.cells[5].innerText.replace(",","."));
+					var valorInput = e.target.parentElement.parentElement.cells[6].children[0].value;
 					var valorLinha = valorBase * valorInput;
  					
  						var obj = pegaDadosLocalStorage('bd_carrinho');
-						var search_term = id;
+						if (obj === null || obj.length <= 0)
+						{
+						obj = [];
+						}
+
+						var search_term = item;
 
 						for (var i=obj.length-1; i>=0; i--) {
-						if (obj[i].id == search_term) {
+						if (obj[i].item == search_term) {
 
 						    obj[i] = {
 								id        : id,
@@ -1035,11 +1055,13 @@ tabelaCarrinhoItens.addEventListener('click', function (e) {
 								valorBase : valorBase,
 								imagem    : imagem,
 								qtd 	  : valorInput,
+								item      : item,
 							};
 						}
 						}
 
 						salvaDadosLocalStorage('bd_carrinho', obj);	
+						atualizaTotalTabelaCarrinho();
 						populaCarrinho();
 					// console.log(valorLinha)
 				}
@@ -1053,23 +1075,46 @@ function editarDadosPro(id, titulo,valor,valorBase,imagem,qtd) {
 }
 // toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 var btnCart = document.querySelectorAll('.btn-cart');
+var detalheBtn = document.querySelectorAll('.detalhe--btn');
 
 btnCart.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
 		var id = this.parentElement.parentElement.children[0].children[0].children[1].innerText;
+		var item = Math.round(Math.random()*1e13 );
 		var titulo = this.parentElement.parentElement.children[0].children[0].children[0].innerText;
 	    var valor = this.parentElement.parentElement.children[0].children[3].children[0].innerText;
 	    var valorBase = this.parentElement.parentElement.children[0].children[3].children[0].innerText;
 	    var imagem = this.parentElement.parentElement.children[0].children[2].children[0].src;
 
-		addItemCarrinho(id,titulo,valor,valorBase,imagem);
-		// atualizaValoresItens();
+		addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
+		atualizaTotalTabelaCarrinho();
 
 	})
 })
 
+detalheBtn.forEach(function (btn) {
+	btn.addEventListener('click', function (e) {
+		var id = this.parentElement.parentElement.children[1].querySelector('.detalhe_id').innerText;
+		var item = Math.round(Math.random()*1e13 );
+		var titulo = this.parentElement.parentElement.children[1].querySelector('.detalhe_titulo').innerText;
+	    var valor = this.parentElement.parentElement.children[1].querySelector('.detalhe_valor').innerText;
+	    var valorBase =  this.parentElement.parentElement.children[1].querySelector('.detalhe_valor').innerText;
+	    var imagem = this.parentElement.parentElement.children[0].querySelector('.detalhe_img').src;
+	    // console.log(id)
+	    // console.log(item)
+	    // console.log(titulo)
+	    // console.log(valor)
+	    // console.log(valorBase)
+	    // console.log(imagem)
 
-function addItemCarrinho(id,titulo,valor,valorBase,imagem) {
+		addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
+		atualizaTotalTabelaCarrinho();
+		fechaModalDetalhes();
+
+	})
+})
+
+function addItemCarrinho(id,item,titulo,valor,valorBase,imagem) {
 
 		var obj = pegaDadosLocalStorage('bd_carrinho');
 		if (obj === null || obj.length <= 0) {
@@ -1084,11 +1129,15 @@ function addItemCarrinho(id,titulo,valor,valorBase,imagem) {
 		"valorBase":valor, 
 		"imagem":imagem,
 		"qtd":1,
+		"item": item,
 		}
-		);
-		
+		);											
 		salvaDadosLocalStorage('bd_carrinho', obj);
 		populaCarrinho();
+
+
+		
+
 }
 
 
@@ -1104,19 +1153,30 @@ function populaCarrinho() {
 
 
 	dados.forEach(function (index) {
-	var html = `						
-		<td class="ocultar">${index.id}</td>					
-		<td><img src=${index.imagem} style="width: 50px;"></td>
-		<td>${index.titulo}</td>
-		<td class="valor-base ocultar">${index.valorBase}</td>
-		<td>${index.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
-		<td><input class="qtd-input" type="number" value="${index.qtd}"></td>
-		<td><i class="delete-input fa-regular fa-trash-can fa-xl"></i></td>
+	var html = `	
+					<tr>					
+						<td class="ocultar">${index.id}</td>					
+						<td class="ocultar">${index.item}</td>					
+						<td><img src=${index.imagem} style="width: 50px;"></td>
+						<td>${index.titulo}</td>
+						<td class="valor-base ocultar">${index.valorBase}</td>
+						<td>${index.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+						<td><input class="qtd-input" type="number" value="${index.qtd}"></td>
+						<td><i class="delete-input fa-regular fa-trash-can fa-xl"></i></td>
+					</tr>
 		`;
 	 var novaLinha = tbody.insertRow(tbody.rows.length);
-	 novaLinha.classList.add('rowHover');
 	 novaLinha.innerHTML = html;
 	});
 }
 
 populaCarrinho();
+
+var btnFinalizarCompra = pegaElem('.btn-finalizar-compra');
+
+btnFinalizarCompra.addEventListener('click', function () {
+	localStorage.removeItem('bd_carrinho');
+	populaCarrinho();
+	atualizaTotalTabelaCarrinho();
+	fechaModalCarrinho();
+})
