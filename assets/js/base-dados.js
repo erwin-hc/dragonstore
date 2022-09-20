@@ -1,13 +1,13 @@
 [
   {
-    "id": 6763064880983,
-    "titulo": "Dragon Ball Super: Super Hero",
-    "valor": "69,90",
+    "id": 4900089473249,
+    "titulo": "Demon Slayer - Mugen Train: O Filme",
+    "valor": "59,90",
     "categoria": "Destaques",
-    "resumo": "Com suas capas balançando, Gamma 1 e Gamma 2 podem ser vistos fazendo algumas poses incríveis! Além disso, há alguns novos personagens originais que teremos que esperar para descobrir mais, não importa o quão difícil possa ser! Vestindo seu uniforme e tomando o centro do palco está Gohan, que parece estar se preparando para a luta de uma vida ao lado de Piccolo, Goku, Vegeta e Pan! (sinopse temporária)",
-    "nota": 7.6,
-    "poster": "https://image.tmdb.org/t/p/original//FiqBRypTDyHzqcxdbpPb3ddFep.jpg",
-    "background": "https://image.tmdb.org/t/p/original//ugS5FVfCI3RV0ZwZtBV3HAV75OX.jpg",
+    "resumo": "Tanjiro Kamado, junto com Inosuke Hashibira, um garoto criado por javalis que usa uma cabeça de javali, e Zenitsu Agatsuma, um garoto assustado que revela seu verdadeiro poder quando dorme, embarca no Trem Infinito em uma nova missão com o Hashira de Fogo, Kyojuro Rengoku, para derrotar um demônio que tem atormentado o povo e matado os caçadores de oni que se opõem a ele!",
+    "nota": 8.4,
+    "poster": "https://image.tmdb.org/t/p/original//m9cn5mhW519QKr1YGpGxNWi98VJ.jpg",
+    "background": "https://image.tmdb.org/t/p/original//qjGrUmKW78MCFG8PTLDBp67S27p.jpg",
     "slide": 1
   },
   {

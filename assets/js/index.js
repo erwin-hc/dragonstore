@@ -72,6 +72,7 @@ function defineBaseDados(srtNomeBanco,srtCategoria) {
 									'id'            : data[i].id,
 									'titulo'		: data[i].titulo,
 									'valor'		    : data[i].valor,
+									'valorBase'		: data[i].valor,
 									'categoria'		: data[i].categoria,
 									'resumo'		: data[i].resumo,
 									'nota'		    : data[i].nota,
@@ -93,6 +94,7 @@ function defineBaseDados(srtNomeBanco,srtCategoria) {
 									'id'            : data[i].id,
 									'titulo'		: data[i].titulo,
 									'valor'		    : data[i].valor,
+									'valorBase'		: data[i].valor,
 									'categoria'		: data[i].categoria,
 									'resumo'		: data[i].resumo,
 									'nota'		    : data[i].nota,
@@ -443,6 +445,7 @@ btnEntrarTelaEntrar.addEventListener('click', function (e) {
 // --------------------------------------------------------------------------
 // MENSAGEM TELA ENTRAR
 var msgLogin = pegaElem('.mensagem-tela-entrar');
+var msgSobre = pegaElem('.mensagem-sobre');
 var msgCadastro = pegaElem('.mensagem-tela-cadastro');
 
 function mensagemLogin(elemento, classe, mensagem) {
@@ -470,7 +473,6 @@ function mensagemLogin(elemento, classe, mensagem) {
 	setTimeout(function () {
 	root.style.setProperty("--cor-borda-after","transparent");
 	elemento.classList.add('ocultar');
-	console.log()
 	},1250);
 }
 
@@ -741,7 +743,6 @@ botaoDetalhe.forEach(function (btn) {
 				detalheValor.innerText = obj[i].valor;
 				detalheBase.innerText = obj[i].valor;
 
-
 			}
 
 			}
@@ -752,10 +753,7 @@ botaoDetalhe.forEach(function (btn) {
 })
 
 
-var idDestaque = document.querySelectorAll('.id-destaque');
-var categoriaDestaque = document.querySelectorAll('.categoria-destaque');
-var imgDestaque = document.querySelectorAll('.imgDestaque');
-// var modalDetalheWrapper = document.querySelector('.modal__detalhe--wrapper');
+
 function defineSlides() {
 
 	document.querySelectorAll('.imgDestaque')[0].src = pegaDadosLocalStorage('bd_destaques')[0].background;
@@ -775,6 +773,8 @@ function defineSlides() {
 	
 }
 defineSlides();
+
+var imgDestaque = document.querySelectorAll('.imgDestaque');
 
 imgDestaque.forEach(function (img) {
 	img.addEventListener('click', function (e) {
@@ -804,9 +804,13 @@ imgDestaque.forEach(function (img) {
 			case 'Ficção':
 			srtNomeBanco = 'bd_ficcao';
 			break;
+			case 'Destaques':
+			srtNomeBanco = 'bd_destaques';
+			break;
 			}
 
 			var obj = pegaDadosLocalStorage(srtNomeBanco);
+
 
 			for (var i = 0; i < obj.length; i++) {
 			var search_term = e.target.parentElement.querySelector('.id-destaque').innerText;
@@ -816,7 +820,8 @@ imgDestaque.forEach(function (img) {
 				detalheTitulo.innerText = obj[i].titulo;
 				detalheDescricao.innerText = obj[i].resumo;
 				detalheNota.innerText = obj[i].nota;
-				detalheValor.innerText = obj[i].valor.replace(".",",");
+				detalheValor.innerText = obj[i].valor;
+				detalheBase.innerText = obj[i].valor;
 			}
 
 			}
@@ -1007,7 +1012,10 @@ tabelaCarrinhoItens.addEventListener('click', function (e) {
 					e.target.parentElement.parentElement.remove();
 
 
-								var obj = pegaDadosLocalStorage('bd_carrinho');								
+								var obj = pegaDadosLocalStorage('bd_carrinho');		
+								if (obj === null || obj.length <= 0) {
+								obj = [];
+								}						
 								var search_term = e.target.parentElement.parentElement.cells[1].innerText;
 
 								for (var i=obj.length-1; i>=0; i--) {
@@ -1069,13 +1077,10 @@ tabelaCarrinhoItens.addEventListener('click', function (e) {
 })
 
 
-
-function editarDadosPro(id, titulo,valor,valorBase,imagem,qtd) {
-
-}
 // toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 var btnCart = document.querySelectorAll('.btn-cart');
 var detalheBtn = document.querySelectorAll('.detalhe--btn');
+var iconeCart = pegaElem('.icone--cart');
 
 btnCart.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
@@ -1089,6 +1094,12 @@ btnCart.forEach(function (btn) {
 		addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
 		atualizaTotalTabelaCarrinho();
 
+		iconeCart.classList.add('tremer');
+		btn.classList.add('tremer');
+		setTimeout(function () {
+		iconeCart.classList.remove('tremer');
+		btn.classList.remove('tremer');
+		}, 500);
 	})
 })
 
@@ -1100,16 +1111,18 @@ detalheBtn.forEach(function (btn) {
 	    var valor = this.parentElement.parentElement.children[1].querySelector('.detalhe_valor').innerText;
 	    var valorBase =  this.parentElement.parentElement.children[1].querySelector('.detalhe_valor').innerText;
 	    var imagem = this.parentElement.parentElement.children[0].querySelector('.detalhe_img').src;
-	    // console.log(id)
-	    // console.log(item)
-	    // console.log(titulo)
-	    // console.log(valor)
-	    // console.log(valorBase)
-	    // console.log(imagem)
 
 		addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
 		atualizaTotalTabelaCarrinho();
+		
+
+		iconeCart.classList.add('tremer');
+		btn.classList.add('tremer');
+		setTimeout(function () {
+		iconeCart.classList.remove('tremer');
+		btn.classList.remove('tremer');
 		fechaModalDetalhes();
+		}, 500);
 
 	})
 })
@@ -1179,4 +1192,60 @@ btnFinalizarCompra.addEventListener('click', function () {
 	populaCarrinho();
 	atualizaTotalTabelaCarrinho();
 	fechaModalCarrinho();
+})
+
+
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    pegaElem('.nav__principal__inicio--container').style.top = "0";
+  } else {
+    pegaElem('.nav__principal__inicio--container').style.top = "-150px";
+  }
+  prevScrollpos = currentScrollPos;
+}
+
+
+var sobreFormulario = pegaElem('.sobre__formulario form');
+sobreFormulario[3].addEventListener('click', function (e) {
+	e.preventDefault();
+	
+		if (sobreFormulario[0].value === "") {
+
+		sobreFormulario[0].classList.add('invalid');
+		sobreFormulario[0].placeholder = "Favor digitar um email !!!";
+
+		setTimeout(function () {
+			sobreFormulario[0].placeholder = "Email";
+			sobreFormulario[0].classList.remove('invalid')
+		},1250);
+
+		} else if  (sobreFormulario[1].value === "") {
+
+		sobreFormulario[1].classList.add('invalid');
+		sobreFormulario[1].placeholder = "Favor digitar um nome !!!";
+		
+		setTimeout(function () {
+			sobreFormulario[1].placeholder = "Nome";
+			sobreFormulario[1].classList.remove('invalid')
+		},1250);
+
+		} else if  (sobreFormulario[2].value === "") {
+
+		sobreFormulario[2].classList.add('invalid');
+		sobreFormulario[2].placeholder = "Favor digitar uma mensagem !!!";
+		
+		setTimeout(function () {
+			sobreFormulario[2].placeholder = "Mensagem";
+			sobreFormulario[2].classList.remove('invalid')
+		},1250);
+
+		} else {
+			sobreFormulario.reset();
+
+		}
+
+
 })

@@ -29,6 +29,7 @@
 	grid-template-rows: 80px 
 						30px;	
 	border-bottom: 1px solid var(--cor-bordas);	
+	transition: top 0.3s;
 } 
 
 .nav__principal__inicio {
@@ -48,6 +49,7 @@
 }
 
 .footer__inicio--container {
+	margin-top: 2rem;
 	width: 100%;
 	grid-area: ftc;
 	display: grid;
@@ -439,6 +441,7 @@ img {vertical-align: middle;}
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
+  background-color: rgba(var(--rgb-laranja),0.4);
 }
 /* Position the "next button" to the right */
 .next {
@@ -448,7 +451,7 @@ img {vertical-align: middle;}
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
  /*background-color: rgba(var(--rgb-vermelho),0.8);*/
- background-color: rgba(var(--rgb-laranja),0.8);
+ background-color: rgba(var(--rgb-laranja),1);
 }
 /* Caption text */
 .text {
@@ -715,8 +718,12 @@ html {
 	color: var(--cor-100);
 	background-color: var(--cor-900);
 	border: 1px solid var(--cor-bordas);
-	/*outline: none;*/
+	outline: none;
 
+}
+
+.sobre__formulario button {
+	cursor: pointer;
 }
 .sobre__formulario input:focus {
 	border: 1px solid var(--cor-laranja);
@@ -1370,7 +1377,7 @@ a:hover .fa-brands {
 	/*height: 100%;	*/
 	min-height: 500px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	flex-direction: column;
 	gap: 2rem;
@@ -1378,7 +1385,7 @@ a:hover .fa-brands {
 
 .carrinho-vazio--wraper img {
 	filter: var(--svg-vermelho);
-	width: 10rem;
+	width: 8rem;
 }
 .carrinho-vazio--wraper h1 {
 	font-size: var(--fonte-xg);
@@ -1391,12 +1398,13 @@ a:hover .fa-brands {
 	cursor: pointer;
 	border-radius: 8px;
 	opacity: 0.8;
-	transition: all 100ms ease;
+	width: 300px;
+	transition: all 100ms;
 }
 
 .carrinho-vazio--wraper button:hover {
 	opacity: 1;
-	transform: scale(1.01);
+	transform: scale(1.05);
 }
 /*------------------------------------------------*/
 /*------------------------------------------------*/
@@ -1446,6 +1454,8 @@ a:hover .fa-brands {
 	cursor: pointer;
 	color: var(--cor-900);
 	opacity: 0.8;
+	padding: 1rem;
+	margin-bottom: 3rem;
 }
 .finalizar-compra-wrapper button:hover {
 	opacity: 1;
@@ -1574,4 +1584,19 @@ tr {
 }
 
 
-
+.tremer {
+	animation: tremer  0.5s;
+}
+@keyframes tremer {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}

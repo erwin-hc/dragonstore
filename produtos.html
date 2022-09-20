@@ -30,7 +30,7 @@
 								<div class="input-search-wrapper">			
 										<div class="icone-search">
 											<i class="fa-solid fa-magnifying-glass fa-lg"></i>
-											<input class="input-search" type="search">
+											<input class="input-search" type="text">
 											<span class="icone-apagar ocultar"><i class="fa-solid fa-delete-left fa-lg"></i></span>	
 										</div>
 						   		</div>
@@ -96,8 +96,7 @@
 	</div> <!-- FIM MAIN -->
 
 
-
-	<!-- -------------------------------------------------------------------------------------------------- -->	
+<!-- -------------------------------------------------------------------------------------------------- -->	
 	<div class="footer__inicio--container"> <!-- FOOTER -->
 
 					<section class="sobre-wrapper">
@@ -106,22 +105,29 @@
 							</div>
 							<div class="sobre__constitucional">
 								<ul class="">
-									<li><a href="#">Quem somos nós</a></li>
-									<li><a href="#">Política de privacidade</a></li>
-									<li><a href="#">Programa de fidelidade</a></li>
-									<li><a href="#">Nossas Lojas</a></li>
-									<li><a href="#">Quero ser franqueado</a></li>
-									<li><a href="#">Anuncie aqui</a></li>
+									<li><a >Quem somos nós</a></li>
+									<li><a >Política de privacidade</a></li>
+									<li><a >Programa de fidelidade</a></li>
+									<li><a >Nossas Lojas</a></li>
+									<li><a >Quero ser franqueado</a></li>
+									<li><a >Anuncie aqui</a></li>
 								</ul>
 							</div>
+							
 							<div class="sobre__formulario">
+
 								<form>
-									<label for="">Fale conosco</label>
-									<input type="text">
-									<input type="text">
+									<label style="color: var(--cor-laranja);">Fale conosco</label>
+									<input type="text" placeholder="Email">
+									<input type="text" placeholder="Nome">
+									<input type="text" placeholder="Mensagem">
 									<button class="btn ">Enviar</button>
+
+
 								</form>
 							</div>
+
+
 						</section>
 			
 <div class="div-contato-footer">
@@ -131,7 +137,6 @@
 </div>
 
 	</div> <!-- FIM FOOTER -->
-
 
 
 	<!-- -------------------------------------------------------------------------------------------------- -->	
@@ -264,20 +269,86 @@
 <div class="modal__detalhe--wrapper ocultar">
 		<div class="modal__detalhe">
 			<div class="detalhe--img">
-				<img class="detalhe_img" src="https://image.tmdb.org/t/p/original//g7Ii9sYAFG96W7cvMQ4zXq39RJ5.jpg" alt="">
+				<img class="detalhe_img" src="" alt="">
 			</div>
 			<div class="detalhe-inf">
-				<h1 class="detalhe_titulo detalhe--titulo">O Predador: A Caçada</h1>
-				<p class="detalhe_descricao detalhe--descricao">Ambientado no mundo da Nação Comanche no início de 1700, \"O Predador: A Caçada\" é a história não contada de uma jovem guerreira altamente qualificada, desesperada para proteger seu povo do perigo iminente. Ela persegue e finalmente confronta sua presa, que acaba sendo um predador alienígena altamente evoluído com um arsenal tecnologicamente avançado, resultando em um confronto brutal e aterrorizante entre os adversários.
-				</p>
+				<h1 class="detalhe_titulo detalhe--titulo"></h1>
+				<p class="detalhe_descricao detalhe--descricao"></p>
 				<br>
 				<p>Avaliação: &nbsp;&nbsp;<span class="nota"></span></p>
-				<p>Valor: &nbsp;&nbsp;<span class="valor"></span></p>
+				<p>Valor: &nbsp;&nbsp;<span class="valor detalhe_valor"></span></p>
+
+				<p class="detalhe_id ocultar"></p>
+				<p class="valor_detalhe_base ocultar"></p>
+				
 				<button class="detalhe--btn btn-danger"><i class="fa-solid fa-cart-shopping fa-xl"></i>&nbsp;COMPRAR</button>
 			</div>
 		</div>
 </div>	<!-- FIM MODAL PRODUTOS DETALHES -->
 
+<!-- -------------------------------------------------------------------------------------------------- -->
+<!-- MODAL CARRINHO -->
+<div class="modal__carrinho__wrapper ocultar">
+	<div class="carrinho--container">
+
+		<div class="carrinho-vazio--wraper ocultar">
+			<img src="assets/img/carrinho-vazio.svg" alt="Carrinho Compras Vazio" class="carrinho-vazio">
+			<h1>Seu carrinho está vaziu!!!</h1>
+			<a href="#"><button class="btn-continuar-comprando">CONTINUAR COMPRANDO</button></a>
+		</div>
+
+		<div class="carrinho--wrapper">
+
+			<div class="carrinho__titulo">
+				<h1>CARRINHO</h1>				
+			</div>
+
+			<div class="carrinho__itens">
+				<details open>
+					<summary>&nbsp;&nbsp;&nbsp;&nbsp;ITENS</summary>		
+
+					<div>
+
+												<table id="tabela__carrinho" class="tabela__carrinho__itens">
+												<tbody>
+
+												<!-- 								<tr>
+												<td><img src="https://image.tmdb.org/t/p/original//g7Ii9sYAFG96W7cvMQ4zXq39RJ5.jpg" style="width: 50px;"></td>
+												<td>O Predador: A Caçada</td>
+												<td>25.10</td>
+												<td class="valor-base ocultar">25.10</td>
+												<td><input class="qtd-input" type="number" value="1"></td>
+												<td><i class="delete-input fa-regular fa-trash-can fa-xl"></i></td>
+												</tr> -->
+
+
+
+												</tbody>
+												<tfoot >
+												<tr>
+												<td colspan="2"></td>
+												<td colspan="3"><input class="total-tfoot" type="text"></td>
+												</tr>
+												</tfoot>
+												</table>
+				</div>
+
+
+				</details>
+				
+			</div>
+				<div class="finalizar-compra-wrapper">
+									<a href="#"><button class="btn-finalizar-compra">FINALIZAR COMPRA</button></a>				
+				</div>
+			<div class="ocultar carrinho__total">
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- FIM CARRINHO -->
+<!-- -------------------------------------------------------------------------------------------------- -->
 
 </body>
 
