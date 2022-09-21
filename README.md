@@ -25,6 +25,6 @@ Link > <a href="erwin-hc.github.io/dragonstore/"> erwin-hc.github.io/dragonstore
     Habilidade de incluir itens, excluir e atulizar quantidade.	
 </pre>
 <pre>
- Obs: Usei a API https://developers.themoviedb.org/3/getting-started/introduction
+ Obs: Usei a API <a href="https://developers.themoviedb.org/3/getting-started/introduction">https://developers.themoviedb.org/3/getting-started/introduction</a>
     para pegar os dados dos filmes.
 </pre>    
