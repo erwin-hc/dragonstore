@@ -136,7 +136,7 @@ setTimeout(function () {
 	...pegaDadosLocalStorage('bd_ficcao')
 	]
 salvaDadosLocalStorage('bd_todos', bdTodos);
-}, 1000);
+}, 1250);
 
 // POPULA CARDS DE PRODUTOS
 
@@ -248,7 +248,6 @@ function populaCardsProdutosTodas() {
 }
 
 function populaCardsProdutosTodasTime(timePlus) {
-	var timePlus = timePlus;
 	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); },         timePlus * 1);
 	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, timePlus * 2);
 	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); },   timePlus * 3);
@@ -258,7 +257,7 @@ function populaCardsProdutosTodasTime(timePlus) {
 	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); },     timePlus * 7);
 }
 
-populaCardsProdutosTodasTime(500);
+populaCardsProdutosTodasTime(1000);
 // var bdAcaco = pegaDadosLocalStorage('bd_acao');
 
 
