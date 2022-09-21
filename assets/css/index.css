@@ -1443,7 +1443,7 @@ a:hover .fa-brands {
 }
 .carrinho__itens {
 	grid-area: itens;
-	min-height: 500px;
+	min-height: 250px;
 	width: 90%;
 }
 .finalizar-compra-wrapper {
