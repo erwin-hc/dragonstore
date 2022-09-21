@@ -234,7 +234,16 @@ function populaCardsProdutosTodas() {
 	populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao');
 }
 
-function populaCardsProdutosTodasTime(timePlus) {
+
+var bdAcaco = pegaDadosLocalStorage('bd_acao');
+
+if (bdAcaco !== null)
+{
+	populaCardsProdutosTodas();
+}
+else
+{
+	var timePlus = 1000;
 	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); },         timePlus * 1);
 	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, timePlus * 2);
 	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); },   timePlus * 3);
@@ -243,19 +252,6 @@ function populaCardsProdutosTodasTime(timePlus) {
 	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); },     timePlus * 6);
 	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); },     timePlus * 7);
 }
-
-populaCardsProdutosTodasTime(1000);
-// var bdAcaco = pegaDadosLocalStorage('bd_acao');
-
-
-// if (bdAcaco !== null)
-// {
-// 	populaCardsProdutosTodas();
-// }
-// else
-// {
-// 	populaCardsProdutosTodasTime(5000);
-// }
 
 // populaCardsProdutosTodas();
 // **********************************************************************************************
