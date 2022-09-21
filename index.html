@@ -95,28 +95,28 @@
 								<div class="mySlides fade">
 								<!-- <div class="numbertext">3 / 3</div> -->
 								<div class="text-cima">DESTAQUES</div>
-			<img class="imgDestaque" src="https://image.tmdb.org/t/p/original//qjGrUmKW78MCFG8PTLDBp67S27p.jpg" style="width:100%">
-			<div class="text tituloDestaque">Demon Slayer - Mugen Train: O Filme</div>
-			<div id = "1" class="ocultar id-destaque">4900089473249</div>
-			<div class="ocultar categoria-destaque">Destaques</div>
+			<img class="imgDestaque" src="" style="width:100%">
+			<div class="text tituloDestaque"></div>
+			<div id = "1" class="ocultar id-destaque"></div>
+			<div class="ocultar categoria-destaque"></div>
 								</div>
 
 								<div class="mySlides fade">
 								<!-- <div class="numbertext">1 / 3</div> -->
 								<div class="text-cima">DESTAQUES</div>
-			<img class="imgDestaque" src="https://image.tmdb.org/t/p/original//7ZO9yoEU2fAHKhmJWfAc2QIPWJg.jpg" style="width:100%;">
-			<div class="text tituloDestaque">O Predador: A Caçada</div>
-			<div id = "2" class="ocultar id-destaque">2675161594220</div>
-			<div class="ocultar categoria-destaque">Destaques</div>
+			<img class="imgDestaque" src="" style="width:100%;">
+			<div class="text tituloDestaque"></div>
+			<div id = "2" class="ocultar id-destaque"></div>
+			<div class="ocultar categoria-destaque"></div>
 								</div>
 
 								<div class="mySlides fade">
 								<!-- <div class="numbertext">2 / 3</div> -->
 								<div class="text-cima">DESTAQUES</div>
-			<img class="imgDestaque" src="https://image.tmdb.org/t/p/original//p1F51Lvj3sMopG948F5HsBbl43C.jpg" style="width:100%">
-			<div class="text tituloDestaque">Thor: Amor e Trovão</div>
-			<div id = "3" class="ocultar id-destaque">4076307112995</div>
-			<div class="ocultar categoria-destaque">Destaques</div>
+			<img class="imgDestaque" src="" style="width:100%">
+			<div class="text tituloDestaque"></div>
+			<div id = "3" class="ocultar id-destaque"></div>
+			<div class="ocultar categoria-destaque"></div>
 								</div>
 
 
@@ -481,6 +481,35 @@ function showSlides(n) {
 }
 
 
+function pegaDadosLocalStorage(bd) {
+	var bd = JSON.parse(localStorage.getItem(bd));	
+	return bd;
+}
+
+var bdDestaques = pegaDadosLocalStorage('bd_destaques');
+
+if (bdDestaques !== null) {
+	defineSlides();
+}
+else
+{
+	document.querySelectorAll('.imgDestaque')[0].src = "https://image.tmdb.org/t/p/original//qjGrUmKW78MCFG8PTLDBp67S27p.jpg";
+	document.querySelectorAll('.tituloDestaque')[0].innerHTML = "Demon Slayer - Mugen Train: O Filme";
+	document.querySelectorAll('.id-destaque')[0].innerHTML = "4900089473249";
+	document.querySelectorAll('.categoria-destaque')[0].innerHTML = "Destaques";
+
+	document.querySelectorAll('.imgDestaque')[1].src = "https://image.tmdb.org/t/p/original//7ZO9yoEU2fAHKhmJWfAc2QIPWJg.jpg";
+	document.querySelectorAll('.tituloDestaque')[1].innerHTML = "O Predador: A Caçada";
+	document.querySelectorAll('.id-destaque')[1].innerHTML = "2675161594220";
+	document.querySelectorAll('.categoria-destaque')[1].innerHTML = "Destaques";
+
+	document.querySelectorAll('.imgDestaque')[1].src = "https://image.tmdb.org/t/p/original//p1F51Lvj3sMopG948F5HsBbl43C.jpg";
+	document.querySelectorAll('.tituloDestaque')[1].innerHTML = "Thor: Amor e Trovão";
+	document.querySelectorAll('.id-destaque')[1].innerHTML = "4076307112995";
+	document.querySelectorAll('.categoria-destaque')[1].innerHTML = "Destaques";
+}
+
+
 function defineSlides() {
 
 	document.querySelectorAll('.imgDestaque')[0].src = pegaDadosLocalStorage('bd_destaques')[0].background;
@@ -499,7 +528,7 @@ function defineSlides() {
 	document.querySelectorAll('.categoria-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].categoria;
 	
 }
-defineSlides();
+
 	
 </script>
 </html>
