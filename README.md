@@ -1,11 +1,12 @@
-# Dragon Store Blurays.
+<h1> # Dragon Store Blurays !!!</h1>
 
 Terceiro desafio curso Alura, crie seu próprio ecommerce.
 
 Link > <a href="erwin-hc.github.io/dragonstore/"> erwin-hc.github.io/dragonstore/ </a>
 
-Features
- > Login
+<h2>Features</h2>
+<pre>
+> Login
  	Habilidade de criar usuário e logar-se.
  	(Os dados ficam salvo localmente em seu navegador no localStorage)
  	Obs: Tem um ícone de copiar na tela de login, que preenche os campos
@@ -23,3 +24,4 @@ Features
  	
  Obs: Usei a API https://developers.themoviedb.org/3/getting-started/introduction
     para pegar os dados dos filmes.
+</pre>    
