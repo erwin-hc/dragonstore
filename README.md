@@ -2,7 +2,7 @@
 
 Terceiro desafio curso Alura, crie seu próprio ecommerce.
 
-Link > erwin-hc.github.io/dragonstore/
+Link > <a href="erwin-hc.github.io/dragonstore/"> erwin-hc.github.io/dragonstore/ </a>
 
 Features
  > Login
