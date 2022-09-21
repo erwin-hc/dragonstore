@@ -1,6 +1,4 @@
 // **********************************************************************************************
-// **********************************************************************************************
-// **********************************************************************************************
 function pegaElem(elemento) {
 	return document.querySelector(elemento);
 }
@@ -190,6 +188,7 @@ var btnTableProdutosAdicionar = document.querySelectorAll('.btn-tableProdutos-ad
 var modalProduto = pegaElem('.modal__produtos');
 var modalUsuario = pegaElem('.modal__usuarios');
 var modalTodos = pegaElem('.modal__todos');
+var containerPainel = pegaElem('.container__painel');
 
 var form = pegaElem('.form-produtos');
 var formImputNome = pegaElem('[data-formprodutos="nome"]');
@@ -226,29 +225,24 @@ document.onkeydown = function(e) {
 // ----------------------------------------------------------------------------------------------
 // MODAL TODOS
 function abreModalTodos() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalTodos.style.top = `${top}px`;
-	modalTodos.classList.toggle('ocultar');
+	modalTodos.classList.remove('ocultar');
 	inputSearchTabela.value = "";
-	inputSearchTabela.focus();
+	containerPainel.classList.add('ocultar');
 };
 function fechaModalTodos() {
-	destravaScrollBars();
 	modalTodos.classList.add('ocultar');
+	containerPainel.classList.remove('ocultar');
 };
 // -----
 // ----------------------------------------------------------------------------------------------
 // MODAL PRODUTOS
 function abreModalProduto() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalProduto.style.top = `${top}px`;
-	modalProduto.classList.toggle('ocultar');
+	modalProduto.classList.remove('ocultar');
+	containerPainel.classList.add('ocultar');
 };
 function fechaModalProduto() {
-	destravaScrollBars();
 	modalProduto.classList.add('ocultar');
+	containerPainel.classList.remove('ocultar');
 	form.reset();
 	bntFormSalvar.disabled = false;
 	btnFormUpdate.disabled = true;
@@ -257,20 +251,19 @@ function fechaModalProduto() {
 // ----------------------------------------------------------------------------------------------
 // MODAL USUARIOS
 function abreModalUsuario() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalUsuario.style.top = `${top}px`;
-	modalUsuario.classList.toggle('ocultar');
+	modalUsuario.classList.remove('ocultar');
+	containerPainel.classList.add('ocultar');
 	formImputNome.focus();
 };
 function fechaModalUsuario() {
-	destravaScrollBars();
 	modalUsuario.classList.add('ocultar');
+	containerPainel.classList.remove('ocultar');
 	form.reset();
 	bntFormSalvarCliente.disabled = false;
 	btnFormUpdateCliente.disabled = true;
 	btnFormExcluirCliente.disabled = false;
 };
+
 // ----------------------------------------------------------------------------------------------
 
 btnTableProdutosAdicionar.forEach(function (btn) {
@@ -688,7 +681,6 @@ btnPainelSair.onclick = resetUser;
 function resetaBase() {
 
 	window.localStorage.clear();
-	// window.location.reload(true);
 	localStorage.setItem('reloadIndex', 'true');
 	window.location.href = 'index.html';
 
@@ -780,3 +772,13 @@ tabelaTodos.addEventListener('click', function (e) {
 })
 
 
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    pegaElem('.nav__principal__painel--container').style.top = "0";
+  } else {
+    pegaElem('.nav__principal__painel--container').style.top = "-150px";
+  }
+  prevScrollpos = currentScrollPos;
+}

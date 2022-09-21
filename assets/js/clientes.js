@@ -332,16 +332,17 @@ document.onkeydown = function(e) {
 
 // ----------------------------------------------------------------------------------------------
 // MODAL USUARIOS
+var containerPainel = pegaElem('.container__painel');
+
+
 function abreModalUsuario() {
-	travaScrollBars();
-	var top = window.scrollY;
-	modalUsuario.style.top = `${top}px`;
-	modalUsuario.classList.toggle('ocultar');
+	modalUsuario.classList.remove('ocultar');
+	containerPainel.classList.add('ocultar');
 	formImputNome.focus();
 };
-function fechaModalUsuario() {// ----------------------------------------------------------------------------------------------
-	destravaScrollBars();
+function fechaModalUsuario() {
 	modalUsuario.classList.add('ocultar');
+	containerPainel.classList.remove('ocultar');
 	form.reset();
 	bntFormSalvarCliente.disabled = false;
 	btnFormUpdateCliente.disabled = true;

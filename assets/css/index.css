@@ -773,7 +773,7 @@ a:hover .fa-brands {
 	background-color: var(--cor-900);
 	/*backdrop-filter: blur(8px);*/
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 
 	display: flex;
 	align-items: center;
@@ -783,7 +783,7 @@ a:hover .fa-brands {
 
 .modal--login--wrapper {
 	margin: auto;
-
+	margin-block: 80px;
 	position: relative;
 	width: min(90%, 800px);
 	min-height: 600px;
@@ -1599,4 +1599,8 @@ tr {
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.fa-eye {
+	z-index: -10;
 }

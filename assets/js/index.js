@@ -52,9 +52,9 @@ verificaLocalStorage();
 
 var url = './assets/js/base-dados.js';
 
-function defineBaseDados(srtNomeBanco,srtCategoria) {
+async function defineBaseDados(srtNomeBanco,srtCategoria) {
 	
-	fetch(url)
+	await fetch(url)
 	.then(function (resposta) {
 		return resposta.json();	
 	})
@@ -136,7 +136,7 @@ setTimeout(function () {
 	...pegaDadosLocalStorage('bd_ficcao')
 	]
 salvaDadosLocalStorage('bd_todos', bdTodos);
-}, 500);
+}, 1000);
 
 // POPULA CARDS DE PRODUTOS
 
@@ -224,7 +224,7 @@ divContainer.setAttribute("class","card-container");
 					divBotoesBTN1.setAttribute("class","btncard btn-detalhes");
 					divBotoesBTN2.setAttribute("class","btncard btn-cart");
 					divBotoesBTN1.innerHTML = '<i class="fa-solid fa-eye fa-xl"></i>';
-					divBotoesBTN2.innerHTML = '<i class="fa-solid fa-cart-shopping fa-xl"></i>';
+					divBotoesBTN2.innerHTML = '<i class="fa-solid fa-cart-shopping icon-shopping fa-xl"></i>';
 					divBotoes.appendChild(divBotoesBTN1);
 					divBotoes.appendChild(divBotoesBTN2);
 			divContainer.appendChild(divBotoes);
@@ -247,26 +247,31 @@ function populaCardsProdutosTodas() {
 	populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao');
 }
 
-
-var bdAcaco = pegaDadosLocalStorage('bd_acao');
-var timePlus = 100;
-
-if (bdAcaco !== null)
-{
-	populaCardsProdutosTodas();
-}
-else
-{
-	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); }, 500);
-	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, 600 + timePlus);
-	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); }, 700 + timePlus);
-	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); }, 800 + timePlus);
-	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, 900 + timePlus);
-	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); }, 1000 + timePlus);
-	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); }, 1100 + timePlus);
+function populaCardsProdutosTodasTime(timePlus) {
+	var timePlus = timePlus;
+	setTimeout(function () { populaCardsProdutos('bd_acao','.cards-wrapper--acao'); },         timePlus * 1);
+	setTimeout(function () { populaCardsProdutos('bd_aventura','.cards-wrapper--aventura'); }, timePlus * 2);
+	setTimeout(function () { populaCardsProdutos('bd_comedia','.cards-wrapper--comedia'); },   timePlus * 3);
+	setTimeout(function () { populaCardsProdutos('bd_drama','.cards-wrapper--drama'); },       timePlus * 4);
+	setTimeout(function () { populaCardsProdutos('bd_fantasia','.cards-wrapper--fantasia'); }, timePlus * 5);
+	setTimeout(function () { populaCardsProdutos('bd_horror','.cards-wrapper--horror'); },     timePlus * 6);
+	setTimeout(function () { populaCardsProdutos('bd_ficcao','.cards-wrapper--ficcao'); },     timePlus * 7);
 }
 
+populaCardsProdutosTodasTime(500);
+// var bdAcaco = pegaDadosLocalStorage('bd_acao');
 
+
+// if (bdAcaco !== null)
+// {
+// 	populaCardsProdutosTodas();
+// }
+// else
+// {
+// 	populaCardsProdutosTodasTime(5000);
+// }
+
+// populaCardsProdutosTodas();
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
@@ -664,18 +669,17 @@ var modalDetalhe = pegaElem('.modal__detalhe--wrapper');
 var produtosInicioContainer = pegaElem('.container__inicio');
 
 // MODAL PRODUTOS
-var top;
+
 function abreModalDetalhes() {
-	top = window.scrollY;
+	// scrolltop = window.scrollY;
 	modalDetalhe.classList.toggle('ocultar');
 	produtosInicioContainer.classList.add('ocultar');
-
 };
 
 function fechaModalDetalhes() {
 	modalDetalhe.classList.add('ocultar');
 	produtosInicioContainer.classList.remove('ocultar');
-	window.scroll(0,top);
+	window.scroll(0,scrolltop - 500);
 };
 // ----------------------------------------------------------------------------------------------
 modalDetalhe.addEventListener('click', function (e) {
@@ -697,82 +701,160 @@ var detalheNota = pegaElem('.nota');
 var detalheValor = pegaElem('.detalhe_valor');
 var detalheBase = pegaElem('.valor_detalhe_base');
 
+var scrolltop;
+body.addEventListener('click', function (e) {
+			
 
+			if (e.target.classList.contains('btn-detalhes')) {
+								
+									var srtNomeBanco;
 
-botaoDetalhe.forEach(function (btn) {
-	btn.addEventListener('click', function (e) {
+									var attrGenero = e.target.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
+									
+									switch(attrGenero) {
+									case 'Ação':
+									srtNomeBanco = 'bd_acao';
+									break;
+									case 'Aventura':
+									srtNomeBanco = 'bd_aventura';
+									break;
+									case 'Comédia':
+									srtNomeBanco = 'bd_comedia';
+									break;
+									case 'Drama':
+									srtNomeBanco = 'bd_drama';
+									break;
+									case 'Fantasia':
+									srtNomeBanco = 'bd_fantasia';
+									break;
+									case 'Horror':
+									srtNomeBanco = 'bd_horror';
+									break;
+									case 'Ficção':
+									srtNomeBanco = 'bd_ficcao';
+									break;
+									}
 
-			var srtNomeBanco;
+									var obj = pegaDadosLocalStorage(srtNomeBanco);
 
-			var attrGenero = btn.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
-			switch(attrGenero) {
-			case 'Ação':
-			srtNomeBanco = 'bd_acao';
-			break;
-			case 'Aventura':
-			srtNomeBanco = 'bd_aventura';
-			break;
-			case 'Comédia':
-			srtNomeBanco = 'bd_comedia';
-			break;
-			case 'Drama':
-			srtNomeBanco = 'bd_drama';
-			break;
-			case 'Fantasia':
-			srtNomeBanco = 'bd_fantasia';
-			break;
-			case 'Horror':
-			srtNomeBanco = 'bd_horror';
-			break;
-			case 'Ficção':
-			srtNomeBanco = 'bd_ficcao';
-			break;
+									for (var i = 0; i < obj.length; i++) {
+									var search_term = e.target.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+
+									if (obj[i].id == search_term) {
+										detalheId.innerText = obj[i].id,
+										detalheImg.src = obj[i].poster;
+										detalheTitulo.innerText = obj[i].titulo;
+										detalheDescricao.innerText = obj[i].resumo;
+										detalheNota.innerText = obj[i].nota;
+										detalheValor.innerText = obj[i].valor;
+										detalheBase.innerText = obj[i].valor;
+									}
+
+									}
+
+									scrolltop = e.target.offsetTop;	
+									abreModalDetalhes();
+
 			}
 
-			var obj = pegaDadosLocalStorage(srtNomeBanco);
+			if (e.target.classList.contains('fa-eye')) {
+				
 
-			for (var i = 0; i < obj.length; i++) {
-			var search_term = btn.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+									var srtNomeBanco;
 
-			if (obj[i].id == search_term) {
-				detalheId.innerText = obj[i].id,
-				detalheImg.src = obj[i].poster;
-				detalheTitulo.innerText = obj[i].titulo;
-				detalheDescricao.innerText = obj[i].resumo;
-				detalheNota.innerText = obj[i].nota;
-				detalheValor.innerText = obj[i].valor;
-				detalheBase.innerText = obj[i].valor;
+									var attrGenero = e.target.parentElement.parentElement.parentElement.querySelector('.conteudo-categoria').innerText;
+									
+									switch(attrGenero) {
+									case 'Ação':
+									srtNomeBanco = 'bd_acao';
+									break;
+									case 'Aventura':
+									srtNomeBanco = 'bd_aventura';
+									break;
+									case 'Comédia':
+									srtNomeBanco = 'bd_comedia';
+									break;
+									case 'Drama':
+									srtNomeBanco = 'bd_drama';
+									break;
+									case 'Fantasia':
+									srtNomeBanco = 'bd_fantasia';
+									break;
+									case 'Horror':
+									srtNomeBanco = 'bd_horror';
+									break;
+									case 'Ficção':
+									srtNomeBanco = 'bd_ficcao';
+									break;
+									}
+
+									var obj = pegaDadosLocalStorage(srtNomeBanco);
+
+									for (var i = 0; i < obj.length; i++) {
+									var search_term = e.target.parentElement.parentElement.parentElement.querySelector('.conteudo-id').innerText;
+
+									if (obj[i].id == search_term) {
+										detalheId.innerText = obj[i].id,
+										detalheImg.src = obj[i].poster;
+										detalheTitulo.innerText = obj[i].titulo;
+										detalheDescricao.innerText = obj[i].resumo;
+										detalheNota.innerText = obj[i].nota;
+										detalheValor.innerText = obj[i].valor;
+										detalheBase.innerText = obj[i].valor;
+									}
+
+									}
+									scrolltop = e.target.parentElement.offsetTop;	
+									abreModalDetalhes();	
 
 			}
 
+			if (e.target.classList.contains('btn-cart')) {
+
+				// console.log(e.target.parentElement.parentElement.children[0].children[0].children[1].innerText)
+
+							var id = e.target.parentElement.parentElement.children[0].children[0].children[1].innerText;
+							var item = Math.round(Math.random()*1e13 );
+							var titulo = e.target.parentElement.parentElement.children[0].children[0].children[0].innerText;
+							var valor = e.target.parentElement.parentElement.children[0].children[3].children[0].innerText;
+							var valorBase = e.target.parentElement.parentElement.children[0].children[3].children[0].innerText;
+							var imagem = e.target.parentElement.parentElement.children[0].children[2].children[0].src;
+
+							addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
+							atualizaTotalTabelaCarrinho();
+
+							iconeCart.classList.add('tremer');
+							e.target.classList.add('tremer');
+							setTimeout(function () {
+							iconeCart.classList.remove('tremer');
+							e.target.classList.remove('tremer');
+							}, 500);
+
 			}
+			if (e.target.classList.contains('icon-shopping')) {
 
-			abreModalDetalhes();
+							var id = e.target.parentElement.parentElement.parentElement.children[0].children[0].children[1].innerText;
+							var item = Math.round(Math.random()*1e13 );
+							var titulo = e.target.parentElement.parentElement.parentElement.children[0].children[0].children[0].innerText;
+							var valor = e.target.parentElement.parentElement.parentElement.children[0].children[3].children[0].innerText;
+							var valorBase = e.target.parentElement.parentElement.parentElement.children[0].children[3].children[0].innerText;
+							var imagem = e.target.parentElement.parentElement.parentElement.children[0].children[2].children[0].src;
 
-			})
+							addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
+							atualizaTotalTabelaCarrinho();
+
+							iconeCart.classList.add('tremer');
+							e.target.parentElement.classList.add('tremer');
+							setTimeout(function () {
+							iconeCart.classList.remove('tremer');
+							e.target.parentElement.classList.remove('tremer');
+							}, 500);
+
+			}
+	
 })
 
 
-
-function defineSlides() {
-
-	document.querySelectorAll('.imgDestaque')[0].src = pegaDadosLocalStorage('bd_destaques')[0].background;
-	document.querySelectorAll('.tituloDestaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].titulo;
-	document.querySelectorAll('.id-destaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].id;
-	document.querySelectorAll('.categoria-destaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].categoria;
-
-	document.querySelectorAll('.imgDestaque')[1].src = pegaDadosLocalStorage('bd_destaques')[1].background;
-	document.querySelectorAll('.tituloDestaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].titulo;
-	document.querySelectorAll('.id-destaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].id;
-	document.querySelectorAll('.categoria-destaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].categoria;
-
-	document.querySelectorAll('.imgDestaque')[2].src = pegaDadosLocalStorage('bd_destaques')[2].background;
-	document.querySelectorAll('.tituloDestaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].titulo;
-	document.querySelectorAll('.id-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].id;
-	document.querySelectorAll('.categoria-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].categoria;
-	
-}
-defineSlides();
 
 var imgDestaque = document.querySelectorAll('.imgDestaque');
 
@@ -1082,27 +1164,7 @@ var btnCart = document.querySelectorAll('.btn-cart');
 var detalheBtn = document.querySelectorAll('.detalhe--btn');
 var iconeCart = pegaElem('.icone--cart');
 
-btnCart.forEach(function (btn) {
-	btn.addEventListener('click', function (e) {
-		var id = this.parentElement.parentElement.children[0].children[0].children[1].innerText;
-		var item = Math.round(Math.random()*1e13 );
-		var titulo = this.parentElement.parentElement.children[0].children[0].children[0].innerText;
-	    var valor = this.parentElement.parentElement.children[0].children[3].children[0].innerText;
-	    var valorBase = this.parentElement.parentElement.children[0].children[3].children[0].innerText;
-	    var imagem = this.parentElement.parentElement.children[0].children[2].children[0].src;
-
-		addItemCarrinho(id,item,titulo,valor,valorBase,imagem);
-		atualizaTotalTabelaCarrinho();
-
-		iconeCart.classList.add('tremer');
-		btn.classList.add('tremer');
-		setTimeout(function () {
-		iconeCart.classList.remove('tremer');
-		btn.classList.remove('tremer');
-		}, 500);
-	})
-})
-
+             
 detalheBtn.forEach(function (btn) {
 	btn.addEventListener('click', function (e) {
 		var id = this.parentElement.parentElement.children[1].querySelector('.detalhe_id').innerText;

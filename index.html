@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="assets/css/global.css">
 	<link rel="stylesheet" href="assets/css/index.css">
 
-	<script type="module"  defer src="assets/js/index.js" ></script>
+
 
 </head>
 <body class="body fonte-clara">
@@ -331,7 +331,7 @@
 							<input class="inputs" spellcheck="false" autocomplete="off" data-formEntrar="senha" type="text"  placeholder="Senha" required>
 
 							<div class="dica">
-								<details>
+								<details open>
   							<summary>Dica...</summary>
 								<p>Faça login como administrador para habilitar o painel de controle ;-)
 								<br>
@@ -472,16 +472,9 @@
 </body>
 
 
-
+<script src="assets/js/index.js" ></script>
 <script>
 // SLIDE PROMOCOES
-
-setTimeout(function () {
-	if (localStorage.getItem('reloadIndex') == 'true') {
-	location.reload(); 
-	localStorage.setItem('reloadIndex', false);
-}
-},1500);
 
 let slideIndex = 1;
 showSlides(slideIndex);
@@ -511,6 +504,25 @@ function showSlides(n) {
 }
 
 
+function defineSlides() {
+
+	document.querySelectorAll('.imgDestaque')[0].src = pegaDadosLocalStorage('bd_destaques')[0].background;
+	document.querySelectorAll('.tituloDestaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].titulo;
+	document.querySelectorAll('.id-destaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].id;
+	document.querySelectorAll('.categoria-destaque')[0].innerHTML = pegaDadosLocalStorage('bd_destaques')[0].categoria;
+
+	document.querySelectorAll('.imgDestaque')[1].src = pegaDadosLocalStorage('bd_destaques')[1].background;
+	document.querySelectorAll('.tituloDestaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].titulo;
+	document.querySelectorAll('.id-destaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].id;
+	document.querySelectorAll('.categoria-destaque')[1].innerHTML = pegaDadosLocalStorage('bd_destaques')[1].categoria;
+
+	document.querySelectorAll('.imgDestaque')[2].src = pegaDadosLocalStorage('bd_destaques')[2].background;
+	document.querySelectorAll('.tituloDestaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].titulo;
+	document.querySelectorAll('.id-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].id;
+	document.querySelectorAll('.categoria-destaque')[2].innerHTML = pegaDadosLocalStorage('bd_destaques')[2].categoria;
+	
+}
+defineSlides();
 	
 </script>
 </html>
